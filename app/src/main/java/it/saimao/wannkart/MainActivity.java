@@ -15,10 +15,12 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
+import com.jakewharton.threetenabp.AndroidThreeTen;
+
+import org.threeten.bp.DayOfWeek;
+import org.threeten.bp.LocalDate;
+import org.threeten.bp.format.DateTimeFormatter;
+import org.threeten.bp.temporal.ChronoUnit;
 
 import mmcalendar.HolidayCalculator;
 import mmcalendar.LanguageCatalog;
@@ -40,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements CardView.OnClickL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AndroidThreeTen.init(this);
         setContentView(R.layout.activity_main);
         LocalDate todayDate = LocalDate.now();
         tvDay = findViewById(R.id.tvDay);
@@ -85,7 +88,6 @@ public class MainActivity extends AppCompatActivity implements CardView.OnClickL
     private void setCalendarView(LocalDate todayDate) {
         index = 0;
         emptyDateCounts = todayDate.withDayOfMonth(1).getDayOfWeek().getValue();
-
 
         // Creating Empty Grid Cell
         if (emptyDateCounts > 0 && emptyDateCounts < 7) {
@@ -244,7 +246,6 @@ public class MainActivity extends AppCompatActivity implements CardView.OnClickL
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.menuInfo) {
-
             startActivity(new Intent(this, AboutUsActivity.class));
             return true;
         }
