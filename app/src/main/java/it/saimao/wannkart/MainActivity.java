@@ -1,5 +1,6 @@
 package it.saimao.wannkart;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -134,6 +135,7 @@ public class MainActivity extends AppCompatActivity implements CardView.OnClickL
             I just added the cell into the first row
              */
             int location = 36 - index;
+            if (location < 0) location = location * (-1);
             if (calendarLayout.getChildAt(location) != null) {
                 calendarLayout.removeViewAt(location);
                 calendarLayout.addView(dateButton, location, param);
@@ -166,10 +168,10 @@ public class MainActivity extends AppCompatActivity implements CardView.OnClickL
         if (day.isEqual(LocalDate.now())) {
             dateButton.setBackgroundResource(R.drawable.date_today);
             preSelectedView = dateButton;
-        } else if (HolidayCalculator.isHoliday(myanmarDate)) {
+        }
+        if (HolidayCalculator.isHoliday(myanmarDate)) {
             tvEngDate.setTextColor(Color.parseColor("#D32F2F"));
         }
-
         if (myanmarDate.getMoonPhase().equals("လပြည့်")) {
             ivMoon.setImageResource(R.drawable.full_moon);
         }
@@ -183,12 +185,13 @@ public class MainActivity extends AppCompatActivity implements CardView.OnClickL
     }
 
 
+    @SuppressLint("DefaultLocale")
     private void setDate(LocalDate localDate) {
         MyanmarDate myanmarDate = MyanmarDateConverter.convert(localDate.getYear(), localDate.getMonthValue(), localDate.getDayOfMonth());
 
         tvDay.setText(String.format("%d", localDate.getDayOfMonth()));
         tvMonth.setText(localDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-        tvMyanmarDate.setText(myanmarDate.format("S s k, B y k, M p f r"));
+        tvMyanmarDate.setText(myanmarDate.format("S s k, B y k, M p f r En"));
         if (HolidayCalculator.isHoliday(myanmarDate)) {
             String holiday = HolidayCalculator.getHoliday(myanmarDate).get(0);
             tvDate.setText(LanguageCatalog.getInstance().translate(holiday));
