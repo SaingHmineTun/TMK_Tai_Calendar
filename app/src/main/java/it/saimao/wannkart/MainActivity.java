@@ -1,6 +1,7 @@
 package it.saimao.wannkart;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -8,14 +9,19 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import com.google.android.material.textfield.TextInputEditText;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import org.threeten.bp.DayOfWeek;
@@ -38,7 +44,6 @@ public class MainActivity extends AppCompatActivity implements CardView.OnClickL
     private int index, emptyDateCounts;
     private View preSelectedView;
 
-    private static final String[] wannKartStrings = {"မူဆယ်ဈေးနေ့", "နမ့်ခမ်းဈေးနေ့", "စယ်လန့်ဈေးနေ့", "ပန်ခမ်းဈေးနေ့", "နမ့်စန့်ဈေးနေ့"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements CardView.OnClickL
         tvDate = findViewById(R.id.tvDate);
         tvMonth = findViewById(R.id.tvMonth);
         tvWannKart = findViewById(R.id.tvWannKart);
+        tvWannKart.setOnLongClickListener(v -> changeWannKartName());
         tvMyanmarDate = findViewById(R.id.tvMyanmarDate);
         calendarLayout = findViewById(R.id.calenderPane);
         onSwipeTouchListener = new OnSwipeTouchListener() {
@@ -83,6 +89,38 @@ public class MainActivity extends AppCompatActivity implements CardView.OnClickL
 
         setDate(currentDate);
 
+    }
+
+    private boolean changeWannKartName() {
+        LinearLayout layout = new LinearLayout(MainActivity.this);
+        TextInputEditText editText = new TextInputEditText(MainActivity.this);
+        editText.setText(Utils.getDayName(this, wannKartDay));
+        editText.setSelectAllOnFocus(true);
+        layout.addView(editText);
+
+        LinearLayout.LayoutParams lp4layout = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        layout.setLayoutParams(lp4layout);
+
+        LinearLayout.LayoutParams lp4et = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        lp4et.setMarginStart(Utils.dpToPx(15));
+        lp4et.setMarginEnd(Utils.dpToPx(15));
+
+        editText.setLayoutParams(lp4et);
+
+        new AlertDialog.Builder(MainActivity.this)
+                .setMessage("ဈေးနေ့ပြောင်းရန်ထည့်ပါ")
+                .setView(layout)
+                .setPositiveButton("ပြောင်းမည်", (dialog, whichButton) -> {
+                    if (editText.length() > 0) {
+                        Utils.setDayName(this, wannKartDay, editText.getText().toString());
+                        tvWannKart.setText(Utils.getDayName(this, wannKartDay));
+                    } else {
+                        Toast.makeText(this, "ဈေးနေ့ရေးပေးပါ", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setNegativeButton("မလုပ်တော့ပါ", null)
+                .show();
+        return true;
     }
 
 
@@ -177,13 +215,15 @@ public class MainActivity extends AppCompatActivity implements CardView.OnClickL
         }
 
         if (myanmarDate.getMoonPhase().equals("လကွယ်")) {
-            ivMoon.setImageResource(R.drawable.new_moon3);
+            ivMoon.setImageResource(R.drawable.new_moon);
         }
 
         tvMoonDate.setText("" + monthDay);
         return dateButton;
     }
 
+
+    private int wannKartDay;
 
     @SuppressLint("DefaultLocale")
     private void setDate(LocalDate localDate) {
@@ -209,8 +249,11 @@ public class MainActivity extends AppCompatActivity implements CardView.OnClickL
         }
 
         long dayCounts = ChronoUnit.DAYS.between(LocalDate.of(1996, 1, 1), localDate);
-        int wannkart = (int) (dayCounts % 5);
-        tvWannKart.setText(wannKartStrings[wannkart]);
+        wannKartDay = (int) (dayCounts % 5);
+//        tvWannKart.setText(wannKartStrings[wannkart]);
+        String wannKartName = Utils.getDayName(this, wannKartDay);
+        tvWannKart.setText(wannKartName);
+        tvWannKart.setBackgroundColor(getWannKartColor());
 
         // SET Selected Background for the current date
         int tempIndex = localDate.getDayOfMonth() + emptyDateCounts - 1;
@@ -220,6 +263,27 @@ public class MainActivity extends AppCompatActivity implements CardView.OnClickL
         View thisView = calendarLayout.getChildAt(tempIndex);
         thisView.setBackgroundResource(R.drawable.date_selected);
         preSelectedView = thisView;
+    }
+
+    private int getWannKartColor() {
+        switch (wannKartDay) {
+
+            case 0:
+                // RED
+                return Color.parseColor("#DC3545");
+            case 1:
+                // BLUE
+                return Color.parseColor("#0D6EFD");
+            case 2:
+                // BLACK
+                return Color.parseColor("#333333");
+            case 3:
+                // YELLOW
+                return Color.parseColor("#fd7e14");
+            default:
+                // GREEN
+                return Color.parseColor("#198754");
+        }
     }
 
 

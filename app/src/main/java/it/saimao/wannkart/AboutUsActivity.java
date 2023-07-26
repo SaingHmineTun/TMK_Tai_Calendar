@@ -13,7 +13,7 @@ public class AboutUsActivity extends AppCompatActivity implements AdapterView.On
 
 
     private final String[] stringsAsk = {"E-mail:", "Facebook:"};
-    private final String[] stringsValue = {"saimao.muse@gmail.com", "Sai Mao Technologies"};
+    private final String[] stringsValue = {"pakhaung.tofu@gmail.com", "ပါ့ခေါင် တိုဖူးကြော်"};
     private final int[] icons = {R.drawable.ic_gmail, R.drawable.ic_facebook};
 
     @Override
@@ -31,9 +31,9 @@ public class AboutUsActivity extends AppCompatActivity implements AdapterView.On
         Intent intent;
         if (i == 1) {
             try {
-                intent = new Intent(Intent.ACTION_VIEW, Uri.parse("fb://page/111363950487569"));
+                intent = new Intent(Intent.ACTION_VIEW, Uri.parse("fb://page/110338071961974"));
             } catch (Exception e) {
-                intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/111363950487569"));
+                intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/100089448442074"));
             }
             startActivity(intent);
         } else if (i == 0) {

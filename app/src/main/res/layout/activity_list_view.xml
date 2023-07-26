@@ -14,17 +14,21 @@
 
     <TextView
         android:id="@+id/textAsk"
+        android:text="Email"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:layout_marginRight="10dp"
         android:gravity="center_vertical"
         android:textColor="#111"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:fontFamily="@font/pyidaungsu" />
 
     <TextView
+        android:text="pakhaung.tofu@gmail.com"
         android:id="@+id/textValue"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:gravity="center_vertical"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:fontFamily="@font/pyidaungsu"/>
 </LinearLayout>

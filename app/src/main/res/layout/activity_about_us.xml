@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
         android:scaleType="fitXY"
-        android:src="@drawable/pk_2" />
+        android:src="@drawable/pa_khong" />
 
     <ListView
         android:id="@+id/simpleListView"

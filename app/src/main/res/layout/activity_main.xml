@@ -222,7 +222,7 @@
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
             android:text="မူဆယ်ဈေးနေ့"
-            android:textColor="#D32F2F"
+            android:textColor="#FFFFFF"
             app:cardElevation="5dp"
             android:textSize="20sp"
             android:textStyle="bold" />
