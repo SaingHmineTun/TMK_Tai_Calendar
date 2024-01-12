@@ -1,38 +1,21 @@
 package it.saimao.wannkart;
 
 import android.annotation.SuppressLint;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.GridLayout;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-
+import android.view.*;
+import android.widget.*;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-
 import com.google.android.material.textfield.TextInputEditText;
 import com.jakewharton.threetenabp.AndroidThreeTen;
-
+import mmcalendar.*;
 import org.threeten.bp.DayOfWeek;
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.format.DateTimeFormatter;
 import org.threeten.bp.temporal.ChronoUnit;
-
-import mmcalendar.HolidayCalculator;
-import mmcalendar.LanguageCatalog;
-import mmcalendar.MyanmarDate;
-import mmcalendar.MyanmarDateConverter;
 
 public class MainActivity extends AppCompatActivity implements CardView.OnClickListener {
 
@@ -51,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements CardView.OnClickL
         AndroidThreeTen.init(this);
         setContentView(R.layout.activity_main);
         LocalDate todayDate = LocalDate.now();
+        Config.initDefault(new Config.Builder().setCalendarType(CalendarType.ENGLISH).setLanguage(Language.TAI).build());
         tvDay = findViewById(R.id.tvDay);
         tvDate = findViewById(R.id.tvDate);
         tvMonth = findViewById(R.id.tvMonth);
@@ -199,9 +183,9 @@ public class MainActivity extends AppCompatActivity implements CardView.OnClickL
         /*
         For Myanmar Date
          */
-        MyanmarDate myanmarDate = MyanmarDateConverter.convert(day.getYear(), day.getMonthValue(), day.getDayOfMonth());
+        MyanmarDate myanmarDate = MyanmarDate.create(day.getYear(), day.getMonthValue(), day.getDayOfMonth());
 
-        int monthDay = myanmarDate.getMonthDay() > 15 ? myanmarDate.getMonthDay() - 15 : myanmarDate.getMonthDay();
+        int monthDay = myanmarDate.getDayOfMonth() > 15 ? myanmarDate.getDayOfMonth() - 15 : myanmarDate.getDayOfMonth();
 
         if (day.isEqual(LocalDate.now())) {
             dateButton.setBackgroundResource(R.drawable.date_today);
@@ -210,11 +194,11 @@ public class MainActivity extends AppCompatActivity implements CardView.OnClickL
         if (HolidayCalculator.isHoliday(myanmarDate)) {
             tvEngDate.setTextColor(Color.parseColor("#D32F2F"));
         }
-        if (myanmarDate.getMoonPhase().equals("လပြည့်")) {
+        if (myanmarDate.getMoonPhaseValue() == 1) {
             ivMoon.setImageResource(R.drawable.full_moon);
         }
 
-        if (myanmarDate.getMoonPhase().equals("လကွယ်")) {
+        if (myanmarDate.getMoonPhaseValue() == 3) {
             ivMoon.setImageResource(R.drawable.new_moon);
         }
 
@@ -227,14 +211,13 @@ public class MainActivity extends AppCompatActivity implements CardView.OnClickL
 
     @SuppressLint("DefaultLocale")
     private void setDate(LocalDate localDate) {
-        MyanmarDate myanmarDate = MyanmarDateConverter.convert(localDate.getYear(), localDate.getMonthValue(), localDate.getDayOfMonth());
-
+        MyanmarDate myanmarDate = MyanmarDate.create(localDate.getYear(), localDate.getMonthValue(), localDate.getDayOfMonth());
         tvDay.setText(String.format("%d", localDate.getDayOfMonth()));
         tvMonth.setText(localDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
         tvMyanmarDate.setText(myanmarDate.format("S s k, B y k, M p f r En"));
         if (HolidayCalculator.isHoliday(myanmarDate)) {
             String holiday = HolidayCalculator.getHoliday(myanmarDate).get(0);
-            tvDate.setText(LanguageCatalog.getInstance().translate(holiday));
+            tvDate.setText(holiday);
             tvDate.setTextColor(Color.parseColor("#D32F2F"));
             tvDay.setTextColor(Color.parseColor("#D32F2F"));
             tvMonth.setTextColor(Color.parseColor("#D32F2F"));

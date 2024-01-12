@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class AboutUsActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
-
     private final String[] stringsAsk = {"E-mail:", "Facebook:"};
     private final String[] stringsValue = {"pakhaung.tofu@gmail.com", "ပါ့ခေါင် တိုဖူးကြော်"};
     private final int[] icons = {R.drawable.ic_gmail, R.drawable.ic_facebook};
