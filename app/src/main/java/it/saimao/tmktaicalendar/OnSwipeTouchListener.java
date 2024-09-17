@@ -1,4 +1,4 @@
-package it.saimao.wannkart;
+package it.saimao.tmktaicalendar;
 
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;

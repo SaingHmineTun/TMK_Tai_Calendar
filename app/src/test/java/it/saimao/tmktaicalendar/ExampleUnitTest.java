@@ -1,4 +1,4 @@
-package it.saimao.wannkart;
+package it.saimao.tmktaicalendar;
 
 import org.junit.Test;
 
