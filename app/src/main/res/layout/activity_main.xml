@@ -76,7 +76,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="SUN"
-            android:textColor="#850505"
+            android:textColor="@color/md_theme_error"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -136,7 +136,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="SAT"
-            android:textColor="#850505"
+            android:textColor="@color/md_theme_error"
             android:textSize="16sp"
             android:textStyle="bold" />
 
