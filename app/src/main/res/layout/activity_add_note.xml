@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#C1B6A2"
+    android:orientation="vertical"
+    android:padding="8dp"
+    tools:context=".activities.AddNoteActivity">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/lyDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:cardCornerRadius="2dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/md_theme_primary">
+
+            <TextView
+                android:id="@+id/tvDay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="16dp"
+                android:text="27"
+                android:textColor="@color/md_theme_onPrimary"
+                android:textSize="50sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <TextView
+                android:id="@+id/tvFriday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="FRIDAY"
+                android:textColor="@color/md_theme_onPrimary"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@id/tvSeptember"
+                app:layout_constraintStart_toEndOf="@id/tvDay"
+                app:layout_constraintTop_toTopOf="@id/tvDay" />
+
+            <TextView
+                android:id="@+id/tvSeptember"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="September 2024"
+                android:textColor="@color/md_theme_onPrimary"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@id/tvDay"
+                app:layout_constraintStart_toEndOf="@id/tvDay"
+                app:layout_constraintTop_toBottomOf="@id/tvFriday" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+
+    <EditText
+        android:id="@+id/etTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lyDate"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/transparent"
+        android:hint="Enter title..."
+        android:inputType="text"
+        android:maxLines="1" />
+
+    <EditText
+        android:id="@+id/etNote"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_above="@id/lyAction"
+        android:layout_below="@id/etTitle"
+        android:layout_marginVertical="8dp"
+        android:background="@android:color/transparent"
+        android:gravity="top"
+        android:hint="Enter note..."
+        android:inputType="text" />
+
+
+    <LinearLayout
+        android:id="@+id/lyAction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btCancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/md_theme_error"
+            android:text="Cancel"
+            android:textColor="@color/md_theme_onError"
+            app:cornerRadius="8dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btSave"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/md_theme_primary"
+            android:text="Save"
+            android:textColor="@color/md_theme_onPrimary"
+            app:cornerRadius="8dp" />
+
+    </LinearLayout>
+
+</RelativeLayout>

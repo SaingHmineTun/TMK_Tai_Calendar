@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -19,11 +20,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAdjusters;
+import java.util.List;
 import java.util.Locale;
 
 import it.saimao.tmktaicalendar.OnSwipeTouchListener;
 import it.saimao.tmktaicalendar.R;
 import it.saimao.tmktaicalendar.ShanDate;
+import it.saimao.tmktaicalendar.Utils;
+import it.saimao.tmktaicalendar.database.AppDatabase;
+import it.saimao.tmktaicalendar.database.Note;
+import it.saimao.tmktaicalendar.database.NoteDao;
 import it.saimao.tmktaicalendar.databinding.ActivityMainBinding;
 import it.saimao.tmktaicalendar.mmcalendar.CalendarType;
 import it.saimao.tmktaicalendar.mmcalendar.Config;
@@ -35,13 +41,14 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     private GestureDetector gestureDetector;
-    private OnSwipeTouchListener onSwipeTouchListener;
+    private NoteDao noteDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        noteDao = AppDatabase.getAppDatabase(this).noteDao();
         initUi();
         initListeners();
     }
@@ -190,6 +197,30 @@ public class MainActivity extends AppCompatActivity {
             mPhase.setText("");
             iv.setImageResource(0);
         }
+
+        if (!noteDao.getNotesByDate(date).isEmpty()) {
+            View view = new View(this);
+            view.setMinimumWidth(Utils.dpToPx(8));
+            view.setMinimumHeight(Utils.dpToPx(8));
+            view.setBackgroundResource(R.drawable.rounded_button);
+
+            var params = new RelativeLayout.LayoutParams(
+                    Utils.dpToPx(8),
+                    Utils.dpToPx(8)
+            );
+
+            params.addRule(RelativeLayout.ALIGN_PARENT_END, RelativeLayout.TRUE);
+            params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
+
+            params.setMargins(0, 0, Utils.dpToPx(4), Utils.dpToPx(4));
+
+            layout.addView(view, params);
+        } else {
+            if (layout.getChildCount() == 5) {
+                layout.removeViewAt(4);
+            }
+        }
+
     }
 
     private boolean onLongDateClicked(View view) {
@@ -230,6 +261,10 @@ public class MainActivity extends AppCompatActivity {
 
             binding.tvDate.setText("ဝၼ်း" + myanmarDate.getWeekDay());
             binding.tvDate.setTextColor(getResources().getColor(R.color.md_theme_onBackground));
+        }
+        List<Note> notes = noteDao.getNotesByDate(date);
+        if (!notes.isEmpty()) {
+            binding.tvDate.setText(notes.get(0).getTitle());
         }
         binding.tvDetail.setText(description(date));
     }
