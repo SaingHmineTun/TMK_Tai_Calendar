@@ -1,6 +1,7 @@
 package it.saimao.tmktaicalendar.activities;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.DatePicker;
 import android.widget.Toast;
@@ -22,6 +23,7 @@ public class AddNoteActivity extends AppCompatActivity {
 
 
     private ActivityAddNoteBinding binding;
+    private Note note;
     private LocalDate date;
     private NoteDao noteDao;
 
@@ -41,16 +43,50 @@ public class AddNoteActivity extends AppCompatActivity {
         });
 
         binding.btSave.setOnClickListener(view -> {
-            saveNote();
+            if (note == null) {
+                saveNote();
+            } else {
+                updateNote();
+            }
         });
 
+
+        binding.btCancel.setOnClickListener(view -> {
+            if (note == null) {
+                this.finish();
+            } else {
+                deleteNote();
+            }
+        });
+
+    }
+
+    private void deleteNote() {
+        Intent intent = new Intent();
+        intent.putExtra("note", note);
+        setResult(RESULT_OK, intent);
+        finish();
+    }
+
+    private void updateNote() {
+
+        String title = binding.etTitle.getText().toString();
+        String desc = binding.etNote.getText().toString();
+        if (!title.isEmpty()) {
+            note.setTitle(title);
+            note.setDescription(desc);
+            note.setUpdated(LocalDate.now());
+            noteDao.updateNote(note);
+            finish();
+        }
     }
 
     private void saveNote() {
         String title = binding.etTitle.getText().toString();
         String note = binding.etNote.getText().toString();
+        boolean everyYear = binding.rbEveryYear.isChecked();
         if (!title.isEmpty()) {
-            noteDao.addNote(new Note(title, note, date));
+            noteDao.addNote(new Note(title, note, everyYear, date));
             finish();
         }
     }
@@ -61,12 +97,9 @@ public class AddNoteActivity extends AppCompatActivity {
         if (datePickerDialog == null) {
 
             datePickerDialog = new DatePickerDialog(this);
-            datePickerDialog.setOnDateSetListener(new DatePickerDialog.OnDateSetListener() {
-                @Override
-                public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                    date = LocalDate.of(year, month + 1, day);
-                    updateDateDescription();
-                }
+            datePickerDialog.setOnDateSetListener((datePicker, year, month, day) -> {
+                date = LocalDate.of(year, month + 1, day);
+                updateDateDescription();
             });
         }
         datePickerDialog.show();
@@ -80,10 +113,23 @@ public class AddNoteActivity extends AppCompatActivity {
     }
 
     private void initUi() {
-        Serializable ser;
-        if (getIntent() != null && (ser = getIntent().getSerializableExtra("date")) != null) {
-            date = (LocalDate) ser;
-            updateDateDescription();
+        if (getIntent() != null) {
+
+            Serializable ser;
+
+            if ((ser = getIntent().getSerializableExtra("note")) != null) {
+                note = (Note) ser;
+                date = note.getCreated();
+                updateDateDescription();
+                binding.etTitle.setText(note.getTitle());
+                binding.etNote.setText(note.getDescription());
+                binding.btSave.setText("Update");
+                binding.btCancel.setText("Delete");
+
+            } else if ((ser = getIntent().getSerializableExtra("date")) != null) {
+                date = (LocalDate) ser;
+                updateDateDescription();
+            }
         }
     }
 }

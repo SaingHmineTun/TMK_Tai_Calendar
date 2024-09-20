@@ -4,8 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -31,6 +34,7 @@ public class NoteActivity extends AppCompatActivity {
     private NoteAdapter noteAdapter;
     private List<Note> noteList;
     private NoteDao noteDao;
+    private final int REQUEST_EDIT_NOTE = 123;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +59,6 @@ public class NoteActivity extends AppCompatActivity {
             binding.lyEmpty.setVisibility(View.GONE);
             noteAdapter.setNoteList(noteList);
         }
-
-
     }
 
     private void initListener() {
@@ -93,11 +95,54 @@ public class NoteActivity extends AppCompatActivity {
         binding.pKawza.setText(myanmarDate.getYear());
         setNoteDescription();
 
-        noteAdapter = new NoteAdapter(note -> {
+        noteAdapter = new NoteAdapter(new NoteAdapter.NoteClickListener() {
+            @Override
+            public void onNoteClicked(Note note) {
+
+                Intent intent = new Intent(NoteActivity.this, AddNoteActivity.class);
+                intent.putExtra("note", note);
+                startActivityForResult(intent, 123);
+
+            }
+
+            @Override
+            public void onNoteDeleted(Note note) {
+
+                deleteNote(note);
+
+            }
         });
         binding.rvNotes.setAdapter(noteAdapter);
         binding.rvNotes.setLayoutManager(new LinearLayoutManager(this));
 
+
+    }
+
+    private void deleteNote(Note note) {
+
+        noteDao.deleteNote(note);
+        refreshAdapter();
+        Snackbar.make(binding.getRoot(), "Note deleted success!", Snackbar.LENGTH_LONG).setAction("Restore", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                noteDao.addNote(note);
+                refreshAdapter();
+            }
+        }).show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_EDIT_NOTE && resultCode == RESULT_OK) {
+            Note note = (Note) data.getSerializableExtra("note");
+            deleteNote(note);
+        }
+    }
+
+    private void refreshAdapter() {
+        noteList = noteDao.getNotesByDate(todayDate);
+        noteAdapter.setNoteList(noteList);
 
     }
 

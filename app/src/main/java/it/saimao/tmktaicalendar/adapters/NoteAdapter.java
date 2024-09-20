@@ -25,6 +25,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
 
     public interface NoteClickListener {
         void onNoteClicked(Note note);
+        void onNoteDeleted(Note note);
     }
 
 
@@ -51,6 +52,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         holder.binding.cvNote.setOnClickListener(view -> {
             listener.onNoteClicked(note);
         });
+        holder.binding.ibDeleteNote.setOnClickListener(view -> listener.onNoteDeleted(note));
 
     }
 

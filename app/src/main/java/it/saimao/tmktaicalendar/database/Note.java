@@ -4,14 +4,16 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Entity
-public class Note {
+public class Note implements Serializable {
     @PrimaryKey(autoGenerate = true)
     private int id;
     private String title;
     private String description;
+    private boolean everyYear;
     private LocalDate created;
     private LocalDate updated;
 
@@ -20,18 +22,11 @@ public class Note {
     }
 
     @Ignore
-    public Note(String title, String description, LocalDate date) {
+    public Note(String title, String description, boolean everyYear, LocalDate date) {
         this.title = title;
         this.description = description;
+        this.everyYear = everyYear;
         this.created = date;
-        this.updated = created;
-    }
-
-    @Ignore
-    public Note(String title, String description) {
-        this.title = title;
-        this.description = description;
-        this.created = LocalDate.now();
         this.updated = created;
     }
 
@@ -73,5 +68,13 @@ public class Note {
 
     public void setUpdated(LocalDate updated) {
         this.updated = updated;
+    }
+
+    public boolean isEveryYear() {
+        return everyYear;
+    }
+
+    public void setEveryYear(boolean everyYear) {
+        this.everyYear = everyYear;
     }
 }

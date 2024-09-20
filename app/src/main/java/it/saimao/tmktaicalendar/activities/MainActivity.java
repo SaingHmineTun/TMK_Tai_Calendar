@@ -2,18 +2,13 @@ package it.saimao.tmktaicalendar.activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,7 +18,6 @@ import java.time.temporal.TemporalAdjusters;
 import java.util.List;
 import java.util.Locale;
 
-import it.saimao.tmktaicalendar.OnSwipeTouchListener;
 import it.saimao.tmktaicalendar.R;
 import it.saimao.tmktaicalendar.ShanDate;
 import it.saimao.tmktaicalendar.Utils;
@@ -53,14 +47,15 @@ public class MainActivity extends AppCompatActivity {
         initListeners();
     }
 
-    private void initUi() {
-        Config.initDefault(
-                new Config.Builder()
-                        .setCalendarType(CalendarType.ENGLISH)
-                        .setLanguage(Language.TAI)
-                        .build());
-        currentDate = LocalDate.now();
+    @Override
+    protected void onStart() {
+        super.onStart();
         buildCalendar();
+    }
+
+    private void initUi() {
+        Config.initDefault(new Config.Builder().setCalendarType(CalendarType.ENGLISH).setLanguage(Language.TAI).build());
+        currentDate = LocalDate.now();
     }
 
     private void initListeners() {
@@ -199,25 +194,25 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (!noteDao.getNotesByDate(date).isEmpty()) {
-            View view = new View(this);
-            view.setMinimumWidth(Utils.dpToPx(8));
-            view.setMinimumHeight(Utils.dpToPx(8));
-            view.setBackgroundResource(R.drawable.rounded_button);
+            if (layout.getChildCount() <= 4) {
 
-            var params = new RelativeLayout.LayoutParams(
-                    Utils.dpToPx(8),
-                    Utils.dpToPx(8)
-            );
+                View view = new View(this);
+                view.setMinimumWidth(Utils.dpToPx(8));
+                view.setMinimumHeight(Utils.dpToPx(8));
+                view.setBackgroundResource(R.drawable.rounded_button);
 
-            params.addRule(RelativeLayout.ALIGN_PARENT_END, RelativeLayout.TRUE);
-            params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
+                var params = new RelativeLayout.LayoutParams(Utils.dpToPx(8), Utils.dpToPx(8));
 
-            params.setMargins(0, 0, Utils.dpToPx(4), Utils.dpToPx(4));
+                params.addRule(RelativeLayout.ALIGN_PARENT_END, RelativeLayout.TRUE);
+                params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
 
-            layout.addView(view, params);
+                params.setMargins(0, 0, Utils.dpToPx(4), Utils.dpToPx(4));
+
+                layout.addView(view, params);
+            }
         } else {
-            if (layout.getChildCount() == 5) {
-                layout.removeViewAt(4);
+            if (layout.getChildCount() > 4) {
+                layout.removeViewAt(layout.getChildCount() - 1);
             }
         }
 
@@ -254,18 +249,20 @@ public class MainActivity extends AppCompatActivity {
         prevSelectedDate = view;
         binding.tvDay.setText(String.format(Locale.getDefault(), "%02d", date.getDayOfMonth()));
         binding.tvFullDate.setText(String.format(Locale.ENGLISH, "%02d/%02d/%04d", date.getDayOfMonth(), date.getMonthValue(), date.getYear()));
-        if (HolidayCalculator.isHoliday(myanmarDate)) {
-            binding.tvDate.setText(ShanDate.translate(HolidayCalculator.getHoliday(myanmarDate).get(0)));
-            binding.tvDate.setTextColor(getResources().getColor(R.color.md_theme_error));
-        } else {
 
-            binding.tvDate.setText("ဝၼ်း" + myanmarDate.getWeekDay());
-            binding.tvDate.setTextColor(getResources().getColor(R.color.md_theme_onBackground));
-        }
         List<Note> notes = noteDao.getNotesByDate(date);
         if (!notes.isEmpty()) {
             binding.tvDate.setText(notes.get(0).getTitle());
+            binding.tvDate.setTextColor(getResources().getColor(R.color.md_theme_error));
+
+        } else if (HolidayCalculator.isHoliday(myanmarDate)) {
+            binding.tvDate.setText(ShanDate.translate(HolidayCalculator.getHoliday(myanmarDate).get(0)));
+            binding.tvDate.setTextColor(getResources().getColor(R.color.md_theme_error));
+        } else {
+            binding.tvDate.setText("ဝၼ်း" + myanmarDate.getWeekDay());
+            binding.tvDate.setTextColor(getResources().getColor(R.color.md_theme_onBackground));
         }
+
         binding.tvDetail.setText(description(date));
     }
 
@@ -275,16 +272,7 @@ public class MainActivity extends AppCompatActivity {
         StringBuilder sb = new StringBuilder();
 
 
-        sb.append(ShanDate.translate("Sasana Year"))
-                .append(" ").
-                append(selectedMyanmarDate.getBuddhistEra())
-                .append("၊ ")
-                .append(ShanDate.translate("Myanmar Year"))
-                .append(" ")
-                .append(selectedMyanmarDate.getYear())
-                .append("၊ ")
-                .append("ပီႊတႆး ")
-                .append(shanDate.getShanYear()).append(" ၼီႈ၊ ");
+        sb.append(ShanDate.translate("Sasana Year")).append(" ").append(selectedMyanmarDate.getBuddhistEra()).append("၊ ").append(ShanDate.translate("Myanmar Year")).append(" ").append(selectedMyanmarDate.getYear()).append("၊ ").append("ပီႊတႆး ").append(shanDate.getShanYear()).append(" ၼီႈ၊ ");
 
         sb.append(ShanDate.translate(selectedMyanmarDate.getMonthName(Language.ENGLISH))).append(" ");
         if (selectedMyanmarDate.getMoonPhaseValue() == 1 || selectedMyanmarDate.getMoonPhaseValue() == 3) {

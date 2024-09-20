@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/cvNote"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
+    android:layout_marginHorizontal="8dp"
+    android:layout_marginTop="8dp"
     android:clickable="true">
 
     <LinearLayout
         android:layout_width="match_parent"
+
         android:layout_height="match_parent"
+        android:background="@color/md_theme_tertiary"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="8dp">
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="10dp">
 
         <ImageView
             android:layout_width="24dp"
@@ -24,8 +28,18 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_weight="1"
-            android:text="Title" />
+            android:text="Title"
+            android:textColor="@color/md_theme_onTertiary" />
+
+        <ImageButton
+
+            android:id="@+id/ibDeleteNote"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@drawable/rounded_button"
+            android:src="@drawable/ic_delete" />
+
     </LinearLayout>
 
 
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

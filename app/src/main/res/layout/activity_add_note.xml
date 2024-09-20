@@ -15,12 +15,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clickable="true"
-        app:cardCornerRadius="2dp">
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp"
+        app:cardMaxElevation="8dp"
+
+        >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/md_theme_primary">
+            android:background="@color/md_theme_primary_highContrast">
 
             <TextView
                 android:id="@+id/tvDay"
@@ -28,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="16dp"
                 android:text="27"
-                android:textColor="@color/md_theme_onPrimary"
+                android:textColor="@color/md_theme_onPrimary_highContrast"
                 android:textSize="50sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -40,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:text="FRIDAY"
-                android:textColor="@color/md_theme_onPrimary"
+                android:textColor="@color/md_theme_onPrimary_highContrast"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toTopOf="@id/tvSeptember"
                 app:layout_constraintStart_toEndOf="@id/tvDay"
@@ -52,11 +56,42 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:text="September 2024"
-                android:textColor="@color/md_theme_onPrimary"
+                android:textColor="@color/md_theme_onPrimary_highContrast"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@id/tvDay"
                 app:layout_constraintStart_toEndOf="@id/tvDay"
                 app:layout_constraintTop_toBottomOf="@id/tvFriday" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/md_theme_tertiary_highContrast"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/tvDay">
+
+                <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:id="@+id/rbOneYear"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:text="တႃႇပီႊလဵဝ်"
+                    android:textColor="@color/md_theme_onTertiary_highContrast"
+                    android:textSize="16sp"
+                    app:buttonTint="@color/md_theme_onTertiary_highContrast" />
+
+                <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:id="@+id/rbEveryYear"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="တႃႇၵူႊပီႊ"
+                    android:textColor="@color/md_theme_onTertiary_highContrast"
+                    android:textSize="16sp"
+                    app:buttonTint="@color/md_theme_onTertiary_highContrast" />
+
+            </RadioGroup>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
@@ -67,11 +102,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/lyDate"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:background="@android:color/transparent"
         android:hint="Enter title..."
         android:inputType="text"
-        android:maxLines="1" />
+        android:maxLines="1"
+        android:textSize="16sp" />
 
     <EditText
         android:id="@+id/etNote"
@@ -79,11 +115,13 @@
         android:layout_height="0dp"
         android:layout_above="@id/lyAction"
         android:layout_below="@id/etTitle"
-        android:layout_marginVertical="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
         android:background="@android:color/transparent"
         android:gravity="top"
         android:hint="Enter note..."
-        android:inputType="text" />
+        android:inputType="textMultiLine"
+        android:textSize="16sp" />
 
 
     <LinearLayout
