@@ -3,9 +3,7 @@ package it.saimao.tmktaicalendar.activities;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.GestureDetector;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,9 +18,8 @@ import java.time.format.FormatStyle;
 import java.util.List;
 
 import it.saimao.tmktaicalendar.R;
-import it.saimao.tmktaicalendar.ShanDate;
-import it.saimao.tmktaicalendar.SwipeGestureListener;
-import it.saimao.tmktaicalendar.Utils;
+import it.saimao.tmktaicalendar.utils.ShanDate;
+import it.saimao.tmktaicalendar.utils.Utils;
 import it.saimao.tmktaicalendar.adapters.NoteAdapter;
 import it.saimao.tmktaicalendar.database.AppDatabase;
 import it.saimao.tmktaicalendar.database.Note;
@@ -69,7 +66,7 @@ public class NoteActivity extends AppCompatActivity {
                 binding.rvNotes.setVisibility(View.VISIBLE);
                 binding.lyEmpty.setVisibility(View.GONE);
             }
-            noteAdapter.setNoteList(noteList);
+            noteAdapter.updateNoteList(noteList);
 
         }
 

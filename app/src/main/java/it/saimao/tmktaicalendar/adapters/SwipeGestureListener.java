@@ -1,4 +1,4 @@
-package it.saimao.tmktaicalendar;
+package it.saimao.tmktaicalendar.adapters;
 
 import android.view.GestureDetector;
 import android.view.MotionEvent;

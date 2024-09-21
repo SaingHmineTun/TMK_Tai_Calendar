@@ -1,4 +1,4 @@
-package it.saimao.tmktaicalendar;
+package it.saimao.tmktaicalendar.utils;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;

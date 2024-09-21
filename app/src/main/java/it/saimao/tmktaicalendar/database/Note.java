@@ -6,6 +6,7 @@ import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
 public class Note implements Serializable {
@@ -76,5 +77,17 @@ public class Note implements Serializable {
 
     public void setEveryYear(boolean everyYear) {
         this.everyYear = everyYear;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Note note)) return false;
+        return id == note.id && everyYear == note.everyYear && Objects.equals(title, note.title) && Objects.equals(description, note.description) && created.isEqual(note.getCreated()) && updated.isEqual(note.getUpdated());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, description, everyYear, created, updated);
     }
 }

@@ -1,4 +1,4 @@
-package it.saimao.tmktaicalendar;
+package it.saimao.tmktaicalendar.utils;
 
 import android.content.res.Resources;
 

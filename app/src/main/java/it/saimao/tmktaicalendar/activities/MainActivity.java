@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAdjusters;
@@ -20,9 +22,9 @@ import java.util.List;
 import java.util.Locale;
 
 import it.saimao.tmktaicalendar.R;
-import it.saimao.tmktaicalendar.ShanDate;
-import it.saimao.tmktaicalendar.SwipeGestureListener;
-import it.saimao.tmktaicalendar.Utils;
+import it.saimao.tmktaicalendar.utils.ShanDate;
+import it.saimao.tmktaicalendar.adapters.SwipeGestureListener;
+import it.saimao.tmktaicalendar.utils.Utils;
 import it.saimao.tmktaicalendar.database.AppDatabase;
 import it.saimao.tmktaicalendar.database.Note;
 import it.saimao.tmktaicalendar.database.NoteDao;
@@ -70,8 +72,18 @@ public class MainActivity extends AppCompatActivity implements SwipeGestureListe
             return true;
         });
 
-        binding.tvFullDate.setOnClickListener(view -> {
-            showDatePicker();
+        binding.tvFullDate.setOnClickListener(view -> showDatePicker());
+
+        binding.tvDetail.setOnClickListener(view -> goNoteDetail(currentDate));
+
+        binding.tvDate.setOnClickListener(view -> {
+            Snackbar.make(binding.getRoot(), "တေၵႂႃႇၶိုၼ်း ဝၼ်းမိူဝ်ႈၼႆႉႁိုဝ်ႉ?", Snackbar.LENGTH_LONG).setAction("တေၵႂႃႇ", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    currentDate = LocalDate.now();
+                    buildCalendar();
+                }
+            }).show();
         });
 
 
@@ -90,7 +102,8 @@ public class MainActivity extends AppCompatActivity implements SwipeGestureListe
 
             });
         }
-        datePickerDialog.updateDate(currentDate.getYear(), currentDate.getMonthValue() - 1, currentDate.getDayOfMonth());
+        if (currentDate != null)
+            datePickerDialog.updateDate(currentDate.getYear(), currentDate.getMonthValue() - 1, currentDate.getDayOfMonth());
         datePickerDialog.show();
     }
 
@@ -228,10 +241,14 @@ public class MainActivity extends AppCompatActivity implements SwipeGestureListe
         onDateClicked(view);
 
         LocalDate date = (LocalDate) view.getTag();
+        goNoteDetail(date);
+        return true;
+    }
+
+    private void goNoteDetail(LocalDate date) {
         Intent intent = new Intent(this, NoteActivity.class);
         intent.putExtra("date", date);
         startActivity(intent);
-        return true;
     }
 
     private View prevSelectedDate;

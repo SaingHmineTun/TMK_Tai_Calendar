@@ -126,6 +126,8 @@ public class AddNoteActivity extends AppCompatActivity {
                 updateDateDescription();
                 binding.etTitle.setText(note.getTitle());
                 binding.etNote.setText(note.getDescription());
+                if (note.isEveryYear()) binding.rbEveryYear.setChecked(true);
+                else binding.rbOneYear.setChecked(true);
                 binding.btSave.setText("Update");
                 binding.btCancel.setText("Delete");
 

@@ -1,4 +1,4 @@
-package it.saimao.tmktaicalendar;
+package it.saimao.tmktaicalendar.utils;
 
 
 
@@ -895,7 +895,7 @@ public class ShanDate {
         shan.put("Yatyaza", "ဝၼ်းထုၼ်း");
         shan.put("Afternoon Pyathada", "မွန်းလွဲပြဿဒါး");
         shan.put("Pyathada", "ဝၼ်းပျၢတ်ႈ");
-        shan.put("New Year Day", "ပီႊမႂ်ႇလုမ်ႇၾႃႉ");
+        shan.put("New Year Day", "ပီႊမႂ်ႇလုမ်ႈၾႃႉ");
         shan.put("Myanmar Year", "ပီႊၵေႃးၸႃႇ");
         shan.put("English Year", "ပီႊၶရိတ်ႉ");
         shan.put("Independence Day", "ဝၼ်းၵွၼ်းၶေႃ");

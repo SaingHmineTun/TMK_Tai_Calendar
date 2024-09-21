@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -20,9 +21,10 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
     private List<Note> noteList;
     private final NoteClickListener listener;
 
-    public void setNoteList(List<Note> noteList) {
+    public void updateNoteList(List<Note> noteList) {
+        var diffResult = DiffUtil.calculateDiff(new NoteDiffCallback(this.noteList, noteList));
         this.noteList = noteList;
-        this.notifyDataSetChanged();
+        diffResult.dispatchUpdatesTo(this);
     }
 
     public interface NoteClickListener {
