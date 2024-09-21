@@ -22,8 +22,8 @@ public interface NoteDao {
     @Delete
     void deleteNote(Note note);
 
-    @Query("SELECT * FROM Note WHERE created = :localDate")
-    List<Note> getNotesByDate(LocalDate localDate);
+    @Query("SELECT * FROM Note;")
+    List<Note> getAllNotes();
 
 
 }

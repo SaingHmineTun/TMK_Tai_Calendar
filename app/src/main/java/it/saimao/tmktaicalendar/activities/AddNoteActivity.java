@@ -72,9 +72,11 @@ public class AddNoteActivity extends AppCompatActivity {
 
         String title = binding.etTitle.getText().toString();
         String desc = binding.etNote.getText().toString();
+        boolean everyYear = binding.rbEveryYear.isChecked();
         if (!title.isEmpty()) {
             note.setTitle(title);
             note.setDescription(desc);
+            note.setEveryYear(everyYear);
             note.setUpdated(LocalDate.now());
             noteDao.updateNote(note);
             finish();
@@ -102,6 +104,7 @@ public class AddNoteActivity extends AppCompatActivity {
                 updateDateDescription();
             });
         }
+        datePickerDialog.updateDate(date.getYear(), date.getMonthValue() - 1, date.getDayOfMonth());
         datePickerDialog.show();
     }
 

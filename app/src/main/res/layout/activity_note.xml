@@ -4,10 +4,53 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:background="#C1B6A2"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:background="#C1B6A2"
     android:paddingHorizontal="8dp"
     tools:context=".activities.NoteActivity">
+
+    <LinearLayout
+        android:id="@+id/ly0"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/ibPreDay"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/rounded_primary_button"
+            android:src="@drawable/ic_left" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cvEngDay"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="4dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            app:cardElevation="4dp"
+            app:cardMaxElevation="8dp">
+
+            <TextView
+                android:id="@+id/tvEngDay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Saturday September 21, 2024" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <ImageButton
+            android:id="@+id/ibNextDay"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/rounded_primary_button"
+            android:src="@drawable/ic_right" />
+
+    </LinearLayout>
 
 
     <com.google.android.material.card.MaterialCardView
@@ -18,7 +61,7 @@
         app:cardCornerRadius="8dp"
         app:cardElevation="4dp"
         app:cardMaxElevation="6dp"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/ly0">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -158,6 +201,7 @@
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cvNotes"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginVertical="4dp"

@@ -18,9 +18,9 @@
         android:paddingVertical="10dp">
 
         <ImageView
+            android:id="@+id/ivEvent"
             android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/note" />
+            android:layout_height="24dp" />
 
         <TextView
             android:id="@+id/tvNoteTitle"

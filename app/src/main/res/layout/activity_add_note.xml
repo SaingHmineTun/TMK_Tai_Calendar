@@ -67,7 +67,6 @@
                 android:layout_height="wrap_content"
                 android:background="@color/md_theme_tertiary_highContrast"
                 android:orientation="horizontal"
-                android:visibility="gone"
                 app:layout_constraintTop_toBottomOf="@id/tvDay">
 
                 <com.google.android.material.radiobutton.MaterialRadioButton

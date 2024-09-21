@@ -1,6 +1,7 @@
 package it.saimao.tmktaicalendar.activities;
 
 import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.GestureDetector;
@@ -20,6 +21,7 @@ import java.util.Locale;
 
 import it.saimao.tmktaicalendar.R;
 import it.saimao.tmktaicalendar.ShanDate;
+import it.saimao.tmktaicalendar.SwipeGestureListener;
 import it.saimao.tmktaicalendar.Utils;
 import it.saimao.tmktaicalendar.database.AppDatabase;
 import it.saimao.tmktaicalendar.database.Note;
@@ -31,11 +33,13 @@ import it.saimao.tmktaicalendar.mmcalendar.HolidayCalculator;
 import it.saimao.tmktaicalendar.mmcalendar.Language;
 import it.saimao.tmktaicalendar.mmcalendar.MyanmarDate;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SwipeGestureListener.OnSwipeListener {
 
     private ActivityMainBinding binding;
     private GestureDetector gestureDetector;
     private NoteDao noteDao;
+
+    private static LocalDate currentDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,48 +64,48 @@ public class MainActivity extends AppCompatActivity {
 
     private void initListeners() {
 
-        gestureDetector = new GestureDetector(this, new SwipeGestureListener());
+        gestureDetector = new GestureDetector(this, new SwipeGestureListener(this));
         binding.glDate.setOnTouchListener((v, event) -> {
             gestureDetector.onTouchEvent(event);
             return true;
         });
 
+        binding.tvFullDate.setOnClickListener(view -> {
+            showDatePicker();
+        });
+
+
+    }
+
+
+    private DatePickerDialog datePickerDialog;
+
+    private void showDatePicker() {
+        if (datePickerDialog == null) {
+
+            datePickerDialog = new DatePickerDialog(this);
+            datePickerDialog.setOnDateSetListener((datePicker, year, month, day) -> {
+                currentDate = LocalDate.of(year, month + 1, day);
+                buildCalendar();
+
+            });
+        }
+        datePickerDialog.updateDate(currentDate.getYear(), currentDate.getMonthValue() - 1, currentDate.getDayOfMonth());
+        datePickerDialog.show();
     }
 
     // Custom GestureListener for detecting swipes
-    private class SwipeGestureListener extends GestureDetector.SimpleOnGestureListener {
-        private static final int SWIPE_THRESHOLD = 100;
-        private static final int SWIPE_VELOCITY_THRESHOLD = 100;
 
-        @Override
-        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-            float diffX = e2.getX() - e1.getX();
-            float diffY = e2.getY() - e1.getY();
-            if (Math.abs(diffX) > Math.abs(diffY)) { // Check for horizontal swipe
-                if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
-                    if (diffX > 0) {
-                        onSwipeRight();
-                    } else {
-                        onSwipeLeft();
-                    }
-                    return true;
-                }
-            }
-            return false;
-        }
-    }
 
-    private void onSwipeRight() {
-        currentDate = currentDate.minusMonths(1);
+    public void onSwipeRight() {
+        currentDate = currentDate.minusMonths(1).with(TemporalAdjusters.firstDayOfMonth());
         buildCalendar();
     }
 
-    private void onSwipeLeft() {
-        currentDate = currentDate.plusMonths(1);
+    public void onSwipeLeft() {
+        currentDate = currentDate.plusMonths(1).with(TemporalAdjusters.firstDayOfMonth());
         buildCalendar();
     }
-
-    private LocalDate currentDate;
 
     @SuppressLint("ClickableViewAccessibility")
     private void buildCalendar() {
@@ -167,13 +171,15 @@ public class MainActivity extends AppCompatActivity {
         myText.setText(myDate.getFortnightDay());
         enText.setText(String.valueOf(date.getDayOfMonth()));
 
-        if (date.isEqual(date.with(TemporalAdjusters.firstDayOfMonth()))) {
-            onDateClicked(layout);
-        } else if (date.isEqual(LocalDate.now())) {
-            onDateClicked(layout);
+
+        if (date.isEqual(LocalDate.now())) {
             layout.setBackgroundResource(R.drawable.bg_today);
         } else {
             layout.setBackgroundResource(R.drawable.bg_item);
+        }
+
+        if (date.isEqual(currentDate)) {
+            onDateClicked(layout);
         }
 
         if (date.getDayOfWeek() == DayOfWeek.SATURDAY || date.getDayOfWeek() == DayOfWeek.SUNDAY || HolidayCalculator.isHoliday(myDate)) {
@@ -193,7 +199,7 @@ public class MainActivity extends AppCompatActivity {
             iv.setImageResource(0);
         }
 
-        if (!noteDao.getNotesByDate(date).isEmpty()) {
+        if (!Utils.getTodayEvents(noteDao, date).isEmpty()) {
             if (layout.getChildCount() <= 4) {
 
                 View view = new View(this);
@@ -232,8 +238,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void onDateClicked(View view) {
-        LocalDate date = (LocalDate) view.getTag();
-        MyanmarDate myanmarDate = MyanmarDate.of(date);
+        currentDate = (LocalDate) view.getTag();
+        MyanmarDate myanmarDate = MyanmarDate.of(currentDate);
 
         if (prevSelectedDate != null) {
             LocalDate prevDate = (LocalDate) prevSelectedDate.getTag();
@@ -247,10 +253,10 @@ public class MainActivity extends AppCompatActivity {
 
         view.setBackgroundResource(R.drawable.bg_selected);
         prevSelectedDate = view;
-        binding.tvDay.setText(String.format(Locale.getDefault(), "%02d", date.getDayOfMonth()));
-        binding.tvFullDate.setText(String.format(Locale.ENGLISH, "%02d/%02d/%04d", date.getDayOfMonth(), date.getMonthValue(), date.getYear()));
+        binding.tvDay.setText(String.format(Locale.getDefault(), "%02d", currentDate.getDayOfMonth()));
+        binding.tvFullDate.setText(String.format(Locale.ENGLISH, "%02d/%02d/%04d", currentDate.getDayOfMonth(), currentDate.getMonthValue(), currentDate.getYear()));
 
-        List<Note> notes = noteDao.getNotesByDate(date);
+        List<Note> notes = Utils.getTodayEvents(noteDao, currentDate);
         if (!notes.isEmpty()) {
             binding.tvDate.setText(notes.get(0).getTitle());
             binding.tvDate.setTextColor(getResources().getColor(R.color.md_theme_error));
@@ -263,7 +269,7 @@ public class MainActivity extends AppCompatActivity {
             binding.tvDate.setTextColor(getResources().getColor(R.color.md_theme_onBackground));
         }
 
-        binding.tvDetail.setText(description(date));
+        binding.tvDetail.setText(description(currentDate));
     }
 
     private String description(LocalDate date) {
@@ -281,10 +287,13 @@ public class MainActivity extends AppCompatActivity {
             sb.append(selectedMyanmarDate.getMoonPhase()).append(" ");
             sb.append(selectedMyanmarDate.getFortnightDay()).append(" ");
             sb.append(selectedMyanmarDate.getMoonPhaseValue() == 0 ? " ဝၼ်း" : "").append(selectedMyanmarDate.getMoonPhaseValue() == 2 ? " ၶမ်ႈ။" : "။");
-
         }
 
         return sb.toString();
+    }
+
+    public static void setLastSelectedDate(LocalDate date) {
+        currentDate = date;
     }
 
 }
