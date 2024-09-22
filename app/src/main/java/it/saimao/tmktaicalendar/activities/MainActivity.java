@@ -74,17 +74,17 @@ public class MainActivity extends AppCompatActivity implements SwipeGestureListe
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         binding.ibDrawer.setOnClickListener(v -> {
-            if (binding.getRoot().isDrawerOpen(GravityCompat.START)) {
-                binding.getRoot().closeDrawer(GravityCompat.START);
-            } else {
                 binding.getRoot().openDrawer(GravityCompat.START);
-            }
         });
 
         // Handle navigation item clicks
         binding.navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                if (item.getItemId() == R.id.nav_notes) {
+                    Intent it = new Intent(MainActivity.this, NoteListActivity.class);
+                    startActivity(it);
+                }
 //                switch (item.getItemId()) {
 //                    case R.id.nav_item_one:
 //                        // Handle the item one action

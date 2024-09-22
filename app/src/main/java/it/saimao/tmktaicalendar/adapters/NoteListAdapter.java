@@ -1,0 +1,91 @@
+package it.saimao.tmktaicalendar.adapters;
+
+import android.annotation.SuppressLint;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.util.ArrayList;
+import java.util.List;
+
+import it.saimao.tmktaicalendar.R;
+import it.saimao.tmktaicalendar.database.Note;
+import it.saimao.tmktaicalendar.databinding.AdapterNoteBinding;
+import it.saimao.tmktaicalendar.databinding.AdapterNoteListBinding;
+
+public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.NoteViewHolder> {
+
+
+    private List<Note> noteList;
+    private final NoteClickListener listener;
+
+    public void updateNoteList(List<Note> noteList) {
+        var diffResult = DiffUtil.calculateDiff(new NoteDiffCallback(this.noteList, noteList));
+        this.noteList = noteList;
+        diffResult.dispatchUpdatesTo(this);
+    }
+
+    public interface NoteClickListener {
+        void onNoteClicked(Note note);
+
+        void onNoteDeleted(Note note);
+    }
+
+
+    public NoteListAdapter(NoteClickListener listener) {
+        noteList = new ArrayList<>();
+        this.listener = listener;
+    }
+
+
+    @NonNull
+    @Override
+    public NoteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+        AdapterNoteListBinding binding = AdapterNoteListBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        return new NoteViewHolder(binding);
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    @Override
+    public void onBindViewHolder(@NonNull NoteViewHolder holder, int position) {
+
+
+        Note note = noteList.get(position);
+        holder.binding.tvNoteTitle.setText(note.getTitle());
+        holder.binding.cvNote.setOnClickListener(view -> {
+            listener.onNoteClicked(note);
+        });
+
+        if (note.isEveryYear()) {
+            holder.binding.ivEvent.setImageResource(R.drawable.event);
+        } else {
+            holder.binding.ivEvent.setImageResource(R.drawable.note);
+        }
+        holder.binding.ibDeleteNote.setOnClickListener(view -> listener.onNoteDeleted(note));
+        holder.binding.tvNoteDay.setText(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG).format(note.getCreated()));
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return noteList.size();
+    }
+
+    class NoteViewHolder extends RecyclerView.ViewHolder {
+
+
+        AdapterNoteListBinding binding;
+
+        public NoteViewHolder(@NonNull AdapterNoteListBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
+        }
+    }
+
+}

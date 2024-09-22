@@ -38,7 +38,7 @@ public class NoteActivity extends AppCompatActivity {
     private NoteAdapter noteAdapter;
     private List<Note> noteList;
     private NoteDao noteDao;
-    private static final int REQUEST_EDIT_NOTE = 123;
+    public static final int REQUEST_EDIT_NOTE = 123;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,7 +131,7 @@ public class NoteActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(NoteActivity.this, AddNoteActivity.class);
                 intent.putExtra("note", note);
-                startActivityForResult(intent, 123);
+                startActivityForResult(intent, REQUEST_EDIT_NOTE);
 
             }
 

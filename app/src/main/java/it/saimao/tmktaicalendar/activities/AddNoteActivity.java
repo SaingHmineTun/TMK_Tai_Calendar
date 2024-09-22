@@ -50,7 +50,6 @@ public class AddNoteActivity extends AppCompatActivity {
             }
         });
 
-
         binding.btCancel.setOnClickListener(view -> {
             if (note == null) {
                 this.finish();
@@ -77,6 +76,7 @@ public class AddNoteActivity extends AppCompatActivity {
             note.setTitle(title);
             note.setDescription(desc);
             note.setEveryYear(everyYear);
+            if (!date.isEqual(note.getCreated())) note.setCreated(date);
             note.setUpdated(LocalDate.now());
             noteDao.updateNote(note);
             finish();

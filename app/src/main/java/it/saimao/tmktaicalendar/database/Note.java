@@ -28,7 +28,7 @@ public class Note implements Serializable {
         this.description = description;
         this.everyYear = everyYear;
         this.created = date;
-        this.updated = created;
+        this.updated = LocalDate.now();
     }
 
     public int getId() {
