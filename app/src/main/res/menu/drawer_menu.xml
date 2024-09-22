@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="none">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/nv_calendar"
+            android:title="ပပ်ႉယဵမ်ႈဝၼ်းတႆး" />
+
+        <item
+            android:id="@+id/nav_holidays"
+            android:checked="true"
+            android:icon="@drawable/nv_holidays"
+            android:title="ဝၼ်းလိုဝ်ႈၸႂ်" />
+
+        <item
+            android:id="@+id/nav_notes"
+            android:checked="true"
+            android:icon="@drawable/nv_note"
+            android:title="တီႈမၢႆတွင်း" />
+
+        <item
+            android:id="@+id/contactUs"
+            android:title="တီးၵပ်းသိုပ်ႇ">
+            <menu>
+                <item
+                    android:id="@+id/nav_email"
+                    android:icon="@drawable/nav_email"
+                    android:title="ဢီးမေးလ်" />
+                <item
+                    android:id="@+id/nav_facebook"
+                    android:icon="@drawable/nv_facebook"
+                    android:title="ၾဵတ်ႉပုၵ်ႉ" />
+                <item
+                    android:id="@+id/nav_website"
+                    android:icon="@drawable/nv_website"
+                    android:title="ဝႅပ်ႉသၢႆႉ" />
+                <item
+                    android:id="@+id/nav_rating"
+                    android:icon="@drawable/nv_playstore"
+                    android:title="ပၼ်လၢဝ်ႁႃႈလုၵ်ႈ" />
+
+            </menu>
+        </item>
+
+
+    </group>
+
+</menu>

@@ -5,14 +5,21 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.GestureDetector;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.time.DayOfWeek;
@@ -50,7 +57,61 @@ public class MainActivity extends AppCompatActivity implements SwipeGestureListe
         setContentView(binding.getRoot());
         noteDao = AppDatabase.getAppDatabase(this).noteDao();
         initUi();
+        initNavigationDrawer();
         initListeners();
+    }
+
+    private ActionBarDrawerToggle toggle;
+
+    private void initNavigationDrawer() {
+
+        // Setup ActionBarDrawerToggle
+        toggle = new ActionBarDrawerToggle(this, binding.getRoot(), R.string.open_drawer, R.string.close_drawer);
+        binding.getRoot().addDrawerListener(toggle);
+        toggle.syncState();
+
+        // Enable the Up button
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        binding.ibDrawer.setOnClickListener(v -> {
+            if (binding.getRoot().isDrawerOpen(GravityCompat.START)) {
+                binding.getRoot().closeDrawer(GravityCompat.START);
+            } else {
+                binding.getRoot().openDrawer(GravityCompat.START);
+            }
+        });
+
+        // Handle navigation item clicks
+        binding.navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//                switch (item.getItemId()) {
+//                    case R.id.nav_item_one:
+//                        // Handle the item one action
+//                        Toast.makeText(MainActivity.this, "Item one", Toast.LENGTH_SHORT).show();
+//                        break;
+//                    case R.id.nav_item_two:
+//                        // Handle the item two action
+//                        Toast.makeText(MainActivity.this, "Item one", Toast.LENGTH_SHORT).show();
+//                        break;
+//                    case R.id.nav_item_three:
+//                        // Handle the item three action
+//                        Toast.makeText(MainActivity.this, "Item one", Toast.LENGTH_SHORT).show();
+//                        break;
+//                }
+                binding.getRoot().closeDrawers(); // Close the drawer
+                return true;
+            }
+        });
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (toggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
