@@ -5,6 +5,10 @@
             android:id="@+id/nav_home"
             android:icon="@drawable/nv_calendar"
             android:title="ပပ်ႉယဵမ်ႈဝၼ်းတႆး" />
+        <item
+            android:id="@+id/nav_pakpi"
+            android:icon="@drawable/nv_pakpi"
+            android:title="ပၵ်းပီႊ" />
 
         <item
             android:id="@+id/nav_holidays"

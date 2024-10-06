@@ -9,6 +9,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".activities.PakpiActivity"
+            android:exported="false" />
+        <!-- <activity -->
+        <!-- android:name=".activities.HomeActivity" -->
+        <!-- android:exported="false" /> -->
+        <activity
             android:name=".activities.HolidaysActivity"
             android:exported="false" />
         <activity
@@ -21,7 +27,7 @@
             android:name=".activities.NoteActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.MainActivity"
+            android:name=".activities.HomeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -193,14 +193,14 @@ public class NoteActivity extends AppCompatActivity {
         sb.append("ပီႊတႆး ").append(shanDate.getShanYear()).append(" ၼီႈ၊ ");
         sb.append(ShanDate.translate(myanmarDate.getMonthName(Language.ENGLISH))).append(" ");
         if (myanmarDate.getMoonPhaseValue() == 1 || myanmarDate.getMoonPhaseValue() == 3) {
-            sb.append(myanmarDate.getMoonPhase()).append("။\n");
+            sb.append(myanmarDate.getMoonPhase()).append("၊ ");
         } else {
             sb.append(myanmarDate.getMoonPhase()).append(" ");
             sb.append(myanmarDate.getFortnightDay()).append(" ");
-            sb.append(myanmarDate.getMoonPhaseValue() == 0 ? " ဝၼ်း" : "").append(myanmarDate.getMoonPhaseValue() == 2 ? " ၶမ်ႈ။\n" : "။\n");
+            sb.append(myanmarDate.getMoonPhaseValue() == 0 ? " ဝၼ်း" : "").append(myanmarDate.getMoonPhaseValue() == 2 ? " ၶမ်ႈ၊ " : "၊ ");
         }
+        sb.append("ဝၼ်း").append(myanmarDate.getWeekDay()).append("။\n");
 
-        sb.append("ဝၼ်း").append(myanmarDate.getWeekDay()).append("၊ ");
         List<String> holidays = HolidayCalculator.getHoliday(myanmarDate);
         if (!holidays.isEmpty()) {
             for (String holiday : holidays) {

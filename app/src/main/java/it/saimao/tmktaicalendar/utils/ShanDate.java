@@ -1,7 +1,6 @@
 package it.saimao.tmktaicalendar.utils;
 
 
-
 import it.saimao.tmktaicalendar.mmcalendar.*;
 
 import java.time.LocalDate;
@@ -218,12 +217,14 @@ public class ShanDate {
     public static boolean isSayTang(LocalDate ld, MyanmarDate md) {
         boolean isSayTang = false;
         int shanMonth = getShanMonth(md);
-        if ((shanMonth == 1 || shanMonth == 7) && getMePeeInt(ld.toEpochDay()) == 2) isSayTang = true;
+        if ((shanMonth == 1 || shanMonth == 7) && getMePeeInt(ld.toEpochDay()) == 2)
+            isSayTang = true;
         else if ((shanMonth == 2 || shanMonth == 5 || shanMonth == 11 || shanMonth == 8) && getMePeeInt(ld.toEpochDay()) == 3)
             isSayTang = true;
         else if ((shanMonth == 3 || shanMonth == 6 || shanMonth == 12 || shanMonth == 9) && getMePeeInt(ld.toEpochDay()) == 7)
             isSayTang = true;
-        else if ((shanMonth == 4 || shanMonth == 10) && getMePeeInt(ld.toEpochDay()) == 4) isSayTang = true;
+        else if ((shanMonth == 4 || shanMonth == 10) && getMePeeInt(ld.toEpochDay()) == 4)
+            isSayTang = true;
         return isSayTang;
     }
 
@@ -231,12 +232,14 @@ public class ShanDate {
     public static boolean isSayHip(LocalDate ld, MyanmarDate md) {
         boolean isSayHip = false;
         int shanMonth = getShanMonth(md);
-        if ((shanMonth == 1 || shanMonth == 7) && getMePeeInt(ld.toEpochDay()) == 3) isSayHip = true;
+        if ((shanMonth == 1 || shanMonth == 7) && getMePeeInt(ld.toEpochDay()) == 3)
+            isSayHip = true;
         else if ((shanMonth == 2 || shanMonth == 5 || shanMonth == 8 || shanMonth == 11) && getMePeeInt(ld.toEpochDay()) == 4)
             isSayHip = true;
         else if ((shanMonth == 3 || shanMonth == 6 || shanMonth == 9 || shanMonth == 12) && getMePeeInt(ld.toEpochDay()) == 8)
             isSayHip = true;
-        else if ((shanMonth == 4 || shanMonth == 10) && getMePeeInt(ld.toEpochDay()) == 5) isSayHip = true;
+        else if ((shanMonth == 4 || shanMonth == 10) && getMePeeInt(ld.toEpochDay()) == 5)
+            isSayHip = true;
         return isSayHip;
     }
 
@@ -244,12 +247,14 @@ public class ShanDate {
     public static boolean isSayJom(LocalDate ld, MyanmarDate md) {
         boolean isSayJom = false;
         int shanMonth = getShanMonth(md);
-        if ((shanMonth == 1 || shanMonth == 7) && getMePeeInt(ld.toEpochDay()) == 4) isSayJom = true;
+        if ((shanMonth == 1 || shanMonth == 7) && getMePeeInt(ld.toEpochDay()) == 4)
+            isSayJom = true;
         else if ((shanMonth == 2 || shanMonth == 5 || shanMonth == 11 || shanMonth == 8) && getMePeeInt(ld.toEpochDay()) == 5)
             isSayJom = true;
         else if ((shanMonth == 3 || shanMonth == 6 || shanMonth == 12 || shanMonth == 9) && getMePeeInt(ld.toEpochDay()) == 9)
             isSayJom = true;
-        else if ((shanMonth == 4 || shanMonth == 10) && getMePeeInt(ld.toEpochDay()) == 6) isSayJom = true;
+        else if ((shanMonth == 4 || shanMonth == 10) && getMePeeInt(ld.toEpochDay()) == 6)
+            isSayJom = true;
         return isSayJom;
     }
 
@@ -257,12 +262,14 @@ public class ShanDate {
     public static boolean isSayYam(LocalDate ld, MyanmarDate md) {
         boolean isSayYam = false;
         int shanMonth = getShanMonth(md);
-        if ((shanMonth == 1 || shanMonth == 7) && getMePeeInt(ld.toEpochDay()) == 7) isSayYam = true;
+        if ((shanMonth == 1 || shanMonth == 7) && getMePeeInt(ld.toEpochDay()) == 7)
+            isSayYam = true;
         else if ((shanMonth == 2 || shanMonth == 5 || shanMonth == 11 || shanMonth == 8) && getMePeeInt(ld.toEpochDay()) == 8)
             isSayYam = true;
         else if ((shanMonth == 3 || shanMonth == 6 || shanMonth == 12 || shanMonth == 9) && getMePeeInt(ld.toEpochDay()) == 4)
             isSayYam = true;
-        else if ((shanMonth == 4 || shanMonth == 10) && getMePeeInt(ld.toEpochDay()) == 9) isSayYam = true;
+        else if ((shanMonth == 4 || shanMonth == 10) && getMePeeInt(ld.toEpochDay()) == 9)
+            isSayYam = true;
         return isSayYam;
     }
 
@@ -271,11 +278,13 @@ public class ShanDate {
         boolean isWannHarm = false;
         int shanMonth = getShanMonth(md);
         int mePee = getMePeeInt(ld.toEpochDay());
-        if ((shanMonth == 1 || shanMonth == 6 || shanMonth == 11) && getMePeeInt(ld.toEpochDay()) == 4) isWannHarm = true;
-        else if ((shanMonth == 2 || shanMonth == 7 || shanMonth == 12) && mePee == 2) isWannHarm = true;
+        if ((shanMonth == 1 || shanMonth == 6 || shanMonth == 11) && getMePeeInt(ld.toEpochDay()) == 4)
+            isWannHarm = true;
+        else if ((shanMonth == 2 || shanMonth == 7 || shanMonth == 12) && mePee == 2)
+            isWannHarm = true;
         else if ((shanMonth == 3 || shanMonth == 8) && mePee == 5) isWannHarm = true;
         else if ((shanMonth == 4 || shanMonth == 9) && mePee == 8) isWannHarm = true;
-        else if ((shanMonth == 5 ||shanMonth == 10) && mePee == 6) isWannHarm = true;
+        else if ((shanMonth == 5 || shanMonth == 10) && mePee == 6) isWannHarm = true;
         return isWannHarm;
     }
 
@@ -512,7 +521,7 @@ public class ShanDate {
         else if ((shanMonth == 12) && lukPee == 3) isMweKharLurng = true;
         return isMweKharLurng;
     }
-    
+
     // ၵမ်ၵၢႆႇၶူဝ်လႆ
     public static boolean isKamKaaiKhoLai(LocalDate ld, MyanmarDate md) {
         boolean isKamKaaiKhoLai = false;
@@ -629,7 +638,6 @@ public class ShanDate {
     }
 
 
-
     // ဝၼ်းၵျၢမ်းလူင်
     public static boolean isWannKyamLone(MyanmarDate md) {
         boolean isWannKyamLone = false;
@@ -691,14 +699,16 @@ public class ShanDate {
         if (ShanDate.isWannHarmWannKyan(ld, md)) sb.append("ဝၼ်းႁၢမ်း").append("၊ ");
         if (ShanDate.isWannYut(md)) sb.append("ဝၼ်းယုတ်ႈ").append("၊ ");
         if (ShanDate.isWannKyamLone(md)) sb.append("ဝၼ်းၵျၢမ်းလူင်").append("၊ ");
-        if (sb.toString().trim().endsWith("၊")){
+        if (sb.toString().trim().endsWith("၊")) {
             sb.replace(sb.length() - 2, sb.length(), "။");
         }
 
         sb.append("\n").append("ႁူဝ်ၼၵႃး ").append(ShanDate.getHoNagaa(md)).append("။\n");
-        if (getMePeeInt(ld.toEpochDay()) == 2 || getMePeeInt(ld.toEpochDay()) == 7) sb.append("ဝၼ်းၵၢတ်ႇမိူင်း").append("၊ ");
-        if (Astro.of(md).isSabbath()) sb.append("ဝၼ်း").append(Astro.of(md).getSabbath()).append("၊ ");
-        if (sb.toString().trim().endsWith("၊")){
+        if (getMePeeInt(ld.toEpochDay()) == 2 || getMePeeInt(ld.toEpochDay()) == 7)
+            sb.append("ဝၼ်းၵၢတ်ႇမိူင်း").append("၊ ");
+        if (Astro.of(md).isSabbath())
+            sb.append("ဝၼ်း").append(Astro.of(md).getSabbath()).append("၊ ");
+        if (sb.toString().trim().endsWith("၊")) {
             sb.replace(sb.length() - 2, sb.length(), "။");
         }
 
@@ -768,6 +778,14 @@ public class ShanDate {
         return a % 7;
     }
 
+    public static String getHoliday(MyanmarDate mDate) {
+        var holiday = HolidayCalculator.getHoliday(mDate);
+        if (holiday != null && !holiday.isEmpty()) {
+            return ShanDate.translate(holiday.get(0));
+        }
+        return ShanDate.shanSpecialDays(mDate).get(0);
+    }
+
     public static List<String> getHolidays(MyanmarDate selectedMyanmarDate) {
         var holidays = HolidayCalculator.getHoliday(selectedMyanmarDate);
         holidays.addAll(ShanDate.shanSpecialDays(selectedMyanmarDate));
@@ -831,6 +849,7 @@ public class ShanDate {
     }
 
     private static final Map<String, String> shan;
+
     static {
         shan = new HashMap<>();
         // shan
@@ -962,7 +981,7 @@ public class ShanDate {
         shan.put("South", "ၽၢႆႇၸၢၼ်း");
         shan.put("Binga", "ပိင်ႇၵ");
         shan.put("Atun", "ဢထုၼ်း");
-        shan.put("Yaza",  "ရႃႇသ");
+        shan.put("Yaza", "ရႃႇသ");
         shan.put("Adipati", "ဢထိပတိ");
         shan.put("Marana", "မရꧣ");
         shan.put("Thike", "တႆႉ");
