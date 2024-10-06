@@ -131,7 +131,7 @@ public class PakpiActivity extends AppCompatActivity implements SwipeGestureList
 
     private void initUi() {
         Config.initDefault(new Config.Builder().setCalendarType(CalendarType.ENGLISH).setLanguage(Language.TAI).build());
-        if (getIntent() != null && getIntent().getSerializableExtra("date") != null)
+        if (getIntent() != null && getIntent().getSerializableExtra("selected_date") != null)
             currentDate = (LocalDate) getIntent().getSerializableExtra("selected_date");
         else
             currentDate = LocalDate.now();
@@ -150,12 +150,9 @@ public class PakpiActivity extends AppCompatActivity implements SwipeGestureList
         binding.tvDetail.setOnClickListener(view -> goNoteDetail(currentDate));
 
         binding.tvDate.setOnClickListener(view -> {
-            Snackbar.make(binding.getRoot(), "တေၵႂႃႇၶိုၼ်း ဝၼ်းမိူဝ်ႈၼႆႉႁိုဝ်ႉ?", Snackbar.LENGTH_LONG).setAction("တေၵႂႃႇ", new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    currentDate = LocalDate.now();
-                    buildCalendar();
-                }
+            Snackbar.make(binding.getRoot(), "တေၵႂႃႇၶိုၼ်း ဝၼ်းမိူဝ်ႈၼႆႉႁိုဝ်ႉ?", Snackbar.LENGTH_LONG).setAction("တေၵႂႃႇ", view1 -> {
+                currentDate = LocalDate.now();
+                buildCalendar();
             }).show();
         });
 

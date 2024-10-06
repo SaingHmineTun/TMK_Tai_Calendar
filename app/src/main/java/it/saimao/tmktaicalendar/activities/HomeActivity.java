@@ -130,7 +130,7 @@ public class HomeActivity extends AppCompatActivity implements SwipeGestureListe
 
     private void initUi() {
         Config.initDefault(new Config.Builder().setCalendarType(CalendarType.ENGLISH).setLanguage(Language.TAI).build());
-        if (getIntent() != null && getIntent().getSerializableExtra("date") != null)
+        if (getIntent() != null && getIntent().getSerializableExtra("selected_date") != null)
             currentDate = (LocalDate) getIntent().getSerializableExtra("selected_date");
         else
             currentDate = LocalDate.now();
@@ -194,6 +194,7 @@ public class HomeActivity extends AppCompatActivity implements SwipeGestureListe
 
     @SuppressLint("ClickableViewAccessibility")
     private void buildCalendar() {
+        binding.tvDate.setSelected(true);
         // Get first day of month
         LocalDate firstDayOfMonth = currentDate.with(TemporalAdjusters.firstDayOfMonth());
 
