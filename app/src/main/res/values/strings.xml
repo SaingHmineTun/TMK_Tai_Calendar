@@ -3,4 +3,6 @@
     <string name="app_version">Version 1.0</string>
     <string name="open_drawer">Open drawer</string>
     <string name="close_drawer">Close drawer</string>
+    <string name="pakpi_tai">ပၵ်းပီႊ(ၾၢႆႇတႆး)</string>
+    <string name="pakpi_tai60">ပၵ်းပီႊ(ဝၼ်းတႆး ၆၀)</string>
 </resources>

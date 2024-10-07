@@ -779,9 +779,10 @@ public class ShanDate {
     }
 
     public static String getHoliday(MyanmarDate mDate) {
-        var holiday = HolidayCalculator.getHoliday(mDate);
-        if (holiday != null && !holiday.isEmpty()) {
-            return ShanDate.translate(holiday.get(0));
+        var holidays = HolidayCalculator.getHoliday(mDate);
+
+        if (holidays != null && !holidays.isEmpty()) {
+            return ShanDate.translate(holidays.get(0));
         }
         return ShanDate.shanSpecialDays(mDate).get(0);
     }
@@ -836,13 +837,12 @@ public class ShanDate {
             shanSpecialDays.add("ပွၺ်းသၢဝ်းသၢမ်");
         } else if (shanMonth == 12 && md.getMoonPhaseValue() == 3) {
             shanSpecialDays.add("ႁပ်ႉၸဵင်");
+        } else if (shanMonth == 1 && md.getDayOfMonth() == 1) {
+            shanSpecialDays.add("ဝၼ်းပီႊမႂ်ႇတႆး");
         }
         return shanSpecialDays;
     }
 
-    public static String convert(String holiday, String day) {
-        return LanguageTranslator.translate(day, Language.TAI) + LanguageTranslator.translate(holiday, Language.TAI);
-    }
 
     public static String translate(String day) {
         return shan.get(day);
@@ -923,7 +923,7 @@ public class ShanDate {
         shan.put("Resistance Day", "ဝၼ်းတပ်ႉမတေႃႇ");
         shan.put("Labour Day", "ဝၼ်းၵူၼ်းၵၢၼ်");
         shan.put("Martyrs Day", "ဝၼ်းၵူၼ်းငၢၼ်");
-        shan.put("Christmas Day", "ၶရိတ့်ၸမၢတ်ႉ");
+        shan.put("Christmas Day", "ၶရိတ်ႉၸမၢတ်ႉ");
         shan.put("Buddha Day", "ပွၺ်းႁူတ်ႉၼမ်ႉငဝ်ႈႁႆး");
         shan.put("Start of Buddhist Lent", "ဝၼ်းထမ်ႇမၸၵ်ႉၵ(ၶဝ်ႈဝႃႇ)");
         shan.put("End of Buddhist Lent", "ဝၼ်းဢၽိထမ်ႇမႃႇ(ဢွၵ်ႇဝႃႇ)");

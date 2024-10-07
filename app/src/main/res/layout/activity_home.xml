@@ -34,7 +34,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="ပပ်ႉယဵမ်ႈဝၼ်းတႆး"
+                    android:text="@string/pakpi_tai"
                     android:textSize="20sp" />
 
             </LinearLayout>
@@ -70,11 +70,12 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_item"
                     android:clickable="true"
+                    android:fontFamily="@font/aj_kunheing_6"
                     android:foreground="?android:selectableItemBackgroundBorderless"
                     android:gravity="center"
                     android:padding="8dp"
                     android:text="28/07/2024"
-                    android:textSize="18sp"
+                    android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="@+id/tv_date"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -84,18 +85,19 @@
                 <TextView
                     android:id="@+id/tv_date"
                     android:layout_width="0dp"
-
                     android:layout_height="wrap_content"
+
                     android:background="@drawable/bg_item"
                     android:clickable="true"
                     android:ellipsize="marquee"
+                    android:fontFamily="@font/aj_kunheing_6"
                     android:foreground="?android:selectableItemBackgroundBorderless"
                     android:gravity="center"
                     android:marqueeRepeatLimit="marquee_forever"
                     android:padding="8dp"
                     android:singleLine="true"
                     android:text="ဝၼ်းဢၢင်းၵၢင်း"
-                    android:textSize="18sp"
+                    android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@id/tv_day"
                     app:layout_constraintEnd_toEndOf="parent"

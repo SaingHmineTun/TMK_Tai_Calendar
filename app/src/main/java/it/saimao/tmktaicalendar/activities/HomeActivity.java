@@ -42,6 +42,7 @@ import it.saimao.tmktaicalendar.mmcalendar.Config;
 import it.saimao.tmktaicalendar.mmcalendar.HolidayCalculator;
 import it.saimao.tmktaicalendar.mmcalendar.Language;
 import it.saimao.tmktaicalendar.mmcalendar.MyanmarDate;
+import it.saimao.tmktaicalendar.utils.PrefManager;
 import it.saimao.tmktaicalendar.utils.ShanDate;
 import it.saimao.tmktaicalendar.utils.Utils;
 
@@ -74,25 +75,22 @@ public class HomeActivity extends AppCompatActivity implements SwipeGestureListe
         binding.getRoot().addDrawerListener(toggle);
         toggle.syncState();
 
-        // Enable the Up button
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         binding.ibDrawer.setOnClickListener(v -> {
             binding.getRoot().openDrawer(GravityCompat.START);
         });
 
         // Handle navigation item clicks
-        binding.navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                if (item.getItemId() == R.id.nav_notes) {
-                    Intent it = new Intent(HomeActivity.this, NoteListActivity.class);
-                    startActivity(it);
-                } else if (item.getItemId() == R.id.nav_pakpi) {
-                    Intent it = new Intent(HomeActivity.this, PakpiActivity.class);
-                    it.putExtra("selected_date", currentDate);
-                    startActivity(it);
-                }
+        binding.navView.setNavigationItemSelectedListener(item -> {
+            if (item.getItemId() == R.id.nav_notes) {
+                Intent it = new Intent(HomeActivity.this, NoteListActivity.class);
+                startActivity(it);
+                finish();
+            } else if (item.getItemId() == R.id.nav_pakpi) {
+                Intent it = new Intent(HomeActivity.this, PakpiActivity.class);
+                it.putExtra("selected_date", currentDate);
+                startActivity(it);
+                finish();
+            }
 //                switch (item.getItemId()) {
 //                    case R.id.nav_item_one:
 //                        // Handle the item one action
@@ -107,9 +105,8 @@ public class HomeActivity extends AppCompatActivity implements SwipeGestureListe
 //                        Toast.makeText(MainActivity.this, "Item one", Toast.LENGTH_SHORT).show();
 //                        break;
 //                }
-                binding.getRoot().closeDrawers(); // Close the drawer
-                return true;
-            }
+            binding.getRoot().closeDrawers(); // Close the drawer
+            return true;
         });
 
     }
@@ -146,15 +143,13 @@ public class HomeActivity extends AppCompatActivity implements SwipeGestureListe
 
         binding.tvFullDate.setOnClickListener(view -> showDatePicker());
 
+
         binding.tvDetail.setOnClickListener(view -> goNoteDetail(currentDate));
 
         binding.tvDate.setOnClickListener(view -> {
-            Snackbar.make(binding.getRoot(), "တေၵႂႃႇၶိုၼ်း ဝၼ်းမိူဝ်ႈၼႆႉႁိုဝ်ႉ?", Snackbar.LENGTH_LONG).setAction("တေၵႂႃႇ", new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    currentDate = LocalDate.now();
-                    buildCalendar();
-                }
+            Snackbar.make(binding.getRoot(), "တေၵႂႃႇၶိုၼ်း ဝၼ်းမိူဝ်ႈၼႆႉႁိုဝ်ႉ?", Snackbar.LENGTH_LONG).setAction("တေၵႂႃႇ", view1 -> {
+                currentDate = LocalDate.now();
+                buildCalendar();
             }).show();
         });
 
@@ -198,11 +193,11 @@ public class HomeActivity extends AppCompatActivity implements SwipeGestureListe
         // Get first day of month
         LocalDate firstDayOfMonth = currentDate.with(TemporalAdjusters.firstDayOfMonth());
 
-        int val = firstDayOfMonth.getDayOfWeek().getValue(); // 1 for Monday
+        int dayToHide = firstDayOfMonth.getDayOfWeek().getValue(); // 1 for Monday
         int start = 0, end = 35;
-        if (val == 7) {
-            start += val;
-            end += val;
+        if (dayToHide == 7) {
+            start += dayToHide;
+            end += dayToHide;
         }
 
         LocalDate date = firstDayOfMonth;
@@ -211,10 +206,10 @@ public class HomeActivity extends AppCompatActivity implements SwipeGestureListe
 
             RelativeLayout layout = (RelativeLayout) binding.glDate.getChildAt(i - start);
 
-            if (i < val) {
+            if (i < dayToHide) {
                 layout.setVisibility(View.INVISIBLE);
-            } else if (i < firstDayOfMonth.lengthOfMonth() + val) {
-                date = firstDayOfMonth.plusDays(i - val);
+            } else if (i < firstDayOfMonth.lengthOfMonth() + dayToHide) {
+                date = firstDayOfMonth.plusDays(i - dayToHide);
                 customizeDate(layout, date);
 
 
@@ -223,8 +218,8 @@ public class HomeActivity extends AppCompatActivity implements SwipeGestureListe
             }
         }
 
-        if (firstDayOfMonth.lengthOfMonth() + val > end) {
-            for (int ii = end, index = 0; ii < firstDayOfMonth.lengthOfMonth() + val; ii++, index++) {
+        if (firstDayOfMonth.lengthOfMonth() + dayToHide > end) {
+            for (int ii = end, index = 0; ii < firstDayOfMonth.lengthOfMonth() + dayToHide; ii++, index++) {
 
                 RelativeLayout layout = (RelativeLayout) binding.glDate.getChildAt(index);
                 date = date.plusDays(1);

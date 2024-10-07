@@ -82,6 +82,8 @@ public class PakpiActivity extends AppCompatActivity implements SwipeGestureList
             binding.getRoot().openDrawer(GravityCompat.START);
         });
 
+        binding.navView.setCheckedItem(R.id.nav_pakpi);
+
         // Handle navigation item clicks
         binding.navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -214,11 +216,13 @@ public class PakpiActivity extends AppCompatActivity implements SwipeGestureList
         int dayToHide = ShanDate.getMePeeInt(firstDayOfMonth.toEpochDay());
 
 
-        LocalDate date;
+        LocalDate date = firstDayOfMonth;
+        int start = 0, end = 30;
 
-        for (int i = 0; i < 40; i++) {
+        for (int i = start; i < end; i++) {
 
-            RelativeLayout layout = (RelativeLayout) binding.glDate.getChildAt(i);
+            RelativeLayout layout;
+            layout = (RelativeLayout) binding.glDate.getChildAt(i - start);
 
             if (i < dayToHide) {
                 layout.setVisibility(View.INVISIBLE);
@@ -227,6 +231,15 @@ public class PakpiActivity extends AppCompatActivity implements SwipeGestureList
                 customizeDate(layout, date);
             } else {
                 layout.setVisibility(View.INVISIBLE);
+            }
+        }
+
+        if (monthLength + dayToHide > end) {
+            for (int ii = end, index = 0; ii < monthLength + dayToHide; ii++, index++) {
+
+                RelativeLayout layout = (RelativeLayout) binding.glDate.getChildAt(index);
+                date = date.plusDays(1);
+                customizeDate(layout, date);
             }
         }
 

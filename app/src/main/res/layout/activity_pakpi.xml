@@ -34,7 +34,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="ပပ်ႉယဵမ်ႈဝၼ်းတႆး"
+                    android:text="@string/pakpi_tai60"
                     android:textSize="20sp" />
 
             </LinearLayout>
@@ -51,19 +51,20 @@
                 tools:context=".activities.MainActivity">
 
                 <TextView
-                    android:layout_marginTop="16dp"
                     android:id="@+id/tv_full_date"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
                     android:layout_marginEnd="8dp"
                     android:background="@drawable/bg_item"
                     android:clickable="true"
+                    android:fontFamily="@font/aj_kunheing_6"
                     android:foreground="?android:selectableItemBackgroundBorderless"
                     android:gravity="center"
                     android:maxLines="1"
                     android:padding="8dp"
                     android:text="28/07/2024"
-                    android:textSize="16sp"
+                    android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toStartOf="@id/tv_date"
                     app:layout_constraintStart_toStartOf="parent"
@@ -76,6 +77,7 @@
                     android:background="@drawable/bg_item"
                     android:clickable="true"
                     android:ellipsize="marquee"
+                    android:fontFamily="@font/aj_kunheing_6"
                     android:foreground="?android:selectableItemBackgroundBorderless"
                     android:gravity="center"
                     android:marqueeRepeatLimit="marquee_forever"
@@ -83,7 +85,7 @@
                     android:scrollHorizontally="true"
                     android:singleLine="true"
                     android:text="ဝၼ်းဢၢင်းၵၢင်း"
-                    android:textSize="16sp"
+                    android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/tv_full_date"
@@ -94,12 +96,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-
                     android:background="@drawable/bg_item"
+
                     android:clickable="true"
                     android:foreground="?android:selectableItemBackgroundBorderless"
                     android:padding="8dp"
-                    android:text="သာသနာနှစ် ၂၅၆၈ ခု၊ မြန်မာနှစ် ၁၃၈၆ ခု၊ ဝါဆို လဆုတ် ၈ ရ်၊ တနင်္ဂနွေနေ့"
                     android:textSize="14sp"
                     android:textStyle="bold"
                     app:layout_constraintTop_toBottomOf="@id/tv_date" />
@@ -250,7 +251,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="4"
                         android:animateLayoutChanges="true"
-                        android:columnCount="5"
+                        android:columnCount="3"
                         android:orientation="vertical"
                         android:rowCount="10"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -1485,415 +1486,6 @@
 
                         </RelativeLayout>
 
-                        <RelativeLayout
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_rowWeight="1"
-                            android:layout_columnWeight="1"
-                            android:layout_marginEnd="4dp"
-                            android:layout_marginBottom="4dp"
-                            android:background="@drawable/bg_item">
-
-                            <ImageView
-                                android:layout_width="36dp"
-                                android:layout_height="36dp"
-                                android:layout_centerInParent="true" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_marginTop="4dp"
-                                android:layout_marginEnd="4dp"
-                                android:text="10"
-                                android:textSize="10sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:text="25"
-                                android:textSize="16sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentBottom="true"
-                                android:layout_marginStart="4dp"
-                                android:layout_marginEnd="4dp"
-                                android:textSize="10sp" />
-
-
-                        </RelativeLayout>
-
-                        <RelativeLayout
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_rowWeight="1"
-                            android:layout_columnWeight="1"
-                            android:layout_marginEnd="4dp"
-                            android:layout_marginBottom="4dp"
-                            android:background="@drawable/bg_item">
-
-                            <ImageView
-                                android:layout_width="36dp"
-                                android:layout_height="36dp"
-                                android:layout_centerInParent="true" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_marginTop="4dp"
-                                android:layout_marginEnd="4dp"
-                                android:text="10"
-                                android:textSize="10sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:text="25"
-                                android:textSize="16sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentBottom="true"
-                                android:layout_marginStart="4dp"
-                                android:layout_marginEnd="4dp"
-                                android:textSize="10sp" />
-
-
-                        </RelativeLayout>
-
-                        <RelativeLayout
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_rowWeight="1"
-                            android:layout_columnWeight="1"
-                            android:layout_marginEnd="4dp"
-                            android:layout_marginBottom="4dp"
-                            android:background="@drawable/bg_item">
-
-                            <ImageView
-                                android:layout_width="36dp"
-                                android:layout_height="36dp"
-                                android:layout_centerInParent="true" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_marginTop="4dp"
-                                android:layout_marginEnd="4dp"
-                                android:text="10"
-                                android:textSize="10sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:text="25"
-                                android:textSize="16sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentBottom="true"
-                                android:layout_marginStart="4dp"
-                                android:layout_marginEnd="4dp"
-                                android:textSize="10sp" />
-
-
-                        </RelativeLayout>
-
-                        <RelativeLayout
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_rowWeight="1"
-                            android:layout_columnWeight="1"
-                            android:layout_marginEnd="4dp"
-                            android:layout_marginBottom="4dp"
-                            android:background="@drawable/bg_item">
-
-                            <ImageView
-                                android:layout_width="36dp"
-                                android:layout_height="36dp"
-                                android:layout_centerInParent="true" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_marginTop="4dp"
-                                android:layout_marginEnd="4dp"
-                                android:text="10"
-                                android:textSize="10sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:text="25"
-                                android:textSize="16sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentBottom="true"
-                                android:layout_marginStart="4dp"
-                                android:layout_marginEnd="4dp"
-                                android:textSize="10sp" />
-
-
-                        </RelativeLayout>
-
-                        <RelativeLayout
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_rowWeight="1"
-                            android:layout_columnWeight="1"
-                            android:layout_marginEnd="4dp"
-                            android:layout_marginBottom="4dp"
-                            android:background="@drawable/bg_item">
-
-                            <ImageView
-                                android:layout_width="36dp"
-                                android:layout_height="36dp"
-                                android:layout_centerInParent="true" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_marginTop="4dp"
-                                android:layout_marginEnd="4dp"
-                                android:text="10"
-                                android:textSize="10sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:text="25"
-                                android:textSize="16sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentBottom="true"
-                                android:layout_marginStart="4dp"
-                                android:layout_marginEnd="4dp"
-                                android:textSize="10sp" />
-
-
-                        </RelativeLayout>
-
-                        <RelativeLayout
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_rowWeight="1"
-                            android:layout_columnWeight="1"
-                            android:layout_marginEnd="4dp"
-                            android:layout_marginBottom="4dp"
-                            android:background="@drawable/bg_item">
-
-                            <ImageView
-                                android:layout_width="36dp"
-                                android:layout_height="36dp"
-                                android:layout_centerInParent="true" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_marginTop="4dp"
-                                android:layout_marginEnd="4dp"
-                                android:text="10"
-                                android:textSize="10sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:text="25"
-                                android:textSize="16sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentBottom="true"
-                                android:layout_marginStart="4dp"
-                                android:layout_marginEnd="4dp"
-                                android:textSize="10sp" />
-
-
-                        </RelativeLayout>
-
-                        <RelativeLayout
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_rowWeight="1"
-                            android:layout_columnWeight="1"
-                            android:layout_marginEnd="4dp"
-                            android:layout_marginBottom="4dp"
-                            android:background="@drawable/bg_item">
-
-                            <ImageView
-                                android:layout_width="36dp"
-                                android:layout_height="36dp"
-                                android:layout_centerInParent="true" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_marginTop="4dp"
-                                android:layout_marginEnd="4dp"
-                                android:text="10"
-                                android:textSize="10sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:text="25"
-                                android:textSize="16sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentBottom="true"
-                                android:layout_marginStart="4dp"
-                                android:layout_marginEnd="4dp"
-                                android:textSize="10sp" />
-
-
-                        </RelativeLayout>
-
-                        <RelativeLayout
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_rowWeight="1"
-                            android:layout_columnWeight="1"
-                            android:layout_marginEnd="4dp"
-                            android:layout_marginBottom="4dp"
-                            android:background="@drawable/bg_item">
-
-                            <ImageView
-                                android:layout_width="36dp"
-                                android:layout_height="36dp"
-                                android:layout_centerInParent="true" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_marginTop="4dp"
-                                android:layout_marginEnd="4dp"
-                                android:text="10"
-                                android:textSize="10sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:text="25"
-                                android:textSize="16sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentBottom="true"
-                                android:layout_marginStart="4dp"
-                                android:layout_marginEnd="4dp"
-                                android:textSize="10sp" />
-
-
-                        </RelativeLayout>
-
-                        <RelativeLayout
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_rowWeight="1"
-                            android:layout_columnWeight="1"
-                            android:layout_marginEnd="4dp"
-                            android:layout_marginBottom="4dp"
-                            android:background="@drawable/bg_item">
-
-                            <ImageView
-                                android:layout_width="36dp"
-                                android:layout_height="36dp"
-                                android:layout_centerInParent="true" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_marginTop="4dp"
-                                android:layout_marginEnd="4dp"
-                                android:text="10"
-                                android:textSize="10sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:text="25"
-                                android:textSize="16sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentBottom="true"
-                                android:layout_marginStart="4dp"
-                                android:layout_marginEnd="4dp"
-                                android:textSize="10sp" />
-
-
-                        </RelativeLayout>
-
-                        <RelativeLayout
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_rowWeight="1"
-                            android:layout_columnWeight="1"
-                            android:layout_marginEnd="4dp"
-                            android:layout_marginBottom="4dp"
-                            android:background="@drawable/bg_item">
-
-                            <ImageView
-                                android:layout_width="36dp"
-                                android:layout_height="36dp"
-                                android:layout_centerInParent="true" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_marginTop="4dp"
-                                android:layout_marginEnd="4dp"
-                                android:text="10"
-                                android:textSize="10sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:text="25"
-                                android:textSize="16sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentBottom="true"
-                                android:layout_marginStart="4dp"
-                                android:layout_marginEnd="4dp"
-                                android:textSize="10sp" />
-
-
-                        </RelativeLayout>
 
                     </GridLayout>
 
