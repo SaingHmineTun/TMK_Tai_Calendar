@@ -21,6 +21,23 @@
             android:title="တီႈမၢႆတွင်း" />
 
         <item
+            android:id="@+id/search"
+            android:title="သွၵ်ႈႁႃလုၵ်ႈဝၼ်း">
+            <menu>
+                <item
+                    android:id="@+id/nav_byEng"
+                    android:icon="@drawable/nav_search"
+                    android:title="လူၺ်ႈဝၼ်းဢၢင်းၵိတ်ႈ"/>
+                <item
+                    android:id="@+id/nav_byShan"
+                    android:icon="@drawable/nav_search"
+                    android:title="လူၺ်ႈဝၼ်းတႆး"
+                    />
+
+            </menu>
+        </item>
+
+        <item
             android:id="@+id/contactUs"
             android:title="တီးၵပ်းသိုပ်ႇ">
             <menu>

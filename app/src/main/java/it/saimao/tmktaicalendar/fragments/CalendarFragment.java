@@ -1,8 +1,6 @@
 package it.saimao.tmktaicalendar.fragments;
 
 import android.annotation.SuppressLint;
-import android.app.DatePickerDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -27,13 +25,11 @@ import java.util.Locale;
 
 import it.saimao.tmktaicalendar.R;
 import it.saimao.tmktaicalendar.activities.HomeActivity;
-import it.saimao.tmktaicalendar.activities.NoteActivity;
 import it.saimao.tmktaicalendar.adapters.SwipeGestureListener;
 import it.saimao.tmktaicalendar.database.AppDatabase;
 import it.saimao.tmktaicalendar.database.Note;
 import it.saimao.tmktaicalendar.database.NoteDao;
 import it.saimao.tmktaicalendar.databinding.FragmentCalendarBinding;
-import it.saimao.tmktaicalendar.databinding.FragmentHolidaysBinding;
 import it.saimao.tmktaicalendar.mmcalendar.CalendarType;
 import it.saimao.tmktaicalendar.mmcalendar.Config;
 import it.saimao.tmktaicalendar.mmcalendar.HolidayCalculator;
@@ -49,7 +45,7 @@ public class CalendarFragment extends Fragment implements SwipeGestureListener.O
     private GestureDetector gestureDetector;
     private NoteDao noteDao;
 
-    private static LocalDate currentDate;
+    private LocalDate currentDate;
 
     @Nullable
     @Override
@@ -87,7 +83,7 @@ public class CalendarFragment extends Fragment implements SwipeGestureListener.O
             return true;
         });
 
-        binding.tvFullDate.setOnClickListener(view -> showDatePicker());
+//        binding.tvFullDate.setOnClickListener(view -> showDatePicker());
 
 
         binding.tvDetail.setOnClickListener(view -> goNoteDetail(currentDate));
@@ -102,22 +98,6 @@ public class CalendarFragment extends Fragment implements SwipeGestureListener.O
 
     }
 
-    private DatePickerDialog datePickerDialog;
-
-    private void showDatePicker() {
-        if (datePickerDialog == null) {
-
-            datePickerDialog = new DatePickerDialog(getContext());
-            datePickerDialog.setOnDateSetListener((datePicker, year, month, day) -> {
-                currentDate = LocalDate.of(year, month + 1, day);
-                buildCalendar();
-
-            });
-        }
-        if (currentDate != null)
-            datePickerDialog.updateDate(currentDate.getYear(), currentDate.getMonthValue() - 1, currentDate.getDayOfMonth());
-        datePickerDialog.show();
-    }
 
     // Custom GestureListener for detecting swipes
 
@@ -323,4 +303,8 @@ public class CalendarFragment extends Fragment implements SwipeGestureListener.O
         return sb.toString();
     }
 
+    public void onDateChanged(LocalDate currentDate) {
+        this.currentDate = currentDate;
+        buildCalendar();
+    }
 }

@@ -45,7 +45,7 @@ public class PakpiFragment extends Fragment implements SwipeGestureListener.OnSw
     private GestureDetector gestureDetector;
     private NoteDao noteDao;
 
-    private static LocalDate currentDate;
+    private LocalDate currentDate;
 
 
     @Nullable
@@ -86,7 +86,7 @@ public class PakpiFragment extends Fragment implements SwipeGestureListener.OnSw
             return true;
         });
 
-        binding.tvFullDate.setOnClickListener(view -> showDatePicker());
+//        binding.tvFullDate.setOnClickListener(view -> showDatePicker());
 
         binding.tvDetail.setOnClickListener(view -> goNoteDetail(currentDate));
 
@@ -100,23 +100,6 @@ public class PakpiFragment extends Fragment implements SwipeGestureListener.OnSw
 
     }
 
-
-    private DatePickerDialog datePickerDialog;
-
-    private void showDatePicker() {
-        if (datePickerDialog == null) {
-
-            datePickerDialog = new DatePickerDialog(getContext());
-            datePickerDialog.setOnDateSetListener((datePicker, year, month, day) -> {
-                currentDate = LocalDate.of(year, month + 1, day);
-                buildCalendar();
-
-            });
-        }
-        if (currentDate != null)
-            datePickerDialog.updateDate(currentDate.getYear(), currentDate.getMonthValue() - 1, currentDate.getDayOfMonth());
-        datePickerDialog.show();
-    }
 
     // Custom GestureListener for detecting swipes
 
@@ -329,4 +312,9 @@ public class PakpiFragment extends Fragment implements SwipeGestureListener.OnSw
         return sb.toString();
     }
 
+    public void onDateChanged(LocalDate currentDate) {
+        this.currentDate = currentDate;
+        buildCalendar();
+
+    }
 }

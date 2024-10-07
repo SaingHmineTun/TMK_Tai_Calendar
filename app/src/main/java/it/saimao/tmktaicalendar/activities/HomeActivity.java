@@ -1,5 +1,6 @@
 package it.saimao.tmktaicalendar.activities;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -28,7 +29,9 @@ public class HomeActivity extends AppCompatActivity {
 
 
     private ActivityHomeBinding binding;
-    private Fragment calendarFragment, holidaysFragment, noteListFragment, pakpiFragment;
+    private Fragment calendarFragment, holidaysFragment, noteListFragment, pakpiFragment, activeFragment;
+
+    private DatePickerDialog datePickerDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,18 +61,25 @@ public class HomeActivity extends AppCompatActivity {
             if (item.getItemId() == R.id.nav_notes) {
                 if (noteListFragment == null) noteListFragment = new NoteListFragment();
                 fragment = noteListFragment;
+                replaceFragment(fragment);
             } else if (item.getItemId() == R.id.nav_pakpi) {
                 if (pakpiFragment == null) pakpiFragment = new PakpiFragment();
                 fragment = pakpiFragment;
+                replaceFragment(fragment);
             } else if (item.getItemId() == R.id.nav_holidays) {
                 if (holidaysFragment == null) holidaysFragment = new HolidaysFragment();
                 fragment = holidaysFragment;
-            } else {
+                replaceFragment(fragment);
+            } else if (item.getItemId() == R.id.nav_home) {
                 if (calendarFragment == null) calendarFragment = new CalendarFragment();
                 fragment = calendarFragment;
+                replaceFragment(fragment);
+            } else if (item.getItemId() == R.id.nav_byEng) {
+                showDatePicker();
+                binding.getRoot().closeDrawer(GravityCompat.START);
+
             }
 
-            replaceFragment(fragment);
 
             return true;
         });
@@ -82,7 +92,27 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
+    private void showDatePicker() {
+        if (datePickerDialog == null) {
+
+            datePickerDialog = new DatePickerDialog(this);
+            datePickerDialog.setOnDateSetListener((datePicker, year, month, day) -> {
+                LocalDate currentDate = LocalDate.of(year, month + 1, day);
+                if (activeFragment instanceof CalendarFragment frg) {
+                    frg.onDateChanged(currentDate);
+                } else if (activeFragment instanceof PakpiFragment frg) {
+                    frg.onDateChanged(currentDate);
+                }
+
+            });
+        }
+//        if (currentDate != null)
+//            datePickerDialog.updateDate(currentDate.getYear(), currentDate.getMonthValue() - 1, currentDate.getDayOfMonth());
+        datePickerDialog.show();
+    }
+
     private void replaceFragment(@NotNull Fragment fragment) {
+        activeFragment = fragment;
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction()
                 .setReorderingAllowed(true)
                 .replace(R.id.content_frame, fragment);
