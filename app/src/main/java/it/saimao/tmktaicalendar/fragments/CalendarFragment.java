@@ -1,23 +1,22 @@
-package it.saimao.tmktaicalendar.activities;
+package it.saimao.tmktaicalendar.fragments;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.GestureDetector;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
-import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.time.DayOfWeek;
@@ -27,97 +26,53 @@ import java.util.List;
 import java.util.Locale;
 
 import it.saimao.tmktaicalendar.R;
-import it.saimao.tmktaicalendar.fragments.NoteListFragment;
-import it.saimao.tmktaicalendar.utils.ShanDate;
+import it.saimao.tmktaicalendar.activities.HomeActivity;
+import it.saimao.tmktaicalendar.activities.NoteActivity;
 import it.saimao.tmktaicalendar.adapters.SwipeGestureListener;
-import it.saimao.tmktaicalendar.utils.Utils;
 import it.saimao.tmktaicalendar.database.AppDatabase;
 import it.saimao.tmktaicalendar.database.Note;
 import it.saimao.tmktaicalendar.database.NoteDao;
-import it.saimao.tmktaicalendar.databinding.ActivityMainBinding;
+import it.saimao.tmktaicalendar.databinding.FragmentCalendarBinding;
+import it.saimao.tmktaicalendar.databinding.FragmentHolidaysBinding;
 import it.saimao.tmktaicalendar.mmcalendar.CalendarType;
 import it.saimao.tmktaicalendar.mmcalendar.Config;
 import it.saimao.tmktaicalendar.mmcalendar.HolidayCalculator;
 import it.saimao.tmktaicalendar.mmcalendar.Language;
 import it.saimao.tmktaicalendar.mmcalendar.MyanmarDate;
+import it.saimao.tmktaicalendar.utils.ShanDate;
+import it.saimao.tmktaicalendar.utils.Utils;
 
-public class MainActivity extends AppCompatActivity implements SwipeGestureListener.OnSwipeListener {
+public class CalendarFragment extends Fragment implements SwipeGestureListener.OnSwipeListener {
 
-    private ActivityMainBinding binding;
+    private FragmentCalendarBinding binding;
+
     private GestureDetector gestureDetector;
     private NoteDao noteDao;
 
     private static LocalDate currentDate;
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-        noteDao = AppDatabase.getAppDatabase(this).noteDao();
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        binding = FragmentCalendarBinding.inflate(inflater, container, false);
+        noteDao = AppDatabase.getAppDatabase(getContext()).noteDao();
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         initUi();
-        initNavigationDrawer();
         initListeners();
     }
 
-    private ActionBarDrawerToggle toggle;
-
-    private void initNavigationDrawer() {
-
-        // Setup ActionBarDrawerToggle
-        toggle = new ActionBarDrawerToggle(this, binding.getRoot(), R.string.open_drawer, R.string.close_drawer);
-        binding.getRoot().addDrawerListener(toggle);
-        toggle.syncState();
-
-        // Enable the Up button
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        binding.ibDrawer.setOnClickListener(v -> {
-                binding.getRoot().openDrawer(GravityCompat.START);
-        });
-
-        // Handle navigation item clicks
-        binding.navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                if (item.getItemId() == R.id.nav_notes) {
-                    Intent it = new Intent(MainActivity.this, NoteListFragment.class);
-                    startActivity(it);
-                }
-//                switch (item.getItemId()) {
-//                    case R.id.nav_item_one:
-//                        // Handle the item one action
-//                        Toast.makeText(MainActivity.this, "Item one", Toast.LENGTH_SHORT).show();
-//                        break;
-//                    case R.id.nav_item_two:
-//                        // Handle the item two action
-//                        Toast.makeText(MainActivity.this, "Item one", Toast.LENGTH_SHORT).show();
-//                        break;
-//                    case R.id.nav_item_three:
-//                        // Handle the item three action
-//                        Toast.makeText(MainActivity.this, "Item one", Toast.LENGTH_SHORT).show();
-//                        break;
-//                }
-                binding.getRoot().closeDrawers(); // Close the drawer
-                return true;
-            }
-        });
-
-    }
-
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (toggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    protected void onStart() {
+    public void onStart() {
         super.onStart();
+
         buildCalendar();
     }
+
 
     private void initUi() {
         Config.initDefault(new Config.Builder().setCalendarType(CalendarType.ENGLISH).setLanguage(Language.TAI).build());
@@ -126,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements SwipeGestureListe
 
     private void initListeners() {
 
-        gestureDetector = new GestureDetector(this, new SwipeGestureListener(this));
+        gestureDetector = new GestureDetector(getContext(), new SwipeGestureListener(this));
         binding.glDate.setOnTouchListener((v, event) -> {
             gestureDetector.onTouchEvent(event);
             return true;
@@ -134,28 +89,25 @@ public class MainActivity extends AppCompatActivity implements SwipeGestureListe
 
         binding.tvFullDate.setOnClickListener(view -> showDatePicker());
 
+
         binding.tvDetail.setOnClickListener(view -> goNoteDetail(currentDate));
 
         binding.tvDate.setOnClickListener(view -> {
-            Snackbar.make(binding.getRoot(), "တေၵႂႃႇၶိုၼ်း ဝၼ်းမိူဝ်ႈၼႆႉႁိုဝ်ႉ?", Snackbar.LENGTH_LONG).setAction("တေၵႂႃႇ", new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    currentDate = LocalDate.now();
-                    buildCalendar();
-                }
+            Snackbar.make(binding.getRoot(), "တေၵႂႃႇၶိုၼ်း ဝၼ်းမိူဝ်ႈၼႆႉႁိုဝ်ႉ?", Snackbar.LENGTH_LONG).setAction("တေၵႂႃႇ", view1 -> {
+                currentDate = LocalDate.now();
+                buildCalendar();
             }).show();
         });
 
 
     }
 
-
     private DatePickerDialog datePickerDialog;
 
     private void showDatePicker() {
         if (datePickerDialog == null) {
 
-            datePickerDialog = new DatePickerDialog(this);
+            datePickerDialog = new DatePickerDialog(getContext());
             datePickerDialog.setOnDateSetListener((datePicker, year, month, day) -> {
                 currentDate = LocalDate.of(year, month + 1, day);
                 buildCalendar();
@@ -182,14 +134,15 @@ public class MainActivity extends AppCompatActivity implements SwipeGestureListe
 
     @SuppressLint("ClickableViewAccessibility")
     private void buildCalendar() {
+        binding.tvDate.setSelected(true);
         // Get first day of month
         LocalDate firstDayOfMonth = currentDate.with(TemporalAdjusters.firstDayOfMonth());
 
-        int val = firstDayOfMonth.getDayOfWeek().getValue(); // 1 for Monday
+        int dayToHide = firstDayOfMonth.getDayOfWeek().getValue(); // 1 for Monday
         int start = 0, end = 35;
-        if (val == 7) {
-            start += val;
-            end += val;
+        if (dayToHide == 7) {
+            start += dayToHide;
+            end += dayToHide;
         }
 
         LocalDate date = firstDayOfMonth;
@@ -198,10 +151,10 @@ public class MainActivity extends AppCompatActivity implements SwipeGestureListe
 
             RelativeLayout layout = (RelativeLayout) binding.glDate.getChildAt(i - start);
 
-            if (i < val) {
+            if (i < dayToHide) {
                 layout.setVisibility(View.INVISIBLE);
-            } else if (i < firstDayOfMonth.lengthOfMonth() + val) {
-                date = firstDayOfMonth.plusDays(i - val);
+            } else if (i < firstDayOfMonth.lengthOfMonth() + dayToHide) {
+                date = firstDayOfMonth.plusDays(i - dayToHide);
                 customizeDate(layout, date);
 
 
@@ -210,8 +163,8 @@ public class MainActivity extends AppCompatActivity implements SwipeGestureListe
             }
         }
 
-        if (firstDayOfMonth.lengthOfMonth() + val > end) {
-            for (int ii = end, index = 0; ii < firstDayOfMonth.lengthOfMonth() + val; ii++, index++) {
+        if (firstDayOfMonth.lengthOfMonth() + dayToHide > end) {
+            for (int ii = end, index = 0; ii < firstDayOfMonth.lengthOfMonth() + dayToHide; ii++, index++) {
 
                 RelativeLayout layout = (RelativeLayout) binding.glDate.getChildAt(index);
                 date = date.plusDays(1);
@@ -219,6 +172,7 @@ public class MainActivity extends AppCompatActivity implements SwipeGestureListe
             }
         }
     }
+
 
     @SuppressLint("ClickableViewAccessibility")
     private void customizeDate(RelativeLayout layout, LocalDate date) {
@@ -275,7 +229,7 @@ public class MainActivity extends AppCompatActivity implements SwipeGestureListe
         if (!Utils.getTodayEvents(noteDao, date).isEmpty()) {
             if (layout.getChildCount() <= 4) {
 
-                View view = new View(this);
+                View view = new View(getContext());
                 view.setMinimumWidth(Utils.dpToPx(8));
                 view.setMinimumHeight(Utils.dpToPx(8));
                 view.setBackgroundResource(R.drawable.rounded_button);
@@ -299,17 +253,17 @@ public class MainActivity extends AppCompatActivity implements SwipeGestureListe
 
     private boolean onLongDateClicked(View view) {
         onDateClicked(view);
-
         LocalDate date = (LocalDate) view.getTag();
         goNoteDetail(date);
         return true;
     }
 
     private void goNoteDetail(LocalDate date) {
-        Intent intent = new Intent(this, NoteActivity.class);
-        intent.putExtra("date", date);
-        startActivity(intent);
+
+        HomeActivity activity = (HomeActivity) getActivity();
+        activity.goNoteDetail(date);
     }
+
 
     private View prevSelectedDate;
 
@@ -367,10 +321,6 @@ public class MainActivity extends AppCompatActivity implements SwipeGestureListe
         }
 
         return sb.toString();
-    }
-
-    public static void setLastSelectedDate(LocalDate date) {
-        currentDate = date;
     }
 
 }

@@ -61,9 +61,7 @@ public class AddNoteActivity extends AppCompatActivity {
     }
 
     private void deleteNote() {
-        Intent intent = new Intent();
-        intent.putExtra("note", note);
-        setResult(RESULT_OK, intent);
+        noteDao.deleteNote(note);
         finish();
     }
 
