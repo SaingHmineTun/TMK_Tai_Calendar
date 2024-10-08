@@ -6,15 +6,14 @@
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/tvTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="2118 ၼီႈ၊ လိူၼ်ၸဵင်မႂ်ႇ 1 ဝၼ်း"
-        android:gravity="center"
         android:layout_margin="8dp"
-        android:textSize="20sp"
+        android:gravity="center"
         android:textColor="@color/md_theme_primary"
-        android:textStyle="bold"
-        />
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,19 +27,19 @@
             android:background="@drawable/rounded_primary_button"
             android:contentDescription="Subtract Year"
             android:padding="8dp"
-            android:src="@drawable/ic_add"
+            android:src="@drawable/ic_remove"
             app:tint="@color/md_theme_onPrimary" />
 
         <TextView
 
-            android:text="2118"
-            android:gravity="center"
-            android:textSize="18sp"
             android:id="@+id/spYear"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginHorizontal="8dp"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="2118"
+            android:textSize="18sp" />
 
         <ImageButton
             android:id="@+id/ibAddYear"
@@ -64,19 +63,19 @@
             android:layout_height="wrap_content"
             android:background="@drawable/rounded_primary_button"
             android:padding="8dp"
-            android:src="@drawable/ic_add"
+            android:src="@drawable/ic_remove"
             app:tint="@color/md_theme_onPrimary" />
 
         <TextView
 
-            android:text="လိူၼ်ၸဵင်"
-            android:gravity="center"
-            android:textSize="18sp"
             android:id="@+id/spMonth"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginHorizontal="8dp"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="လိူၼ်ၸဵင်"
+            android:textSize="18sp" />
 
         <ImageButton
             android:id="@+id/ibAddMonth"
@@ -99,19 +98,19 @@
             android:layout_height="wrap_content"
             android:background="@drawable/rounded_primary_button"
             android:padding="8dp"
-            android:src="@drawable/ic_add"
+            android:src="@drawable/ic_remove"
             app:tint="@color/md_theme_onPrimary" />
 
         <TextView
 
-            android:text="1"
-            android:gravity="center"
-            android:textSize="18sp"
             android:id="@+id/spDay"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginHorizontal="8dp"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="1"
+            android:textSize="18sp" />
 
         <ImageButton
             android:id="@+id/ibAddDay"

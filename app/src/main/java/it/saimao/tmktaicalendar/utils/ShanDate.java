@@ -841,6 +841,12 @@ public class ShanDate {
         return shanMonth;
     }
 
+    public static int getMyanmarMonth(int shanMonth) {
+        int myanmarMonth = shanMonth - 4;
+        if (myanmarMonth < 0) myanmarMonth = 12 + myanmarMonth;
+        return myanmarMonth;
+    }
+
     public static final Map<Integer, String> shanMonths;
 
     static {

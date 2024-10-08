@@ -45,7 +45,7 @@ public class CalendarFragment extends Fragment implements SwipeGestureListener.O
     private GestureDetector gestureDetector;
     private NoteDao noteDao;
 
-    public static LocalDate currentDate;
+    public LocalDate currentDate;
 
     @Nullable
     @Override
@@ -304,7 +304,7 @@ public class CalendarFragment extends Fragment implements SwipeGestureListener.O
     }
 
     public void onDateChanged(LocalDate currentDate) {
-        CalendarFragment.currentDate = currentDate;
+        this.currentDate = currentDate;
         buildCalendar();
     }
 }
