@@ -75,7 +75,7 @@ public class PakpiFragment extends Fragment implements SwipeGestureListener.OnSw
 
     private void initUi() {
         Config.initDefault(new Config.Builder().setCalendarType(CalendarType.ENGLISH).setLanguage(Language.TAI).build());
-        currentDate = LocalDate.now();
+        if (currentDate == null) currentDate = LocalDate.now();
     }
 
     private void initListeners() {
@@ -315,6 +315,9 @@ public class PakpiFragment extends Fragment implements SwipeGestureListener.OnSw
     public void onDateChanged(LocalDate currentDate) {
         this.currentDate = currentDate;
         buildCalendar();
+    }
 
+    public void setCurrentDate(LocalDate currentDate) {
+        this.currentDate = currentDate;
     }
 }

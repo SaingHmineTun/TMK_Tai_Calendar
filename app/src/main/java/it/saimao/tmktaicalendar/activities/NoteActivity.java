@@ -201,10 +201,13 @@ public class NoteActivity extends AppCompatActivity {
         }
         sb.append("ဝၼ်း").append(myanmarDate.getWeekDay()).append("။\n");
 
-        List<String> holidays = HolidayCalculator.getHoliday(myanmarDate);
+        List<String> holidays = ShanDate.getHolidays(myanmarDate);
         if (!holidays.isEmpty()) {
             for (String holiday : holidays) {
-                sb.append(ShanDate.translate(holiday)).append("၊ ");
+                String day = ShanDate.translate(holiday);
+                if (day == null)
+                    day = holiday;
+                sb.append(day).append("၊ ");
             }
             binding.tvEngDay.setTextColor(getResources().getColor(R.color.md_theme_error));
         } else {

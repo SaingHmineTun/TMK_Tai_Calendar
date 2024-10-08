@@ -4,9 +4,9 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:background="@color/bg_color"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/bg_color"
         android:orientation="vertical">
 
         <LinearLayout
@@ -26,10 +26,12 @@
                 android:src="@drawable/ic_drawer" />
 
             <TextView
+                android:id="@+id/appTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/aj_kunheing_6"
                 android:text="@string/pakpi_tai"
-                android:textSize="20sp" />
+                android:textSize="24sp" />
 
         </LinearLayout>
 

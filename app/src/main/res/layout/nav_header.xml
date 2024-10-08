@@ -12,7 +12,7 @@
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:scaleType="fitCenter"
-        android:src="@mipmap/ic_launcher_foreground"
+        android:src="@mipmap/ic_launcher_round"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,7 +22,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
+        android:layout_marginStart="8dp"
         android:layout_toEndOf="@id/header_image"
+        android:fontFamily="@font/aj_kunheing_6"
         android:paddingTop="8dp"
         android:text="@string/app_name"
         android:textColor="@color/md_theme_onBackground"
@@ -36,13 +38,29 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_marginStart="8dp"
         android:layout_toEndOf="@id/header_image"
         android:paddingTop="8dp"
-        android:text="ပပ်ႉယဵမ်ႈဝၼ်းတႆး"
+        android:text="ပၵ်းပီႊ "
         android:textColor="@color/md_theme_onBackground"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@id/header_image"
         app:layout_constraintStart_toEndOf="@id/header_image"
+        app:layout_constraintTop_toBottomOf="@id/tvEnglish" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="8dp"
+        android:layout_toEndOf="@id/header_image"
+        android:paddingTop="8dp"
+        android:text="@string/app_version"
+        android:textColor="@color/md_theme_primary"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/header_image"
+        app:layout_constraintStart_toEndOf="@id/tvTai"
         app:layout_constraintTop_toBottomOf="@id/tvEnglish" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

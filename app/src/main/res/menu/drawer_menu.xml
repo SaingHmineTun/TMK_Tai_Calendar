@@ -13,12 +13,12 @@
         <item
             android:id="@+id/nav_holidays"
             android:icon="@drawable/nv_holidays"
-            android:title="ဝၼ်းလိုဝ်ႈၸႂ်" />
+            android:title="@string/holidays" />
 
         <item
             android:id="@+id/nav_notes"
             android:icon="@drawable/nv_note"
-            android:title="တီႈမၢႆတွင်း" />
+            android:title="@string/notes" />
 
         <item
             android:id="@+id/search"
@@ -27,12 +27,11 @@
                 <item
                     android:id="@+id/nav_byEng"
                     android:icon="@drawable/nav_search"
-                    android:title="လူၺ်ႈပီႊဢၢင်းၵိတ်ႈ"/>
+                    android:title="လူၺ်ႈပီႊဢၢင်းၵိတ်ႈ" />
                 <item
                     android:id="@+id/nav_byShan"
                     android:icon="@drawable/nav_search"
-                    android:title="လူၺ်ႈပီႊၵေႃးၸႃႇ"
-                    />
+                    android:title="လူၺ်ႈပီႊၵေႃးၸႃႇ" />
 
             </menu>
         </item>

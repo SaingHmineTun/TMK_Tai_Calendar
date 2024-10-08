@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class ShanDate {
@@ -827,14 +828,6 @@ public class ShanDate {
         return shanMonths.get(getShanMonth());
     }
 
-    public int getShanFortnightDay() {
-        return myanmarDate.getFortnightDayValue();
-    }
-
-    public int getShanDay() {
-        return myanmarDate.getDayOfMonth();
-    }
-
     public static int getShanMonth(MyanmarDate md) {
         int shanMonth = md.getMonth() + 4;
         if (shanMonth > 12) shanMonth = shanMonth - 12;
@@ -843,7 +836,7 @@ public class ShanDate {
 
     public static int getMyanmarMonth(int shanMonth) {
         int myanmarMonth = shanMonth - 4;
-        if (myanmarMonth < 0) myanmarMonth = 12 + myanmarMonth;
+        if (myanmarMonth < 1) myanmarMonth = 12 + myanmarMonth;
         return myanmarMonth;
     }
 
@@ -867,10 +860,6 @@ public class ShanDate {
 
     public static String getShanMonthByKey(int key) {
         return shanMonths.get(key);
-    }
-
-    public static int getShanMonthValueByKey(String key) {
-        return shanMonths.entrySet().stream().filter(val -> val.getValue().equals(key)).findFirst().get().getKey();
     }
 
     public static List<String> shanSpecialDays(MyanmarDate md) {
@@ -1040,6 +1029,26 @@ public class ShanDate {
         shan.put("Orc", "ၽီလူး");
         shan.put("Elf", "ၽီလီ");
         shan.put("Human", "ၵူၼ်း");
+    }
+
+    public static String format(MyanmarDate myanmarDate) {
+        String title;
+        if (myanmarDate.getMoonPhaseValue() == 0 || myanmarDate.getMoonPhaseValue() == 2) {
+            title = String.format(Locale.ENGLISH,
+                    "ပီႊၵေႃးၸႃႇ %s ဝႃႇ၊ %s%s %s %s",
+                    myanmarDate.getYear(),
+                    new ShanDate(myanmarDate).getShanMonthString(),
+                    myanmarDate.getMoonPhase(),
+                    myanmarDate.getFortnightDay(),
+                    myanmarDate.getMoonPhaseValue() == 0 ? "ဝၼ်း" : "ၶမ်ႈ");
+        } else {
+            title = String.format(Locale.ENGLISH,
+                    "ပီႊၵေႃးၸႃႇ %s ဝႃႇ၊ %s%s",
+                    myanmarDate.getYear(),
+                    new ShanDate(myanmarDate).getShanMonthString(),
+                    myanmarDate.getMoonPhase());
+        }
+        return title;
     }
 
 
