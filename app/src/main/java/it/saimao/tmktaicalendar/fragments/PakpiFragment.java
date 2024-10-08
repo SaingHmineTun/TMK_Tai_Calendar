@@ -45,7 +45,7 @@ public class PakpiFragment extends Fragment implements SwipeGestureListener.OnSw
     private GestureDetector gestureDetector;
     private NoteDao noteDao;
 
-    private LocalDate currentDate;
+    public static LocalDate currentDate;
 
 
     @Nullable
@@ -313,7 +313,7 @@ public class PakpiFragment extends Fragment implements SwipeGestureListener.OnSw
     }
 
     public void onDateChanged(LocalDate currentDate) {
-        this.currentDate = currentDate;
+        PakpiFragment.currentDate = currentDate;
         buildCalendar();
 
     }

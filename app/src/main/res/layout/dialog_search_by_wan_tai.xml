@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="2118 ၼီႈ၊ လိူၼ်ၸဵင်မႂ်ႇ 1 ဝၼ်း"
+        android:gravity="center"
+        android:layout_margin="8dp"
+        android:textSize="20sp"
+        android:textColor="@color/md_theme_primary"
+        android:textStyle="bold"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp">
+
+        <ImageButton
+            android:id="@+id/ibSubYear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_primary_button"
+            android:contentDescription="Subtract Year"
+            android:padding="8dp"
+            android:src="@drawable/ic_add"
+            app:tint="@color/md_theme_onPrimary" />
+
+        <TextView
+
+            android:text="2118"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:id="@+id/spYear"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="8dp"
+            android:layout_weight="1" />
+
+        <ImageButton
+            android:id="@+id/ibAddYear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_primary_button"
+            android:contentDescription="Add Year"
+            android:padding="8dp"
+            android:src="@drawable/ic_add"
+            app:tint="@color/md_theme_onPrimary" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp">
+
+        <ImageButton
+            android:id="@+id/ibSubMonth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_primary_button"
+            android:padding="8dp"
+            android:src="@drawable/ic_add"
+            app:tint="@color/md_theme_onPrimary" />
+
+        <TextView
+
+            android:text="လိူၼ်ၸဵင်"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:id="@+id/spMonth"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="8dp"
+            android:layout_weight="1" />
+
+        <ImageButton
+            android:id="@+id/ibAddMonth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_primary_button"
+            android:padding="8dp"
+            android:src="@drawable/ic_add"
+            app:tint="@color/md_theme_onPrimary" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp">
+
+        <ImageButton
+            android:id="@+id/ibSubDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_primary_button"
+            android:padding="8dp"
+            android:src="@drawable/ic_add"
+            app:tint="@color/md_theme_onPrimary" />
+
+        <TextView
+
+            android:text="1"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:id="@+id/spDay"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="8dp"
+            android:layout_weight="1" />
+
+        <ImageButton
+            android:id="@+id/ibAddDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_primary_button"
+            android:padding="8dp"
+            android:src="@drawable/ic_add"
+            app:tint="@color/md_theme_onPrimary" />
+    </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="သွၵ်ႈႁႃ"
+        android:textSize="18sp"
+        app:cornerRadius="8dp" />
+
+</LinearLayout>

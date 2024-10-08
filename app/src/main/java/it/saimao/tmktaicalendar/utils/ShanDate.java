@@ -816,10 +816,55 @@ public class ShanDate {
         return Integer.parseInt(getShanYear());
     }
 
+    public int getShanMonth() {
+
+        int shanMonth = myanmarDate.getMonth() + 4;
+        if (shanMonth > 12) shanMonth = shanMonth - 12;
+        return shanMonth;
+    }
+
+    public String getShanMonthString() {
+        return shanMonths.get(getShanMonth());
+    }
+
+    public int getShanFortnightDay() {
+        return myanmarDate.getFortnightDayValue();
+    }
+
+    public int getShanDay() {
+        return myanmarDate.getDayOfMonth();
+    }
+
     public static int getShanMonth(MyanmarDate md) {
         int shanMonth = md.getMonth() + 4;
         if (shanMonth > 12) shanMonth = shanMonth - 12;
         return shanMonth;
+    }
+
+    public static final Map<Integer, String> shanMonths;
+
+    static {
+        shanMonths = new HashMap<>();
+        shanMonths.put(1, "လိူၼ်ၸဵင်");
+        shanMonths.put(2, "လိူၼ်ၵမ်");
+        shanMonths.put(3, "လိူၼ်သၢမ်");
+        shanMonths.put(4, "လိူၼ်သီႇ");
+        shanMonths.put(5, "လိူၼ်ႁႃႈ");
+        shanMonths.put(6, "လိူၼ်ႁူၵ်ႉ");
+        shanMonths.put(7, "လိူၼ်ၸဵတ်း");
+        shanMonths.put(8, "လိူၼ်ပႅတ်ႇ");
+        shanMonths.put(9, "လိူၼ်ၵဝ်ႈ");
+        shanMonths.put(10, "လိူၼ်သိပ်း");
+        shanMonths.put(11, "လိူၼ်သိပ်းဢဵတ်း");
+        shanMonths.put(12, "လိူၼ်သိပ်းသွင်");
+    }
+
+    public static String getShanMonthByKey(int key) {
+        return shanMonths.get(key);
+    }
+
+    public static int getShanMonthValueByKey(String key) {
+        return shanMonths.entrySet().stream().filter(val -> val.getValue().equals(key)).findFirst().get().getKey();
     }
 
     public static List<String> shanSpecialDays(MyanmarDate md) {

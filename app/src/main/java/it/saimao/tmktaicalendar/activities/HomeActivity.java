@@ -1,8 +1,10 @@
 package it.saimao.tmktaicalendar.activities;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
@@ -20,10 +22,13 @@ import java.util.Date;
 import it.saimao.tmktaicalendar.R;
 import it.saimao.tmktaicalendar.database.Note;
 import it.saimao.tmktaicalendar.databinding.ActivityHomeBinding;
+import it.saimao.tmktaicalendar.databinding.DialogSearchByWanTaiBinding;
 import it.saimao.tmktaicalendar.fragments.CalendarFragment;
 import it.saimao.tmktaicalendar.fragments.HolidaysFragment;
 import it.saimao.tmktaicalendar.fragments.NoteListFragment;
 import it.saimao.tmktaicalendar.fragments.PakpiFragment;
+import it.saimao.tmktaicalendar.mmcalendar.MyanmarDate;
+import it.saimao.tmktaicalendar.utils.ShanDate;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -78,6 +83,9 @@ public class HomeActivity extends AppCompatActivity {
                 showDatePicker();
                 binding.getRoot().closeDrawer(GravityCompat.START);
 
+            } else if (item.getItemId() == R.id.nav_byShan) {
+                showShanDatePicker();
+                binding.getRoot().closeDrawer(GravityCompat.START);
             }
 
 
@@ -90,6 +98,87 @@ public class HomeActivity extends AppCompatActivity {
         calendarFragment = new CalendarFragment();
         replaceFragment(calendarFragment);
 
+    }
+
+    private DialogSearchByWanTaiBinding datePickerBinding;
+    private AlertDialog shanDatePickerDialog;
+
+    private void showShanDatePicker() {
+        if (datePickerBinding == null || shanDatePickerDialog == null) {
+
+
+            datePickerBinding = DialogSearchByWanTaiBinding.inflate(LayoutInflater.from(this));
+            datePickerBinding.ibSubYear.setOnClickListener(view -> {
+                int year = Integer.parseInt(datePickerBinding.spYear.getText().toString());
+                year--;
+                datePickerBinding.spYear.setText(String.valueOf(year));
+            });
+            datePickerBinding.ibAddYear.setOnClickListener(view -> {
+                int year = Integer.parseInt(datePickerBinding.spYear.getText().toString());
+                year++;
+                datePickerBinding.spYear.setText(String.valueOf(year));
+            });
+            datePickerBinding.ibSubMonth.setOnClickListener(view -> {
+                String month = datePickerBinding.spMonth.getText().toString();
+                int monthInt = ShanDate.getShanMonthValueByKey(month);
+                if (monthInt == 1) monthInt = 13;
+                monthInt--;
+                datePickerBinding.spMonth.setText(ShanDate.getShanMonthByKey(monthInt));
+            });
+            datePickerBinding.ibAddMonth.setOnClickListener(view -> {
+                String month = datePickerBinding.spMonth.getText().toString();
+                int monthInt = ShanDate.getShanMonthValueByKey(month);
+                if (monthInt == 12) monthInt = 0;
+                monthInt++;
+                datePickerBinding.spMonth.setText(ShanDate.getShanMonthByKey(monthInt));
+            });
+            datePickerBinding.ibSubDay.setOnClickListener(view -> {
+                int day = Integer.parseInt(datePickerBinding.spDay.getText().toString());
+                day--;
+                datePickerBinding.spDay.setText(String.valueOf(day));
+            });
+            datePickerBinding.ibAddDay.setOnClickListener(view -> {
+                int day = Integer.parseInt(datePickerBinding.spDay.getText().toString());
+                day++;
+                datePickerBinding.spDay.setText(String.valueOf(day));
+            });
+
+
+            var dialogBuilder = new AlertDialog.Builder(this)
+                    .setView(datePickerBinding.getRoot());
+            shanDatePickerDialog = dialogBuilder.create();
+        }
+
+        LocalDate currentDate = getCurrentDate();
+        ShanDate shanDate = new ShanDate(MyanmarDate.of(currentDate));
+
+        initDatePickerUi(shanDate);
+
+
+        shanDatePickerDialog.show();
+
+    }
+
+    private void initDatePickerUi(ShanDate shanDate) {
+
+        datePickerBinding.spYear.setText(String.valueOf(shanDate.getShanYear()));
+
+
+        datePickerBinding.spMonth.setText(String.valueOf(shanDate.getShanMonthString()));
+
+
+        datePickerBinding.spDay.setText(String.valueOf(shanDate.getShanDay()));
+
+
+    }
+
+    private LocalDate getCurrentDate() {
+        if (activeFragment instanceof CalendarFragment frg)
+            return CalendarFragment.currentDate;
+        else if (activeFragment instanceof PakpiFragment frg)
+            return CalendarFragment.currentDate;
+        else
+            return LocalDate.now();
     }
 
     private void showDatePicker() {
