@@ -147,7 +147,7 @@ public class HomeActivity extends AppCompatActivity {
             }
             // Rate this app
             else if (item.getItemId() == R.id.nav_rating) {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=it.saimao.tmktaikeyboard")));
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=it.saimao.pakpicalendar")));
                 binding.getRoot().closeDrawer(GravityCompat.START);
             }
 

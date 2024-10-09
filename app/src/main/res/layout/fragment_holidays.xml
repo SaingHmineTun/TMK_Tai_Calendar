@@ -12,8 +12,7 @@
         android:id="@+id/lyAction"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_margin="8dp"
         android:orientation="horizontal"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -32,10 +31,10 @@
             android:layout_marginHorizontal="8dp"
             android:layout_weight="1"
             android:background="@drawable/bg_weekdays"
-            android:textColor="@color/md_theme_onPrimary"
-            android:fontFamily="@font/aj_kunheing_6"
+            android:fontFamily="@font/aj_kunheing_etm08"
             android:gravity="center"
             android:text="2024"
+            android:textColor="@color/md_theme_onPrimary"
             android:textSize="22sp" />
 
         <ImageButton

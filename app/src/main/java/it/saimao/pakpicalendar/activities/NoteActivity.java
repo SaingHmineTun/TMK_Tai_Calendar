@@ -18,8 +18,6 @@ import java.time.format.FormatStyle;
 import java.util.List;
 
 import it.saimao.pakpicalendar.R;
-import it.saimao.pakpicalendar.utils.ShanDate;
-import it.saimao.pakpicalendar.utils.Utils;
 import it.saimao.pakpicalendar.adapters.NoteAdapter;
 import it.saimao.pakpicalendar.database.AppDatabase;
 import it.saimao.pakpicalendar.database.Note;
@@ -27,6 +25,8 @@ import it.saimao.pakpicalendar.database.NoteDao;
 import it.saimao.pakpicalendar.databinding.ActivityNoteBinding;
 import it.saimao.pakpicalendar.mmcalendar.Language;
 import it.saimao.pakpicalendar.mmcalendar.MyanmarDate;
+import it.saimao.pakpicalendar.utils.ShanDate;
+import it.saimao.pakpicalendar.utils.Utils;
 
 public class NoteActivity extends AppCompatActivity {
 

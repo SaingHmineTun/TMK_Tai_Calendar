@@ -18,7 +18,7 @@ public class Utils {
     public static List<Note> getTodayEvents(NoteDao noteDao, LocalDate date) {
         return noteDao.getAllNotes().stream().filter(note -> {
             if (note.isEveryYear()) {
-                return date.getMonthValue() == note.getCreated().getMonthValue() && date.getDayOfMonth() == note.getCreated().getDayOfMonth();
+                return date.getYear() >= note.getCreated().getYear() && date.getMonthValue() == note.getCreated().getMonthValue() && date.getDayOfMonth() == note.getCreated().getDayOfMonth();
             } else {
                 return date.isEqual(note.getCreated());
             }

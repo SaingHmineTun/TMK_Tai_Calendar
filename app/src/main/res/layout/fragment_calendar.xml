@@ -42,7 +42,7 @@
                 android:id="@+id/tv_full_date"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:fontFamily="@font/aj_kunheing_6"
+                android:fontFamily="@font/aj_kunheing_etm08"
                 android:gravity="center"
                 android:padding="8dp"
                 android:text="28/07/2024"
@@ -67,7 +67,7 @@
                 android:layout_height="match_parent"
                 android:ellipsize="marquee"
 
-                android:fontFamily="@font/aj_kunheing_6"
+                android:fontFamily="@font/aj_kunheing_etm08"
                 android:gravity="center"
                 android:marqueeRepeatLimit="marquee_forever"
                 android:padding="8dp"

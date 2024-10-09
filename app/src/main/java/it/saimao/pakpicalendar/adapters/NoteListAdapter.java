@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.ArrayList;
@@ -57,15 +58,17 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.NoteVi
 
 
         Note note = noteList.get(position);
-        holder.binding.tvNoteTitle.setText(note.getTitle());
         holder.binding.cvNote.setOnClickListener(view -> {
             listener.onNoteClicked(note);
         });
 
         if (note.isEveryYear()) {
             holder.binding.ivEvent.setImageResource(R.drawable.event);
+            String date = LocalDate.now().getYear() - note.getCreated().getYear() == 0 ? note.getTitle() : note.getTitle() + " (" + (LocalDate.now().getYear() - note.getCreated().getYear()) + " ပီႊ)";
+            holder.binding.tvNoteTitle.setText(date);
         } else {
             holder.binding.ivEvent.setImageResource(R.drawable.note);
+            holder.binding.tvNoteTitle.setText(note.getTitle());
         }
         holder.binding.ibDeleteNote.setOnClickListener(view -> listener.onNoteDeleted(note));
         holder.binding.tvNoteDay.setText(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG).format(note.getCreated()));

@@ -29,7 +29,7 @@
                 android:id="@+id/appTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/aj_kunheing_6"
+                android:fontFamily="@font/aj_kunheing_etm08"
                 android:text="@string/pakpi_tai"
                 android:textSize="24sp" />
 
