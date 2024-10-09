@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
 
         android:layout_height="wrap_content"
-        android:background="@color/md_theme_tertiary"
+        android:background="?colorTertiary"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingHorizontal="8dp"
@@ -49,7 +49,7 @@
                 android:layout_marginBottom="8dp"
                 android:layout_weight="1"
                 android:text="February 14, 2024"
-                android:textColor="@color/md_theme_onTertiary" />
+                android:textColor="?colorOnTertiary" />
 
             <TextView
                 android:id="@+id/tvNoteDay"
@@ -58,7 +58,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
                 android:text="ၵိၼ်ၶဝ်ႈဝၼ်း"
-                android:textColor="@color/md_theme_onTertiary" />
+                android:textColor="?colorOnTertiary" />
         </LinearLayout>
 
 

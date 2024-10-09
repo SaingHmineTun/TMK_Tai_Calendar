@@ -35,9 +35,9 @@
             android:id="@+id/btCancelDialog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/md_theme_error"
+            android:backgroundTint="?colorError"
             android:text="Cancel"
-            android:textColor="@color/md_theme_onError"
+            android:textColor="?colorOnError"
             app:cornerRadius="8dp" />
 
         <View
@@ -49,9 +49,9 @@
             android:id="@+id/btSearchDialog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/md_theme_primary"
+            android:backgroundTint="?colorPrimary"
             android:text="Search"
-            android:textColor="@color/md_theme_onPrimary"
+            android:textColor="?colorOnPrimary"
             app:cornerRadius="8dp" />
 
         <View

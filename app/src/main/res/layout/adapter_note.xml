@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
 
         android:layout_height="match_parent"
-        android:background="@color/md_theme_tertiary"
+        android:background="?colorTertiary"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingHorizontal="8dp"
@@ -29,7 +29,7 @@
             android:layout_marginStart="8dp"
             android:layout_weight="1"
             android:text="Title"
-            android:textColor="@color/md_theme_onTertiary" />
+            android:textColor="?colorOnTertiary" />
 
         <ImageButton
 

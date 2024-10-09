@@ -104,7 +104,7 @@
                     android:background="@drawable/bg_weekends"
                     android:gravity="center"
                     android:text="ၵၢပ်ႇ"
-                    android:textColor="#DEF"
+                    android:textColor="?colorOnError"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -116,7 +116,7 @@
                     android:background="@drawable/bg_weekdays"
                     android:gravity="center"
                     android:text="လပ်း"
-                    android:textColor="#DEF"
+                    android:textColor="?colorOnPrimary"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -128,7 +128,7 @@
                     android:background="@drawable/bg_weekdays"
                     android:gravity="center"
                     android:text="ႁၢႆး"
-                    android:textColor="#DEF"
+                    android:textColor="?colorOnPrimary"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -140,7 +140,7 @@
                     android:background="@drawable/bg_weekdays"
                     android:gravity="center"
                     android:text="မိူင်း"
-                    android:textColor="#DEF"
+                    android:textColor="?colorOnPrimary"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -152,7 +152,7 @@
                     android:background="@drawable/bg_weekdays"
                     android:gravity="center"
                     android:text="ပိုၵ်း"
-                    android:textColor="#DEF"
+                    android:textColor="?colorOnPrimary"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -164,7 +164,7 @@
                     android:background="@drawable/bg_weekends"
                     android:gravity="center"
                     android:text="ၵတ်း"
-                    android:textColor="#DEF"
+                    android:textColor="?colorOnError"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -176,7 +176,7 @@
                     android:background="@drawable/bg_weekdays"
                     android:gravity="center"
                     android:text="ၶုတ်း"
-                    android:textColor="#DEF"
+                    android:textColor="?colorOnPrimary"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -188,7 +188,7 @@
                     android:background="@drawable/bg_weekdays"
                     android:gravity="center"
                     android:text="ႁုင်ႉ"
-                    android:textColor="#DEF"
+                    android:textColor="?colorOnPrimary"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -200,7 +200,7 @@
                     android:background="@drawable/bg_weekdays"
                     android:gravity="center"
                     android:text="တဝ်ႇ"
-                    android:textColor="#DEF"
+                    android:textColor="?colorOnPrimary"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -212,7 +212,7 @@
                     android:background="@drawable/bg_weekdays"
                     android:gravity="center"
                     android:text="ၵႃႇ"
-                    android:textColor="#DEF"
+                    android:textColor="?colorOnPrimary"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 

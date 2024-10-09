@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:gravity="center"
-        android:textColor="@color/md_theme_primary"
+        android:textColor="?colorPrimary"
         android:textSize="16sp"
         android:textStyle="bold" />
 
@@ -32,7 +32,7 @@
             android:contentDescription="Subtract Year"
             android:padding="8dp"
             android:src="@drawable/ic_remove"
-            app:tint="@color/md_theme_onPrimary" />
+            app:tint="?colorOnPrimary" />
 
         <TextView
 
@@ -53,7 +53,7 @@
             android:contentDescription="Add Year"
             android:padding="8dp"
             android:src="@drawable/ic_add"
-            app:tint="@color/md_theme_onPrimary" />
+            app:tint="?colorOnPrimary" />
     </LinearLayout>
 
     <LinearLayout
@@ -68,7 +68,7 @@
             android:background="@drawable/rounded_primary_button"
             android:padding="8dp"
             android:src="@drawable/ic_remove"
-            app:tint="@color/md_theme_onPrimary" />
+            app:tint="?colorOnPrimary" />
 
         <TextView
 
@@ -88,7 +88,7 @@
             android:background="@drawable/rounded_primary_button"
             android:padding="8dp"
             android:src="@drawable/ic_add"
-            app:tint="@color/md_theme_onPrimary" />
+            app:tint="?colorOnPrimary" />
     </LinearLayout>
 
     <LinearLayout
@@ -103,7 +103,7 @@
             android:background="@drawable/rounded_primary_button"
             android:padding="8dp"
             android:src="@drawable/ic_remove"
-            app:tint="@color/md_theme_onPrimary" />
+            app:tint="?colorOnPrimary" />
 
         <TextView
 
@@ -123,7 +123,7 @@
             android:background="@drawable/rounded_primary_button"
             android:padding="8dp"
             android:src="@drawable/ic_add"
-            app:tint="@color/md_theme_onPrimary" />
+            app:tint="?colorOnPrimary" />
     </LinearLayout>
 
     <com.google.android.material.button.MaterialButton

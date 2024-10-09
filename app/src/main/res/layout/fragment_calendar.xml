@@ -118,7 +118,7 @@
                     android:background="@drawable/bg_weekends"
                     android:gravity="center"
                     android:text="SUN"
-                    android:textColor="#DEF"
+                    android:textColor="?colorOnError"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -130,7 +130,7 @@
                     android:background="@drawable/bg_weekdays"
                     android:gravity="center"
                     android:text="MON"
-                    android:textColor="#DEF"
+                    android:textColor="?colorOnPrimary"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -142,7 +142,7 @@
                     android:background="@drawable/bg_weekdays"
                     android:gravity="center"
                     android:text="TUE"
-                    android:textColor="#DEF"
+                    android:textColor="?colorOnPrimary"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -154,7 +154,7 @@
                     android:background="@drawable/bg_weekdays"
                     android:gravity="center"
                     android:text="WED"
-                    android:textColor="#DEF"
+                    android:textColor="?colorOnPrimary"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -166,7 +166,7 @@
                     android:background="@drawable/bg_weekdays"
                     android:gravity="center"
                     android:text="THU"
-                    android:textColor="#DEF"
+                    android:textColor="?colorOnPrimary"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -178,7 +178,7 @@
                     android:background="@drawable/bg_weekdays"
                     android:gravity="center"
                     android:text="FRI"
-                    android:textColor="#DEF"
+                    android:textColor="?colorOnPrimary"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -190,7 +190,7 @@
                     android:background="@drawable/bg_weekends"
                     android:gravity="center"
                     android:text="SAT"
-                    android:textColor="#DEF"
+                    android:textColor="?colorOnError"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 

@@ -3,7 +3,7 @@
     <item android:state_pressed="false">
         <shape android:shape="oval">
 
-            <solid android:color="@color/md_theme_primary" />
+            <solid android:color="?colorPrimary" />
             <corners android:radius="48dp" />
 
         </shape>
@@ -11,7 +11,7 @@
     <item android:state_pressed="true">
         <shape android:shape="oval">
 
-            <solid android:color="@color/md_theme_primary_mediumContrast" />
+            <solid android:color="?colorPrimary_mediumContrast" />
             <corners android:radius="48dp" />
 
         </shape>

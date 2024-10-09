@@ -24,7 +24,7 @@
             android:fontFamily="@font/aj_kunheing_etm08"
             android:gravity="center"
             android:text="ဝၼ်းပီႊမႂ်ႇၵမ်ႇၾႃႇ"
-            android:textColor="@color/md_theme_primary"
+            android:textColor="?colorPrimary"
             android:textSize="22sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -65,7 +65,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/md_theme_onBackground" />
+            app:tint="?colorOnBackground" />
 
         <ImageButton
             android:id="@+id/ibViewDay"
@@ -79,7 +79,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/ibAddNote"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/md_theme_onBackground" />
+            app:tint="?colorOnBackground" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

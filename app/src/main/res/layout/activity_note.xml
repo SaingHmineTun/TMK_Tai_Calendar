@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
-    android:background="#C1B6A2"
+    android:background="?colorPakpi"
     android:paddingHorizontal="8dp"
     tools:context=".activities.NoteActivity">
 
@@ -31,6 +31,7 @@
             android:layout_marginHorizontal="4dp"
             android:layout_weight="1"
             android:clickable="true"
+            android:backgroundTint="?colorOnPakpi"
             app:cardElevation="4dp"
             app:cardMaxElevation="8dp">
 
@@ -64,6 +65,7 @@
         app:layout_constraintTop_toBottomOf="@id/ly0">
 
         <LinearLayout
+            android:background="?colorOnPakpi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
@@ -96,6 +98,7 @@
         app:layout_constraintTop_toBottomOf="@id/ly1">
 
         <LinearLayout
+            android:background="?colorOnPakpi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
@@ -128,6 +131,7 @@
         app:layout_constraintTop_toBottomOf="@id/ly2">
 
         <LinearLayout
+            android:background="?colorOnPakpi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
@@ -161,6 +165,7 @@
         app:layout_constraintTop_toBottomOf="@id/ly3">
 
         <LinearLayout
+            android:background="?colorOnPakpi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
@@ -183,6 +188,7 @@
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
+        android:backgroundTint="?colorOnPakpi"
         android:id="@+id/ly5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -218,7 +224,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/md_theme_primary"
+                android:background="?colorPrimary"
                 android:gravity="center_vertical"
                 android:padding="8dp">
 
@@ -227,7 +233,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="တီႈမၢႆတွင်း"
-                    android:textColor="@color/md_theme_onPrimary" />
+                    android:textColor="?colorOnPrimary" />
 
                 <ImageButton
 
@@ -243,6 +249,8 @@
                 android:layout_height="match_parent">
 
                 <androidx.recyclerview.widget.RecyclerView
+
+                    android:background="?colorOnPakpi"
                     android:id="@+id/rvNotes"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -267,7 +275,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:text="ၼဵၵ်းပၼ် + တႃႇတႅမ်ႈမၢႆတွင်းလႄႈ"
-                        android:textColor="@color/md_theme_error" />
+                        android:textColor="?colorError" />
 
                 </LinearLayout>
 

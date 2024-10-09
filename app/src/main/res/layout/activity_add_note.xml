@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#C1B6A2"
+    android:background="?colorPakpi"
     android:orientation="vertical"
     android:padding="8dp"
     tools:context=".activities.AddNoteActivity">
@@ -139,9 +139,9 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="4dp"
             android:layout_weight="1"
-            android:backgroundTint="@color/md_theme_error"
+            android:backgroundTint="?colorError"
             android:text="Cancel"
-            android:textColor="@color/md_theme_onError"
+            android:textColor="?colorOnError"
             app:cornerRadius="8dp" />
 
         <com.google.android.material.button.MaterialButton
@@ -150,9 +150,9 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="4dp"
             android:layout_weight="1"
-            android:backgroundTint="@color/md_theme_primary"
+            android:backgroundTint="?colorPrimary"
             android:text="Save"
-            android:textColor="@color/md_theme_onPrimary"
+            android:textColor="?colorOnPrimary"
             app:cornerRadius="8dp" />
 
     </LinearLayout>

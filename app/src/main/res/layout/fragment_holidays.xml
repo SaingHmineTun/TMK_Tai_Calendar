@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_color"
+    android:background="?colorPakpi"
     tools:context=".fragments.HolidaysFragment">
 
     <LinearLayout
@@ -34,7 +34,7 @@
             android:fontFamily="@font/aj_kunheing_etm08"
             android:gravity="center"
             android:text="2024"
-            android:textColor="@color/md_theme_onPrimary"
+            android:textColor="?colorOnPrimary"
             android:textSize="22sp" />
 
         <ImageButton
