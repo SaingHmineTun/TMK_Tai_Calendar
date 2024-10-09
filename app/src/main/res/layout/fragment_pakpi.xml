@@ -8,7 +8,6 @@
     android:orientation="vertical">
 
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main"
         android:layout_width="match_parent"
@@ -16,46 +15,54 @@
         android:paddingHorizontal="16dp"
         tools:context=".activities.MainActivity">
 
-        <TextView
-            android:id="@+id/tv_full_date"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv_full_date"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
-            android:background="@drawable/bg_item"
-            android:clickable="true"
-            android:fontFamily="@font/aj_kunheing_6"
-            android:foreground="?android:selectableItemBackgroundBorderless"
-            android:gravity="center"
-            android:maxLines="1"
-            android:padding="8dp"
-            android:text="28/07/2024"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@id/tv_date"
+            app:layout_constraintEnd_toStartOf="@id/cv_date"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/tv_date"
+            <TextView
+                android:id="@+id/tv_full_date"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/aj_kunheing_6"
+                android:gravity="center"
+                android:maxLines="1"
+                android:padding="8dp"
+                android:text="28/07/2024"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+
+            android:id="@+id/cv_date"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_item"
-            android:clickable="true"
-            android:ellipsize="marquee"
-            android:fontFamily="@font/aj_kunheing_6"
-            android:foreground="?android:selectableItemBackgroundBorderless"
-            android:gravity="center"
-            android:marqueeRepeatLimit="marquee_forever"
-            android:padding="8dp"
-            android:scrollHorizontally="true"
-            android:singleLine="true"
-            android:text="ဝၼ်းဢၢင်းၵၢင်း"
-            android:textSize="18sp"
-            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/tv_full_date"
-            app:layout_constraintTop_toTopOf="@id/tv_full_date" />
+            app:layout_constraintStart_toEndOf="@id/cv_full_date"
+            app:layout_constraintTop_toTopOf="@id/cv_full_date">
+
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ellipsize="marquee"
+                android:fontFamily="@font/aj_kunheing_6"
+                android:gravity="center"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:padding="8dp"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:text="ဝၼ်းဢၢင်းၵၢင်း"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </com.google.android.material.card.MaterialCardView>
+
 
         <TextView
             android:id="@+id/tv_detail"
@@ -69,7 +76,7 @@
             android:padding="8dp"
             android:textSize="14sp"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/tv_date" />
+            app:layout_constraintTop_toBottomOf="@id/cv_date" />
 
         <LinearLayout
             android:layout_width="match_parent"

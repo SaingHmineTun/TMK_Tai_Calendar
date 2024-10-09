@@ -1,7 +1,6 @@
 package it.saimao.tmktaicalendar.fragments;
 
 import android.annotation.SuppressLint;
-import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -24,7 +23,6 @@ import java.util.Locale;
 
 import it.saimao.tmktaicalendar.R;
 import it.saimao.tmktaicalendar.activities.HomeActivity;
-import it.saimao.tmktaicalendar.activities.MainActivity;
 import it.saimao.tmktaicalendar.adapters.SwipeGestureListener;
 import it.saimao.tmktaicalendar.database.AppDatabase;
 import it.saimao.tmktaicalendar.database.Note;
@@ -90,11 +88,17 @@ public class PakpiFragment extends Fragment implements SwipeGestureListener.OnSw
 
         binding.tvDetail.setOnClickListener(view -> goNoteDetail(currentDate));
 
-        binding.tvDate.setOnClickListener(view -> {
+        binding.cvDate.setOnClickListener(view -> {
             Snackbar.make(binding.getRoot(), "တေၵႂႃႇၶိုၼ်း ဝၼ်းမိူဝ်ႈၼႆႉႁိုဝ်ႉ?", Snackbar.LENGTH_LONG).setAction("တေၵႂႃႇ", view1 -> {
                 currentDate = LocalDate.now();
                 buildCalendar();
             }).show();
+        });
+
+        binding.cvFullDate.setOnClickListener(view -> {
+            HomeActivity activity = (HomeActivity) getActivity();
+            if (activity != null)
+                activity.showShanDatePicker();
         });
 
 

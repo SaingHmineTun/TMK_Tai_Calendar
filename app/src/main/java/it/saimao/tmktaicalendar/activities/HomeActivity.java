@@ -175,7 +175,7 @@ public class HomeActivity extends AppCompatActivity {
         return MyanmarDate.create(year, ShanDate.getMyanmarMonth(month), day);
     }
 
-    private void showShanDatePicker() {
+    public void showShanDatePicker() {
         if (datePickerBinding == null || shanDatePickerDialog == null) {
 
 
@@ -297,7 +297,7 @@ public class HomeActivity extends AppCompatActivity {
             return LocalDate.now();
     }
 
-    private void showDatePicker() {
+    public void showDatePicker() {
         if (datePickerDialog == null) {
 
             datePickerDialog = new DatePickerDialog(this);

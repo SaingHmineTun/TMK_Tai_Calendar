@@ -83,12 +83,15 @@ public class CalendarFragment extends Fragment implements SwipeGestureListener.O
             return true;
         });
 
-//        binding.tvFullDate.setOnClickListener(view -> showDatePicker());
-
 
         binding.tvDetail.setOnClickListener(view -> goNoteDetail(currentDate));
 
-        binding.tvDate.setOnClickListener(view -> {
+
+        binding.cvFullDate.setOnClickListener(view -> {
+            HomeActivity activity = (HomeActivity) getActivity();
+            if (activity != null) activity.showDatePicker();
+        });
+        binding.cvDate.setOnClickListener(view -> {
             Snackbar.make(binding.getRoot(), "တေၵႂႃႇၶိုၼ်း ဝၼ်းမိူဝ်ႈၼႆႉႁိုဝ်ႉ?", Snackbar.LENGTH_LONG).setAction("တေၵႂႃႇ", view1 -> {
                 currentDate = LocalDate.now();
                 buildCalendar();

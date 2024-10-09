@@ -1,77 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main"
-        tools:context=".activities.MainActivity"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingHorizontal="16dp">
+        android:paddingHorizontal="16dp"
+        tools:context=".activities.MainActivity">
 
 
         <TextView
             android:id="@+id/tv_day"
-            app:layout_constraintBottom_toTopOf="@id/tv_detail"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             android:layout_width="125dp"
             android:layout_height="wrap_content"
             android:paddingTop="16dp"
             android:text="28"
             android:textAlignment="textStart"
             android:textSize="80sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/tv_detail"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tv_full_date"
-            app:layout_constraintBottom_toTopOf="@+id/tv_date"
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv_full_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/cv_date"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/tv_day"
-            app:layout_constraintTop_toTopOf="@id/tv_day"
+            app:layout_constraintTop_toTopOf="@id/tv_day">
+
+            <TextView
+                android:id="@+id/tv_full_date"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/aj_kunheing_6"
+                android:gravity="center"
+                android:padding="8dp"
+                android:text="28/07/2024"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </com.google.android.material.card.MaterialCardView>
+
+
+        <com.google.android.material.card.MaterialCardView
+
+            android:id="@+id/cv_date"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_item"
-            android:clickable="true"
-            android:fontFamily="@font/aj_kunheing_6"
-            android:foreground="?android:selectableItemBackgroundBorderless"
-            android:gravity="center"
-            android:padding="8dp"
-            android:text="28/07/2024"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/tv_date"
             app:layout_constraintBottom_toBottomOf="@id/tv_day"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/cv_full_date"
+            app:layout_constraintTop_toBottomOf="@id/cv_full_date">
 
-            app:layout_constraintStart_toStartOf="@id/tv_full_date"
-            app:layout_constraintTop_toBottomOf="@id/tv_full_date"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_item"
-            android:clickable="true"
-            android:ellipsize="marquee"
-            android:fontFamily="@font/aj_kunheing_6"
-            android:foreground="?android:selectableItemBackgroundBorderless"
-            android:gravity="center"
-            android:marqueeRepeatLimit="marquee_forever"
-            android:padding="8dp"
-            android:singleLine="true"
-            android:text="ဝၼ်းဢၢင်းၵၢင်း"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ellipsize="marquee"
+
+                android:fontFamily="@font/aj_kunheing_6"
+                android:gravity="center"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:padding="8dp"
+                android:singleLine="true"
+                android:text="ဝၼ်းဢၢင်းၵၢင်း"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </com.google.android.material.card.MaterialCardView>
+
 
         <TextView
             android:id="@+id/tv_detail"
-            app:layout_constraintTop_toBottomOf="@id/tv_day"
-
             android:layout_width="match_parent"
+
             android:layout_height="wrap_content"
             android:background="@drawable/bg_item"
             android:clickable="true"
@@ -79,16 +89,17 @@
             android:padding="8dp"
             android:text="သာသနာနှစ် ၂၅၆၈ ခု၊ မြန်မာနှစ် ၁၃၈၆ ခု၊ ဝါဆို လဆုတ် ၈ ရ်၊ တနင်္ဂနွေနေ့"
             android:textSize="14sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/tv_day" />
 
         <LinearLayout
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_detail"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="16dp"
             android:orientation="horizontal"
-            android:weightSum="6">
+            android:weightSum="6"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_detail">
 
             <LinearLayout
                 android:id="@+id/ll_days"
@@ -187,15 +198,15 @@
 
             <GridLayout
                 android:id="@+id/gl_date"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ll_days"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="5"
                 android:animateLayoutChanges="true"
                 android:columnCount="5"
                 android:orientation="vertical"
-                android:rowCount="7">
+                android:rowCount="7"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ll_days">
 
                 <RelativeLayout
                     android:layout_width="0dp"

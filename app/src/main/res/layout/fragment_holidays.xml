@@ -8,11 +8,53 @@
     android:background="@color/bg_color"
     tools:context=".fragments.HolidaysFragment">
 
+    <LinearLayout
+        android:id="@+id/lyAction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/ibPrevYear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_primary_button"
+            android:padding="8dp"
+            android:src="@drawable/ic_left" />
+
+        <TextView
+            android:id="@+id/tvYear"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_weekdays"
+            android:textColor="@color/md_theme_onPrimary"
+            android:fontFamily="@font/aj_kunheing_6"
+            android:gravity="center"
+            android:text="2024"
+            android:textSize="22sp" />
+
+        <ImageButton
+            android:id="@+id/ibNextYear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_primary_button"
+            android:padding="8dp"
+            android:src="@drawable/ic_right" />
+
+    </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvHolidays"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
+
+        app:layout_constraintTop_toBottomOf="@id/lyAction"
         tools:listitem="@layout/adapter_holiday" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
