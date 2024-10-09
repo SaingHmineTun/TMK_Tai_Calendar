@@ -29,6 +29,8 @@
 
 
         <com.google.android.material.card.MaterialCardView
+        app:strokeWidth="0dp"
+            android:backgroundTint="?colorOnPakpi"
             android:id="@+id/cv_full_date"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -52,6 +54,8 @@
 
 
         <com.google.android.material.card.MaterialCardView
+        app:strokeWidth="0dp"
+            android:backgroundTint="?colorOnPakpi"
 
             android:id="@+id/cv_date"
             android:layout_width="0dp"

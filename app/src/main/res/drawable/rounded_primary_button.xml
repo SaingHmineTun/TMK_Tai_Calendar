@@ -11,7 +11,7 @@
     <item android:state_pressed="true">
         <shape android:shape="oval">
 
-            <solid android:color="?colorPrimary_mediumContrast" />
+            <solid android:color="?colorOnPrimaryContainer" />
             <corners android:radius="48dp" />
 
         </shape>

@@ -63,6 +63,7 @@
         android:orientation="vertical">
 
         <com.google.android.material.card.MaterialCardView
+        app:strokeWidth="0dp"
             android:id="@+id/lyEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -103,6 +104,7 @@
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
+        app:strokeWidth="0dp"
             android:id="@+id/lyFacebook"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -144,6 +146,7 @@
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
+        app:strokeWidth="0dp"
             android:id="@+id/lyGithub"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -186,6 +189,7 @@
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
+        app:strokeWidth="0dp"
             android:id="@+id/lyPlayStore"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

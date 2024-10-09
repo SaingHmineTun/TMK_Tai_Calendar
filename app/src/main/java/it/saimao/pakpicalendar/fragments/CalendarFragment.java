@@ -165,6 +165,7 @@ public class CalendarFragment extends Fragment implements SwipeGestureListener.O
         ImageView iv = (ImageView) layout.getChildAt(0);
         TextView myText = (TextView) layout.getChildAt(1);
         TextView enText = (TextView) layout.getChildAt(2);
+        TextView mPhase = (TextView) layout.getChildAt(3);
 
         layout.setTag(date);
         layout.setOnTouchListener((v, event) -> {
@@ -176,7 +177,6 @@ public class CalendarFragment extends Fragment implements SwipeGestureListener.O
         });
         layout.setOnClickListener(this::onDateClicked);
         layout.setOnLongClickListener(this::onLongDateClicked);
-        TextView mPhase = (TextView) layout.getChildAt(3);
 
         myText.setText(myDate.getFortnightDay());
         enText.setText(String.valueOf(date.getDayOfMonth()));
@@ -184,6 +184,7 @@ public class CalendarFragment extends Fragment implements SwipeGestureListener.O
 
         if (date.isEqual(LocalDate.now())) {
             layout.setBackgroundResource(R.drawable.bg_today);
+
         } else {
             layout.setBackgroundResource(R.drawable.bg_item);
         }

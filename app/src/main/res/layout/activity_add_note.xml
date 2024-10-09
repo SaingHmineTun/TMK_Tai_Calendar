@@ -11,8 +11,10 @@
     tools:context=".activities.AddNoteActivity">
 
     <com.google.android.material.card.MaterialCardView
+        app:strokeWidth="0dp"
         android:id="@+id/lyDate"
         android:layout_width="match_parent"
+        android:backgroundTint="?colorOnPakpi"
         android:layout_height="wrap_content"
         android:clickable="true"
         app:cardCornerRadius="8dp"

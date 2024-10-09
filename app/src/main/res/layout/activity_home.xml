@@ -32,6 +32,7 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/aj_kunheing_etm08"
                 android:text="@string/pakpi_tai"
+                android:textColor="?colorOnBackground"
                 android:textSize="24sp" />
 
 
