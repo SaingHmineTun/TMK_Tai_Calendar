@@ -6,7 +6,7 @@ android {
     compileSdk 35
 
     defaultConfig {
-        applicationId "it.saimao.tmktaicalendar"
+        applicationId "it.saimao.pakpicalendar"
         minSdk 26
         targetSdk 35
         versionCode 1
@@ -30,7 +30,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
-    namespace 'it.saimao.tmktaicalendar'
+    namespace 'it.saimao.pakpicalendar'
 }
 
 dependencies {
