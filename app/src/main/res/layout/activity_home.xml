@@ -27,11 +27,23 @@
 
             <TextView
                 android:id="@+id/appTitle"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:fontFamily="@font/aj_kunheing_etm08"
                 android:text="@string/pakpi_tai"
                 android:textSize="24sp" />
+
+
+            <ImageButton
+                android:id="@+id/ib_about"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="16dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="About page"
+                android:foreground="?selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_about" />
 
         </LinearLayout>
 

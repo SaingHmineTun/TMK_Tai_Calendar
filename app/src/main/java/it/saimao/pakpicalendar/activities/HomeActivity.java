@@ -31,6 +31,8 @@ import it.saimao.pakpicalendar.fragments.PakpiFragment;
 import it.saimao.pakpicalendar.mmcalendar.Language;
 import it.saimao.pakpicalendar.mmcalendar.LanguageTranslator;
 import it.saimao.pakpicalendar.mmcalendar.MyanmarDate;
+import it.saimao.pakpicalendar.utils.CalendarType;
+import it.saimao.pakpicalendar.utils.PrefManager;
 import it.saimao.pakpicalendar.utils.ShanDate;
 
 public class HomeActivity extends AppCompatActivity {
@@ -51,6 +53,14 @@ public class HomeActivity extends AppCompatActivity {
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         initNavigationDrawer();
+        initListener();
+    }
+
+    private void initListener() {
+        binding.ibAbout.setOnClickListener(view -> {
+            Intent intent = new Intent(this, AboutUsActivity.class);
+            startActivity(intent);
+        });
     }
 
     private ActionBarDrawerToggle toggle;
@@ -83,6 +93,7 @@ public class HomeActivity extends AppCompatActivity {
                 fragment = pakpiFragment;
                 replaceFragment(fragment);
                 pakpiFragment.setCurrentDate(date);
+                PrefManager.saveCalendarType(this, CalendarType.PAKPI);
             }
             // Go to Holidays Fragment
             else if (item.getItemId() == R.id.nav_holidays) {
@@ -96,6 +107,7 @@ public class HomeActivity extends AppCompatActivity {
                 fragment = calendarFragment;
                 replaceFragment(fragment);
                 calendarFragment.setCurrentDate(date);
+                PrefManager.saveCalendarType(this, CalendarType.NORMAL);
             }
             // Search by english date
             else if (item.getItemId() == R.id.nav_byEng) {
@@ -120,10 +132,8 @@ public class HomeActivity extends AppCompatActivity {
             else if (item.getItemId() == R.id.nav_facebook) {
                 Intent intent;
                 try {
-                    getPackageManager().getPackageInfo("com.facebook.katana", 0);
                     intent = new Intent(Intent.ACTION_VIEW, Uri.parse("fb://page/100377671433172"));
                 } catch (Exception e) {
-
                     intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/100377671433172"));
                 }
                 startActivity(intent);
@@ -133,6 +143,7 @@ public class HomeActivity extends AppCompatActivity {
             else if (item.getItemId() == R.id.nav_email) {
 
                 Intent intent;
+
                 String to = "tmk.muse@gmail.com";
                 intent = new Intent(Intent.ACTION_SEND);
                 intent.putExtra(Intent.EXTRA_EMAIL, new String[]{to});
@@ -158,8 +169,13 @@ public class HomeActivity extends AppCompatActivity {
 
         binding.getRoot().closeDrawer(GravityCompat.START);
 
-        calendarFragment = new CalendarFragment();
-        replaceFragment(calendarFragment);
+        if (PrefManager.getCalendarType(this) == CalendarType.NORMAL) {
+            calendarFragment = new CalendarFragment();
+            replaceFragment(calendarFragment);
+        } else if (PrefManager.getCalendarType(this) == CalendarType.PAKPI) {
+            pakpiFragment = new PakpiFragment();
+            replaceFragment(pakpiFragment);
+        }
 
     }
 

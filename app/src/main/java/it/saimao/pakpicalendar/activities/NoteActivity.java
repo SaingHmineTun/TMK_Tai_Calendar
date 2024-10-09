@@ -93,7 +93,6 @@ public class NoteActivity extends AppCompatActivity {
     }
 
     private void updateUi() {
-        MainActivity.setLastSelectedDate(todayDate);
         initData();
         refreshAdapter();
 

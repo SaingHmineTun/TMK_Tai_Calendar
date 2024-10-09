@@ -8,30 +8,45 @@
     android:orientation="vertical"
     tools:context=".activities.AboutUsActivity">
 
+
     <LinearLayout
-        android:id="@+id/ly_title"
+        android:id="@+id/toolBar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:layout_alignParentTop="true"
-        android:background="?colorPrimary"
-        android:gravity="center">
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/ib_back"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="16dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="Open Drawer"
+            android:foreground="?selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_navigate_back" />
 
         <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/appTitle"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="About Us"
-            android:textColor="?colorOnPrimary"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:layout_weight="1"
+            android:fontFamily="@font/aj_kunheing_etm08"
+            android:text="@string/aboutus"
+            android:textSize="24sp" />
 
     </LinearLayout>
+
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/toolBar" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:layout_below="@id/ly_title"
+        android:layout_below="@id/toolBar"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"

@@ -21,6 +21,7 @@ public class AboutUsActivity extends AppCompatActivity {
         binding.lyFacebook.setOnClickListener(v -> onItemClick(1));
         binding.lyGithub.setOnClickListener(v -> onItemClick(2));
         binding.lyPlayStore.setOnClickListener(v -> onItemClick(3));
+        binding.ibBack.setOnClickListener(view -> this.finish());
     }
 
     public void onItemClick(int i) {
@@ -41,7 +42,7 @@ public class AboutUsActivity extends AppCompatActivity {
         } else if (i == 2) {
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://itsaimao.wordpress.com/")));
         } else if (i == 3) {
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=it.saimao.tmktaicalendar")));
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=it.saimao.pakpicalendar")));
         }
     }
 }
