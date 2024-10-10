@@ -8,11 +8,26 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="it.saimao.doksu" />
+                  <option name="appId" value="it.saimao.tmktaikeyboard" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
               <option name="timeIntervalDays" value="SEVEN_DAYS" />
+              <option name="versions">
+                <list>
+                  <VersionSetting>
+                    <option name="buildVersion" value="19" />
+                    <option name="displayName" value="19" />
+                    <option name="displayVersion" value="19" />
+                    <option name="tracks">
+                      <list>
+                        <option value="PRODUCTION" />
+                        <option value="INTERNAL" />
+                      </list>
+                    </option>
+                  </VersionSetting>
+                </list>
+              </option>
               <option name="visibilityType" value="ALL" />
             </InsightsFilterSettings>
           </value>

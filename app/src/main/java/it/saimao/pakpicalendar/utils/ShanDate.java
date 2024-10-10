@@ -949,7 +949,7 @@ public class ShanDate {
         shan.put("Nay", "ဝၼ်း");
         shan.put("Yat", "ဝၼ်း");
         shan.put("Yat2", "ၶမ်ႈ");
-        shan.put("Sabbath Eve", "ဝၼ်းၽိတ်း");
+        shan.put("Sabbath Eve", "ဝၼ်းၽိတ်ႈ");
         shan.put("Sabbath", "ဝၼ်းသိၼ်");
         shan.put("Yatyaza", "ဝၼ်းထုၼ်း");
         shan.put("Afternoon Pyathada", "မွန်းလွဲပြဿဒါး");
