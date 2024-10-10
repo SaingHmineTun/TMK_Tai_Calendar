@@ -46,10 +46,6 @@
         <item name="colorSurfaceContainer">@color/md_theme_surfaceContainer_mediumContrast</item>
         <item name="colorSurfaceContainerHigh">@color/md_theme_surfaceContainerHigh_mediumContrast</item>
         <item name="colorSurfaceContainerHighest">@color/md_theme_surfaceContainerHighest_mediumContrast</item>
-        <item name="colorPakpi">@color/colorPakpi_mediumContrast</item>
-        <item name="colorOnPakpi">@color/colorOnPakpi_mediumContrast</item>
-        <item name="colorPakpiContainer">@color/colorPakpiContainer_mediumContrast</item>
-        <item name="colorOnPakpiContainer">@color/colorOnPakpiContainer_mediumContrast</item>
     </style>
     <style name="ThemeOverlay.AppTheme.HighContrast" parent="Theme.Material3.Light.NoActionBar">
         <item name="colorPrimary">@color/md_theme_primary_highContrast</item>
@@ -98,9 +94,5 @@
         <item name="colorSurfaceContainer">@color/md_theme_surfaceContainer_highContrast</item>
         <item name="colorSurfaceContainerHigh">@color/md_theme_surfaceContainerHigh_highContrast</item>
         <item name="colorSurfaceContainerHighest">@color/md_theme_surfaceContainerHighest_highContrast</item>
-        <item name="colorPakpi">@color/colorPakpi_highContrast</item>
-        <item name="colorOnPakpi">@color/colorOnPakpi_highContrast</item>
-        <item name="colorPakpiContainer">@color/colorPakpiContainer_highContrast</item>
-        <item name="colorOnPakpiContainer">@color/colorOnPakpiContainer_highContrast</item>
     </style>
 </resources>

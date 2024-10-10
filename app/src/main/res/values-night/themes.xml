@@ -1,8 +1,9 @@
 <resources>
-    <style name="AppTheme" parent="Theme.Material3.Dark.NoActionBar">
 
+    <style name="AppTheme" parent="Theme.Material3.Dark.NoActionBar">
         <item name="android:statusBarColor">@color/colorPakpi</item>
         <item name="android:fontFamily">@font/aj_kunheing_etm05</item>
+
         <item name="colorPrimary">@color/md_theme_primary</item>
         <item name="colorOnPrimary">@color/md_theme_onPrimary</item>
         <item name="colorPrimaryContainer">@color/md_theme_primaryContainer</item>
@@ -49,9 +50,5 @@
         <item name="colorSurfaceContainer">@color/md_theme_surfaceContainer</item>
         <item name="colorSurfaceContainerHigh">@color/md_theme_surfaceContainerHigh</item>
         <item name="colorSurfaceContainerHighest">@color/md_theme_surfaceContainerHighest</item>
-        <item name="colorPakpi">@color/colorPakpi</item>
-        <item name="colorOnPakpi">@color/colorOnPakpi</item>
-        <item name="colorPakpiContainer">@color/colorPakpiContainer</item>
-        <item name="colorOnPakpiContainer">@color/colorOnPakpiContainer</item>
     </style>
 </resources>

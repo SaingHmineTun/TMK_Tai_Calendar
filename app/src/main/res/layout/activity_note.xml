@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
-    android:background="?colorPakpi"
+    android:background="@color/colorPakpi"
     android:paddingHorizontal="8dp"
     tools:context=".activities.NoteActivity">
 
@@ -32,7 +32,6 @@
             android:layout_marginHorizontal="4dp"
             android:layout_weight="1"
             android:clickable="true"
-            android:backgroundTint="?colorOnPakpi"
             app:cardElevation="4dp"
             app:cardMaxElevation="8dp">
 
@@ -61,7 +60,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:backgroundTint="?colorOnPakpi"
         app:cardCornerRadius="8dp"
         app:cardElevation="4dp"
         app:cardMaxElevation="6dp"
@@ -92,7 +90,6 @@
     <com.google.android.material.card.MaterialCardView
         app:strokeWidth="0dp"
         android:id="@+id/ly2"
-        android:backgroundTint="?colorOnPakpi"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
@@ -125,7 +122,6 @@
 
     <com.google.android.material.card.MaterialCardView
         app:strokeWidth="0dp"
-        android:backgroundTint="?colorOnPakpi"
         android:id="@+id/ly3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -160,7 +156,6 @@
 
     <com.google.android.material.card.MaterialCardView
         app:strokeWidth="0dp"
-        android:backgroundTint="?colorOnPakpi"
         android:id="@+id/ly4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -194,7 +189,6 @@
 
     <com.google.android.material.card.MaterialCardView
         app:strokeWidth="0dp"
-        android:backgroundTint="?colorOnPakpi"
         android:id="@+id/ly5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -252,7 +246,6 @@
             </LinearLayout>
 
             <RelativeLayout
-                android:background="?colorOnPakpi"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 

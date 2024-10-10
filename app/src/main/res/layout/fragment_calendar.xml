@@ -29,8 +29,6 @@
 
 
         <com.google.android.material.card.MaterialCardView
-        app:strokeWidth="0dp"
-            android:backgroundTint="?colorOnPakpi"
             android:id="@+id/cv_full_date"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -38,7 +36,8 @@
             app:layout_constraintBottom_toTopOf="@+id/cv_date"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/tv_day"
-            app:layout_constraintTop_toTopOf="@id/tv_day">
+            app:layout_constraintTop_toTopOf="@id/tv_day"
+            app:strokeWidth="0dp">
 
             <TextView
                 android:id="@+id/tv_full_date"
@@ -54,16 +53,15 @@
 
 
         <com.google.android.material.card.MaterialCardView
-        app:strokeWidth="0dp"
-            android:backgroundTint="?colorOnPakpi"
-
             android:id="@+id/cv_date"
+
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="@id/tv_day"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/cv_full_date"
-            app:layout_constraintTop_toBottomOf="@id/cv_full_date">
+            app:layout_constraintTop_toBottomOf="@id/cv_full_date"
+            app:strokeWidth="0dp">
 
             <TextView
                 android:id="@+id/tv_date"
