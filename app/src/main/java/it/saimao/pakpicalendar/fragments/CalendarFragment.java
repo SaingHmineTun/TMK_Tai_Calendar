@@ -1,7 +1,11 @@
 package it.saimao.pakpicalendar.fragments;
 
+import static it.saimao.pakpicalendar.utils.Utils.description;
+
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -287,25 +291,7 @@ public class CalendarFragment extends Fragment implements SwipeGestureListener.O
         binding.tvDetail.setText(description(currentDate));
     }
 
-    private String description(LocalDate date) {
-        MyanmarDate selectedMyanmarDate = MyanmarDate.of(date);
-        ShanDate shanDate = new ShanDate(selectedMyanmarDate);
-        StringBuilder sb = new StringBuilder();
 
-
-        sb.append(ShanDate.translate("Sasana Year")).append(" ").append(selectedMyanmarDate.getBuddhistEra()).append(" ဝႃႇ၊ ").append(ShanDate.translate("Myanmar Year")).append(" ").append(selectedMyanmarDate.getYear()).append(" ၶု၊ ").append("ပီႊတႆး ").append(shanDate.getShanYear()).append(" ၼီႈ၊ ");
-
-        sb.append(ShanDate.translate(selectedMyanmarDate.getMonthName(Language.ENGLISH))).append(" ");
-        if (selectedMyanmarDate.getMoonPhaseValue() == 1 || selectedMyanmarDate.getMoonPhaseValue() == 3) {
-            sb.append(selectedMyanmarDate.getMoonPhase()).append("။");
-        } else {
-            sb.append(selectedMyanmarDate.getMoonPhase()).append(" ");
-            sb.append(selectedMyanmarDate.getFortnightDay()).append(" ");
-            sb.append(selectedMyanmarDate.getMoonPhaseValue() == 0 ? " ဝၼ်း" : "").append(selectedMyanmarDate.getMoonPhaseValue() == 2 ? " ၶမ်ႈ။" : "။");
-        }
-
-        return sb.toString();
-    }
 
     public void onDateChanged(LocalDate currentDate) {
         this.currentDate = currentDate;

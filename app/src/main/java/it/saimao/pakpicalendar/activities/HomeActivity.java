@@ -1,17 +1,22 @@
 package it.saimao.pakpicalendar.activities;
 
 import android.app.AlertDialog;
+import android.app.ComponentCaller;
 import android.app.DatePickerDialog;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
@@ -21,6 +26,7 @@ import androidx.fragment.app.FragmentTransaction;
 import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 import it.saimao.pakpicalendar.R;
 import it.saimao.pakpicalendar.database.Note;
@@ -377,7 +383,7 @@ public class HomeActivity extends AppCompatActivity {
     public void goNoteDetail(LocalDate date) {
         Intent intent = new Intent(this, NoteActivity.class);
         intent.putExtra("date", date);
-        startActivity(intent);
+        resultLauncher.launch(intent);
     }
 
     @Override
@@ -394,6 +400,21 @@ public class HomeActivity extends AppCompatActivity {
         intent.putExtra("note", note);
         startActivity(intent);
     }
+
+    ActivityResultLauncher<Intent> resultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+
+
+        if (result.getResultCode() == RESULT_OK) {
+            LocalDate date = (LocalDate) result.getData().getSerializableExtra("date");
+            if (activeFragment == calendarFragment) {
+                calendarFragment.onDateChanged(date);
+            } else if (activeFragment == pakpiFragment) {
+                pakpiFragment.onDateChanged(date);
+            }
+        }
+
+    });
+
 
     public void goAddNote(LocalDate date) {
         Intent intent = new Intent(this, AddNoteActivity.class);

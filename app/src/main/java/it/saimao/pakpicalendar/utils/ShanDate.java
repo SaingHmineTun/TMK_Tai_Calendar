@@ -1035,7 +1035,7 @@ public class ShanDate {
         String title;
         if (myanmarDate.getMoonPhaseValue() == 0 || myanmarDate.getMoonPhaseValue() == 2) {
             title = String.format(Locale.ENGLISH,
-                    "ပီႊၵေႃးၸႃႇ %s ဝႃႇ၊ %s%s %s %s",
+                    "ပီႊၵေႃးၸႃႇ %s ၶု၊ %s%s %s %s",
                     myanmarDate.getYear(),
                     new ShanDate(myanmarDate).getShanMonthString(),
                     myanmarDate.getMoonPhase(),
@@ -1043,7 +1043,7 @@ public class ShanDate {
                     myanmarDate.getMoonPhaseValue() == 0 ? "ဝၼ်း" : "ၶမ်ႈ");
         } else {
             title = String.format(Locale.ENGLISH,
-                    "ပီႊၵေႃးၸႃႇ %s ဝႃႇ၊ %s%s",
+                    "ပီႊၵေႃးၸႃႇ %s ၶု၊ %s%s",
                     myanmarDate.getYear(),
                     new ShanDate(myanmarDate).getShanMonthString(),
                     myanmarDate.getMoonPhase());

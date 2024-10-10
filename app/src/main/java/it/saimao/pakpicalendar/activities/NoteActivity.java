@@ -5,6 +5,7 @@ import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.Nullable;
@@ -33,7 +34,7 @@ import it.saimao.pakpicalendar.utils.Utils;
 public class NoteActivity extends AppCompatActivity {
 
     private ActivityNoteBinding binding;
-    private LocalDate todayDate;
+    private LocalDate currentDate;
     private MyanmarDate myanmarDate;
     private ShanDate shanDate;
     private NoteAdapter noteAdapter;
@@ -63,6 +64,23 @@ public class NoteActivity extends AppCompatActivity {
         updateWidget();
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent();
+        intent.putExtra("date", currentDate);
+        setResult(RESULT_OK, intent);
+        finish();
+
+
+        super.onBackPressed();
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
     private void updateWidget() {
         Intent intent = new Intent(this, NoteActivity.class);
         intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
@@ -74,7 +92,7 @@ public class NoteActivity extends AppCompatActivity {
     }
 
     private void refreshAdapter() {
-        noteList = Utils.getTodayEvents(noteDao, todayDate);
+        noteList = Utils.getTodayEvents(noteDao, currentDate);
         if (noteList == null || noteList.isEmpty()) {
             binding.rvNotes.setVisibility(View.GONE);
             binding.lyEmpty.setVisibility(View.VISIBLE);
@@ -93,17 +111,17 @@ public class NoteActivity extends AppCompatActivity {
 
         binding.ibAddNote.setOnClickListener(view -> {
             Intent intent = new Intent(this, AddNoteActivity.class);
-            intent.putExtra("date", todayDate);
+            intent.putExtra("date", currentDate);
             startActivity(intent);
         });
 
         binding.ibNextDay.setOnClickListener(view -> {
-            todayDate = todayDate.plusDays(1);
+            currentDate = currentDate.plusDays(1);
             updateUi();
         });
 
         binding.ibPreDay.setOnClickListener(view -> {
-            todayDate = todayDate.minusDays(1);
+            currentDate = currentDate.minusDays(1);
             updateUi();
         });
 
@@ -131,12 +149,12 @@ public class NoteActivity extends AppCompatActivity {
 
             datePickerDialog = new DatePickerDialog(this);
             datePickerDialog.setOnDateSetListener((datePicker, year, month, day) -> {
-                todayDate = LocalDate.of(year, month + 1, day);
+                currentDate = LocalDate.of(year, month + 1, day);
                 updateUi();
 
             });
         }
-        datePickerDialog.updateDate(todayDate.getYear(), todayDate.getMonthValue() - 1, todayDate.getDayOfMonth());
+        datePickerDialog.updateDate(currentDate.getYear(), currentDate.getMonthValue() - 1, currentDate.getDayOfMonth());
         datePickerDialog.show();
     }
 
@@ -163,21 +181,22 @@ public class NoteActivity extends AppCompatActivity {
 
         Serializable ser;
         if (getIntent() != null && (ser = getIntent().getSerializableExtra("date")) != null) {
-            todayDate = (LocalDate) ser;
-            myanmarDate = MyanmarDate.of(todayDate);
+            currentDate = (LocalDate) ser;
+            myanmarDate = MyanmarDate.of(currentDate);
             shanDate = new ShanDate(myanmarDate);
             initData();
         }
     }
 
+
     private void initData() {
-        myanmarDate = MyanmarDate.of(todayDate);
+        myanmarDate = MyanmarDate.of(currentDate);
         shanDate = new ShanDate(myanmarDate);
         binding.pMurng.setText(ShanDate.getPeeMurng(shanDate.getShanYearValue()));
-        binding.pHtam.setText(ShanDate.getPeeHtam(todayDate.getYear()));
+        binding.pHtam.setText(ShanDate.getPeeHtam(currentDate.getYear()));
         binding.pSasana.setText(myanmarDate.getBuddhistEra());
         binding.pKawza.setText(myanmarDate.getYear());
-        binding.tvEngDay.setText(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG).format(todayDate));
+        binding.tvEngDay.setText(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG).format(currentDate));
         setNoteDescription();
 
     }
@@ -230,7 +249,7 @@ public class NoteActivity extends AppCompatActivity {
             binding.tvEngDay.setTextColor(getResources().getColor(R.color.md_theme_onBackground));
         }
 
-        sb.append(ShanDate.toString(todayDate, myanmarDate));
+        sb.append(ShanDate.toString(currentDate, myanmarDate));
         binding.description.setText(sb.toString().trim());
     }
 }

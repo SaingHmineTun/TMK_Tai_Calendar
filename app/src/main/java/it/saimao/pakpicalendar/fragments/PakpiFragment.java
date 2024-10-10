@@ -1,7 +1,11 @@
 package it.saimao.pakpicalendar.fragments;
 
+import static it.saimao.pakpicalendar.utils.Utils.description;
+
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -132,15 +136,18 @@ public class PakpiFragment extends Fragment implements SwipeGestureListener.OnSw
         return currentDate.minusDays(myanmarDate.getDayOfMonth() - 1);
     }
 
+
+
     @SuppressLint("ClickableViewAccessibility")
     private void buildCalendar() {
-        binding.tvDate.setSelected(true);
+        binding.tvMonth.setSelected(true);
         // Get first day of month
         LocalDate firstDayOfMonth = getFirstDayOfMonth();
         MyanmarDate firstDayOfMonthShan = MyanmarDate.of(firstDayOfMonth);
         int monthLength = firstDayOfMonthShan.lengthOfMonth();
         int dayToHide = ShanDate.getMePeeInt(firstDayOfMonth.toEpochDay());
 
+        binding.tvMonth.setText(ShanDate.getShanMonthByKey(ShanDate.getShanMonth(firstDayOfMonthShan)));
 
         LocalDate date = firstDayOfMonth;
         int start = 0, end = 30;
@@ -280,40 +287,7 @@ public class PakpiFragment extends Fragment implements SwipeGestureListener.OnSw
         prevSelectedDate = view;
         binding.tvFullDate.setText(String.format(Locale.ENGLISH, "%02d/%02d/%04d", currentDate.getDayOfMonth(), currentDate.getMonthValue(), currentDate.getYear()));
 
-        List<Note> notes = Utils.getTodayEvents(noteDao, currentDate);
-        if (!notes.isEmpty()) {
-            binding.tvDate.setText(notes.get(0).getTitle());
-            binding.tvDate.setTextColor(getResources().getColor(R.color.md_theme_error));
-
-        } else if (ShanDate.isHoliday(myanmarDate)) {
-            binding.tvDate.setText(ShanDate.getHoliday(myanmarDate));
-            binding.tvDate.setTextColor(getResources().getColor(R.color.md_theme_error));
-        } else {
-            binding.tvDate.setText("ဝၼ်း" + myanmarDate.getWeekDay());
-            binding.tvDate.setTextColor(getResources().getColor(R.color.md_theme_onBackground));
-        }
-
         binding.tvDetail.setText(description(currentDate));
-    }
-
-    private String description(LocalDate date) {
-        MyanmarDate selectedMyanmarDate = MyanmarDate.of(date);
-        ShanDate shanDate = new ShanDate(selectedMyanmarDate);
-        StringBuilder sb = new StringBuilder();
-
-
-        sb.append(ShanDate.translate("Sasana Year")).append(" ").append(selectedMyanmarDate.getBuddhistEra()).append("၊ ").append(ShanDate.translate("Myanmar Year")).append(" ").append(selectedMyanmarDate.getYear()).append("၊ ").append("ပီႊတႆး ").append(shanDate.getShanYear()).append(" ၼီႈ၊ ");
-
-        sb.append(ShanDate.translate(selectedMyanmarDate.getMonthName(Language.ENGLISH))).append(" ");
-        if (selectedMyanmarDate.getMoonPhaseValue() == 1 || selectedMyanmarDate.getMoonPhaseValue() == 3) {
-            sb.append(selectedMyanmarDate.getMoonPhase()).append("။");
-        } else {
-            sb.append(selectedMyanmarDate.getMoonPhase()).append(" ");
-            sb.append(selectedMyanmarDate.getFortnightDay()).append(" ");
-            sb.append(selectedMyanmarDate.getMoonPhaseValue() == 0 ? " ဝၼ်း" : "").append(selectedMyanmarDate.getMoonPhaseValue() == 2 ? " ၶမ်ႈ။" : "။");
-        }
-
-        return sb.toString();
     }
 
     public void onDateChanged(LocalDate currentDate) {

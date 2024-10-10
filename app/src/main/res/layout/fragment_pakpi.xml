@@ -16,14 +16,14 @@
         tools:context=".activities.MainActivity">
 
         <com.google.android.material.card.MaterialCardView
-        app:strokeWidth="0dp"
+            app:strokeWidth="0dp"
             android:id="@+id/cv_full_date"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toStartOf="@id/cv_date"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toEndOf="@id/cv_date"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
@@ -40,17 +40,17 @@
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
-        app:strokeWidth="0dp"
+            app:strokeWidth="0dp"
             android:id="@+id/cv_date"
 
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/cv_full_date"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/cv_full_date"
             app:layout_constraintTop_toTopOf="@id/cv_full_date">
 
             <TextView
-                android:id="@+id/tv_date"
+                android:id="@+id/tv_month"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:ellipsize="marquee"
@@ -60,7 +60,7 @@
                 android:padding="8dp"
                 android:scrollHorizontally="true"
                 android:singleLine="true"
-                android:text="ဝၼ်းဢၢင်းၵၢင်း"
+                android:text="လိူၼ်သိပ်းဢဵတ်း"
                 android:textSize="18sp"
                 android:textStyle="bold" />
         </com.google.android.material.card.MaterialCardView>
