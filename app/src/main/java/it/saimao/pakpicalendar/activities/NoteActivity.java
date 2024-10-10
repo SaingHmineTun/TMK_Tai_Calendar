@@ -1,6 +1,8 @@
 package it.saimao.pakpicalendar.activities;
 
 import android.app.DatePickerDialog;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -53,6 +55,22 @@ public class NoteActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         refreshAdapter();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        updateWidget();
+    }
+
+    private void updateWidget() {
+        Intent intent = new Intent(this, NoteActivity.class);
+        intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+        // Get all widget IDs to update
+        int[] ids = AppWidgetManager.getInstance(this).getAppWidgetIds(new ComponentName(this, NoteActivity.class));
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
+        // Send broadcast to update the widget
+        sendBroadcast(intent);
     }
 
     private void refreshAdapter() {

@@ -141,6 +141,6 @@
     <color name="md_theme_surfaceContainerHigh_highContrast">#292A2D</color>
     <color name="md_theme_surfaceContainerHighest_highContrast">#343538</color>
     <color name="colorPakpi">#333436</color>
-    <color name="colorSelected">#004E47</color>
-    <color name="colorToday">#571242</color>
+    <color name="colorSelected">#056F66</color>
+    <color name="colorToday">#7A2460</color>
 </resources>

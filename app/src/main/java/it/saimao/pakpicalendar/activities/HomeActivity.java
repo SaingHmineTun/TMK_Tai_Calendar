@@ -2,6 +2,8 @@ package it.saimao.pakpicalendar.activities;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -54,6 +56,22 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         initNavigationDrawer();
         initListener();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        updateWidget();
+    }
+
+    private void updateWidget() {
+        Intent intent = new Intent(this, PakpiAppWidget.class);
+        intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+        // Get all widget IDs to update
+        int[] ids = AppWidgetManager.getInstance(this).getAppWidgetIds(new ComponentName(this, PakpiAppWidget.class));
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
+        // Send broadcast to update the widget
+        sendBroadcast(intent);
     }
 
     private void initListener() {

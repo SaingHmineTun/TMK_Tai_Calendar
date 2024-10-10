@@ -1,6 +1,9 @@
 package it.saimao.pakpicalendar.activities;
 
 import android.app.DatePickerDialog;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -108,6 +111,20 @@ public class AddNoteActivity extends AppCompatActivity {
         binding.tvFriday.setText(date.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.ENGLISH).toUpperCase());
         binding.tvSeptember.setText(date.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH) + " " + date.getYear());
 
+    }@Override
+    protected void onPause() {
+        super.onPause();
+        updateWidget();
+    }
+
+    private void updateWidget() {
+        Intent intent = new Intent(this, AddNoteActivity.class);
+        intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+        // Get all widget IDs to update
+        int[] ids = AppWidgetManager.getInstance(this).getAppWidgetIds(new ComponentName(this, AddNoteActivity.class));
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
+        // Send broadcast to update the widget
+        sendBroadcast(intent);
     }
 
     private void initUi() {
