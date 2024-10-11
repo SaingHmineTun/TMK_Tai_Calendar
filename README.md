@@ -35,3 +35,13 @@ A J kunheing – ဢၼ်ပၼ်ၶႂၢင်ႉ ႁႂ်ႈလႆႈၸ�
 ယူႇၶႃႈဢေႃႈ။ 🙏🙏🙏
 
 ၸၢႆးမၢဝ်း (ထုင်ႉမၢဝ်းၶမ်း)
+
+![462650262_122188656824195982_5866474915561926204_n](https://github.com/user-attachments/assets/9b6d41b1-3d2f-4a13-80a3-599d178ca93e)
+![462512947_122188656854195982_2258002238666747311_n](https://github.com/user-attachments/assets/9f12834a-1358-4898-b4ae-08f441591114)
+![462716967_122188656866195982_9145135253218415083_n](https://github.com/user-attachments/assets/298420df-3b57-4a63-8f68-a91cdc0c7a2a)
+![462701868_122188656878195982_130370162450558504_n](https://github.com/user-attachments/assets/29ed87d6-7d31-466e-8b97-cc38cbb15ca8)
+![462716332_122188656896195982_3899219997885243766_n](https://github.com/user-attachments/assets/ae66ee27-b36e-49b1-a1fa-886e7fc80a8f)
+![462512469_122188656614195982_2133575467135292043_n](https://github.com/user-attachments/assets/4c174c6d-53f4-4762-8684-85618cbc1675)
+![462587312_122188656704195982_4937166688456158839_n](https://github.com/user-attachments/assets/134d5391-67f6-43aa-9bf8-285bc11d120d)
+![462600571_122188656746195982_8725937697020005953_n](https://github.com/user-attachments/assets/ac9acbba-95b0-4630-bd9d-b51aceeb8ed8)
+![462621375_122188656800195982_3702721134035883907_n](https://github.com/user-attachments/assets/10fe0d44-94f7-4ffa-881a-0395db5f1df6)
