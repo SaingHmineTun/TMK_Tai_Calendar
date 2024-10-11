@@ -91,7 +91,7 @@ public class PakpiAppWidget extends AppWidgetProvider {
         else if (HolidayCalculator.isHoliday(myToday))
             myDate += ShanDate.translate(HolidayCalculator.getHoliday(myToday).get(0));
         else
-            myDate += "ဝၼ်း" + myToday.getWeekDay();
+            myDate += "ဝၼ်း" + myToday.getWeekDay(Language.TAI);
         myDate += "]";
 
         views.setImageViewBitmap(R.id.wg_date, getFontBitmap(context, myDate, R.font.aj_kunheing_etm08, 20));
@@ -120,10 +120,10 @@ public class PakpiAppWidget extends AppWidgetProvider {
 
         sb.append(ShanDate.translate(selectedMyanmarDate.getMonthName(Language.ENGLISH))).append(" ");
         if (selectedMyanmarDate.getMoonPhaseValue() == 1 || selectedMyanmarDate.getMoonPhaseValue() == 3) {
-            sb.append(selectedMyanmarDate.getMoonPhase()).append("။");
+            sb.append(selectedMyanmarDate.getMoonPhase(Language.TAI)).append("။");
         } else {
-            sb.append(selectedMyanmarDate.getMoonPhase()).append(" ");
-            sb.append(selectedMyanmarDate.getFortnightDay()).append(" ");
+            sb.append(selectedMyanmarDate.getMoonPhase(Language.TAI)).append(" ");
+            sb.append(selectedMyanmarDate.getFortnightDay(Language.TAI)).append(" ");
             sb.append(selectedMyanmarDate.getMoonPhaseValue() == 0 ? " ဝၼ်း" : "").append(selectedMyanmarDate.getMoonPhaseValue() == 2 ? " ၶမ်ႈ။" : "။");
         }
 
