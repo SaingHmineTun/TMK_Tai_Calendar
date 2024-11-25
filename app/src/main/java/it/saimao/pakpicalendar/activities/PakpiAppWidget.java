@@ -88,8 +88,8 @@ public class PakpiAppWidget extends AppWidgetProvider {
         List<Note> notes = Utils.getTodayEvents(AppDatabase.getAppDatabase(context).noteDao(), today);
         if (!notes.isEmpty())
             myDate += notes.get(0).getTitle();
-        else if (HolidayCalculator.isHoliday(myToday))
-            myDate += ShanDate.translate(HolidayCalculator.getHoliday(myToday).get(0));
+        else if (ShanDate.isHoliday(myToday))
+            myDate += ShanDate.getHoliday(myToday);
         else
             myDate += "ဝၼ်း" + myToday.getWeekDay(Language.TAI);
         myDate += "]";

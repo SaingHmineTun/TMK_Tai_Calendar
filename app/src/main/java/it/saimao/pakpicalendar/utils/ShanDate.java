@@ -1,6 +1,7 @@
 package it.saimao.pakpicalendar.utils;
 
 
+import it.saimao.pakpicalendar.R;
 import it.saimao.pakpicalendar.mmcalendar.*;
 
 import java.time.LocalDate;
@@ -38,32 +39,31 @@ public class ShanDate {
     }
 
     public static boolean isWannTun(MyanmarDate md) {
-        boolean isWannTun = false;
         int shanMonth = getShanMonth(md);
         if (shanMonth == 5 || shanMonth == 1) {
             if (md.getWeekDayValue() == 2 || md.getWeekDayValue() == 6) {
-                isWannTun = true;
+                return true;
             }
         } else if (shanMonth == 6 || shanMonth == 2 || shanMonth == 10) {
             if (md.getWeekDayValue() == 5 || md.getWeekDayValue() == 0) {
-                isWannTun = true;
+                return true;
             }
         } else if (shanMonth == 7 || shanMonth == 3 || shanMonth == 11) {
             if (md.getWeekDayValue() == 3 || md.getWeekDayValue() == 5) {
-                isWannTun = true;
+                return true;
             }
         } else if (shanMonth == 8 || shanMonth == 4) {
             // လိူၼ်ပႅတ်ႇ
             if (md.getWeekDayValue() == 1 || md.getWeekDayValue() == 4) {
-                isWannTun = true;
+                return true;
             }
         } else if (shanMonth == 9 || md.getMonth() == 12) {
             // လိူၼ်ၵဝ်ႈ & လိူၼ်သိပ်းသွင်
             if (md.getWeekDayValue() == 4 || md.getWeekDayValue() == 6) {
-                isWannTun = true;
+                return true;
             }
         }
-        return isWannTun;
+        return false;
     }
 
     public static String getWannTun(MyanmarDate myanmarDate) {
@@ -780,276 +780,280 @@ public class ShanDate {
     }
 
     public static String getHoliday(MyanmarDate mDate) {
-        var holidays = HolidayCalculator.getHoliday(mDate);
-
-        if (holidays != null && !holidays.isEmpty()) {
-            return ShanDate.translate(holidays.get(0));
+        var holidays = getHolidays(mDate);
+        var sb = new StringBuilder();
+        if (!holidays.isEmpty()) {
+            String holiday = holidays.get(holidays.size() - 1);
+            String day = ShanDate.translate(holiday);
+            if (day == null)
+                day = holiday;
+            sb.append(day);
         }
-        return ShanDate.shanSpecialDays(mDate).get(0);
-    }
+        return sb.toString();
+}
 
-    public static List<String> getHolidays(MyanmarDate selectedMyanmarDate) {
-        var holidays = HolidayCalculator.getHoliday(selectedMyanmarDate);
-        holidays.addAll(ShanDate.shanSpecialDays(selectedMyanmarDate));
-        return holidays;
-    }
+public static List<String> getHolidays(MyanmarDate selectedMyanmarDate) {
+    var holidays = HolidayCalculator.getHoliday(selectedMyanmarDate);
+    holidays.addAll(ShanDate.shanSpecialDays(selectedMyanmarDate));
+    return holidays;
+}
 
-    public static boolean isHoliday(MyanmarDate myanmarDate) {
-        return !getHolidays(myanmarDate).isEmpty();
-    }
+public static boolean isHoliday(MyanmarDate myanmarDate) {
+    return !getHolidays(myanmarDate).isEmpty();
+}
 
 
-    public String getShanYear() {
-        int shanYear;
-        if (myanmarDate.getMonth() > 8)
-            shanYear = myanmarDate.getYearValue() + 733;
-        else if (myanmarDate.getMonth() == 1) {
-            if (myanmarDate.getMonthType() == 0) {
-                shanYear = myanmarDate.getYearValue() + 732;
-            } else
-                shanYear = myanmarDate.getYearValue() + 733;
-        } else
+public String getShanYear() {
+    int shanYear;
+    if (myanmarDate.getMonth() > 8)
+        shanYear = myanmarDate.getYearValue() + 733;
+    else if (myanmarDate.getMonth() == 1) {
+        if (myanmarDate.getMonthType() == 0) {
             shanYear = myanmarDate.getYearValue() + 732;
-        return LanguageTranslator.translate(shanYear, Language.TAI);
+        } else
+            shanYear = myanmarDate.getYearValue() + 733;
+    } else
+        shanYear = myanmarDate.getYearValue() + 732;
+    return LanguageTranslator.translate(shanYear, Language.TAI);
+}
+
+public int getShanYearValue() {
+    return Integer.parseInt(getShanYear());
+}
+
+public int getShanMonth() {
+
+    int shanMonth = myanmarDate.getMonth() + 4;
+    if (shanMonth > 12) shanMonth = shanMonth - 12;
+    return shanMonth;
+}
+
+public String getShanMonthString() {
+    return shanMonths.get(getShanMonth());
+}
+
+public static int getShanMonth(MyanmarDate md) {
+    int shanMonth = md.getMonth() + 4;
+    if (shanMonth > 12) shanMonth = shanMonth - 12;
+    return shanMonth;
+}
+
+public static int getMyanmarMonth(int shanMonth) {
+    int myanmarMonth = shanMonth - 4;
+    if (myanmarMonth < 1) myanmarMonth = 12 + myanmarMonth;
+    return myanmarMonth;
+}
+
+public static final Map<Integer, String> shanMonths;
+
+static {
+    shanMonths = new HashMap<>();
+    shanMonths.put(1, "လိူၼ်ၸဵင်");
+    shanMonths.put(2, "လိူၼ်ၵမ်");
+    shanMonths.put(3, "လိူၼ်သၢမ်");
+    shanMonths.put(4, "လိူၼ်သီႇ");
+    shanMonths.put(5, "လိူၼ်ႁႃႈ");
+    shanMonths.put(6, "လိူၼ်ႁူၵ်ႉ");
+    shanMonths.put(7, "လိူၼ်ၸဵတ်း");
+    shanMonths.put(8, "လိူၼ်ပႅတ်ႇ");
+    shanMonths.put(9, "လိူၼ်ၵဝ်ႈ");
+    shanMonths.put(10, "လိူၼ်သိပ်း");
+    shanMonths.put(11, "လိူၼ်သိပ်းဢဵတ်း");
+    shanMonths.put(12, "လိူၼ်သိပ်းသွင်");
+}
+
+public static String getShanMonthByKey(int key) {
+    return shanMonths.get(key);
+}
+
+public static List<String> shanSpecialDays(MyanmarDate md) {
+    List<String> shanSpecialDays = new ArrayList<>();
+    int shanMonth = getShanMonth(md);
+    if (shanMonth == 2 && md.getMoonPhaseValue() == 2 && md.getFortnightDayValue() == 14) {
+        shanSpecialDays.add("ဝၼ်းလူႇၾႆးသုမ်လူဝ်");
+    } else if (shanMonth == 3 && md.getMoonPhaseValue() == 1) {
+        shanSpecialDays.add("ပွၺ်းလိူၼ်သၢမ်မူၼ်း");
+    } else if (shanMonth == 3 && md.getMoonPhaseValue() == 2 && md.getFortnightDayValue() == 3) {
+        shanSpecialDays.add("ဝၼ်းဢူဝ်ႈပဵမ်ႇသၢမ်လေႃး");
+    } else if (shanMonth == 6 && md.getMoonPhaseValue() == 1) {
+        shanSpecialDays.add("ဝၼ်းပုတ်ႉထၸဝ်ႈ");
+    } else if (shanMonth == 11 && md.getMoonPhaseValue() == 2 && md.getFortnightDayValue() == 8) {
+        shanSpecialDays.add("ပွၺ်းသၢဝ်းသၢမ်");
+    } else if (shanMonth == 12 && md.getMoonPhaseValue() == 3) {
+        shanSpecialDays.add("ႁပ်ႉၸဵင်");
+    } else if (shanMonth == 1 && md.getDayOfMonth() == 1) {
+        shanSpecialDays.add("ဝၼ်းပီႊမႂ်ႇတႆး");
     }
+    return shanSpecialDays;
+}
 
-    public int getShanYearValue() {
-        return Integer.parseInt(getShanYear());
+
+public static String translate(String day) {
+    return shan.get(day);
+}
+
+private static final Map<String, String> shan;
+
+static {
+    shan = new HashMap<>();
+    // shan
+    shan.put("0", "၀");
+    shan.put("1", "၁");
+    shan.put("2", "၂");
+    shan.put("3", "၃");
+    shan.put("4", "၄");
+    shan.put("5", "၅");
+    shan.put("6", "၆");
+    shan.put("7", "၇");
+    shan.put("8", "၈");
+    shan.put("9", "၉");
+    shan.put("January", "ၸၼ်ႇၼိဝ်ႇရီႇ");
+    shan.put("February", "ၽဵတ်ႇၽေႃႇရီႇ");
+    shan.put("March", "မႃႉ");
+    shan.put("April", "ဢေႇပရႄႇ");
+    shan.put("May", "မေႇ");
+    shan.put("June", "ၸုၼ်");
+    shan.put("July", "ၸူႇလႅင်ႇ");
+    shan.put("August", "ဢေႃးၵတ်ႉ");
+    shan.put("September", "သပ်ႇတိၼ်ႇပိူဝ်ႇ");
+    shan.put("October", "ဢွၵ်ႇတူဝ်ႇပိူဝ်ႇ");
+    shan.put("November", "ၼူဝ်ႇဝိၼ်ႇပိူဝ်ႇ");
+    shan.put("December", "တီႇသိၼ်ႇပိူဝ်ႇ");
+    shan.put("First Waso", "လိူၼ်ပႅတ်ႇ");
+    shan.put("Second Waso", "လိူၼ်ပႅတ်ႇသွၼ်ႉ");
+    shan.put("Tagu", "လိူၼ်ႁႃႈ");
+    shan.put("Late Tagu", "လိူၼ်ႁႃႈတၢမ်းႁၢင်");
+    shan.put("Kason", "လိူၼ်ႁူၵ်း");
+    shan.put("Late Kason", "လိူၼ်ႁူၵ်းတၢမ်းႁၢင်");
+    shan.put("Nayon", "လိူၼ်ၸဵတ်း");
+    shan.put("Waso", "လိူၼ်ပႅတ်ႇ");
+    shan.put("Wagaung", "လိူၼ်ၵဝ်ႈ");
+    shan.put("Tawthalin", "လိူၼ်သိပ်း");
+    shan.put("Thadingyut", "လိူၼ်သိပ်းဢဵတ်း");
+    shan.put("Tazaungmon", "လိူၼ်သိပ်းသွင်");
+    shan.put("Nadaw", "လိူၼ်ၸဵင်");
+    shan.put("Pyatho", "လိူၼ်ၵမ်");
+    shan.put("Tabodwe", "လိူၼ်သၢမ်");
+    shan.put("Tabaung", "လိူၼ်သီႇ");
+    shan.put("waxing", "မႂ်ႇ");
+    shan.put("waning", "လွင်ႊ");
+    shan.put("full moon", "မူၼ်း");
+    shan.put("new moon", "လပ်း");
+    shan.put("shan Year", "ပီႊတႆး");
+    shan.put("Ku", "ၼီႈ");
+    shan.put("Late", "ဝၢႆး");
+    shan.put("Second", "တု");
+    shan.put("Sunday", "ဢႃးတိတ်ႉ");
+    shan.put("Monday", "ၸၼ်");
+    shan.put("Tuesday", "ဢင်းၵၢၼ်း");
+    shan.put("Wednesday", "ပုတ်ႉ");
+    shan.put("Thursday", "ၽတ်း");
+    shan.put("Friday", "သုၵ်း");
+    shan.put("Saturday", "သဝ်");
+    shan.put("Nay", "ဝၼ်း");
+    shan.put("Yat", "ဝၼ်း");
+    shan.put("Yat2", "ၶမ်ႈ");
+    shan.put("Sabbath Eve", "ဝၼ်းၽိတ်ႈ");
+    shan.put("Sabbath", "ဝၼ်းသိၼ်");
+    shan.put("Yatyaza", "ဝၼ်းထုၼ်း");
+    shan.put("Afternoon Pyathada", "မွန်းလွဲပြဿဒါး");
+    shan.put("Pyathada", "ဝၼ်းပျၢတ်ႈ");
+    shan.put("New Year Day", "ပီႊမႂ်ႇလုမ်ႈၾႃႉ");
+    shan.put("Myanmar Year", "ပီႊၵေႃးၸႃႇ");
+    shan.put("English Year", "ပီႊၶရိတ်ႉ");
+    shan.put("Independence Day", "ဝၼ်းၵွၼ်းၶေႃ");
+    shan.put("Union Day", "ဝၼ်းမိူင်းႁူမ်ႈတုမ်ႊ");
+    shan.put("Peasants Day", "ဝၼ်းၵူၼ်းႁႆႊၵူၼ်းၼႃး");
+    shan.put("Resistance Day", "ဝၼ်းတပ်ႉမတေႃႇ");
+    shan.put("Labour Day", "ဝၼ်းၵူၼ်းၵၢၼ်");
+    shan.put("Martyrs Day", "ဝၼ်းၵူၼ်းငၢၼ်");
+    shan.put("Christmas Day", "ၶရိတ်ႉၸမၢတ်ႉ");
+    shan.put("Buddha Day", "ပွၺ်းႁူတ်ႉၼမ်ႉငဝ်ႈႁႆး");
+    shan.put("Start of Buddhist Lent", "ဝၼ်းထမ်ႇမၸၵ်ႉၵ(ၶဝ်ႈဝႃႇ)");
+    shan.put("End of Buddhist Lent", "ဝၼ်းဢၽိထမ်ႇမႃႇ(ဢွၵ်ႇဝႃႇ)");
+    shan.put("Tazaungdaing", "ပွၺ်းတႆႈတဵၼ်းႁဵင်");
+    shan.put("National Day", "ဝၼ်းၶိူဝ်းမိူင်း");
+    shan.put("Shan National Day", "ဝၼ်းၶိူဝ်းတႆး");
+    shan.put("Karen New Year Day", "ဝၼ်းပီႊမႂ်ႇယၢင်း");
+    shan.put("Tabaung Pwe", "ပွၺ်းလိူၼ်သီႇမူၼ်း");
+    shan.put("Thingyan Akyo", "ပၢင်းၽြႃးၶဝ်ႈၵူင်းသွၼ်း");
+    shan.put("Thingyan Akya", "သၢင်းၵျၢၼ်ႇတူၵ်း");
+    shan.put("Thingyan Akyat", "ဝၼ်းၼဝ်ႈ");
+    shan.put("Thingyan Atat", "သၢင်းၵျၢၼ်ႇၶိုၼ်ႈ");
+    shan.put("Myanmar New Year Day", "ပီႊမႂ်ႇသၢင်းၵျၢၼ်ႇ");
+    shan.put("Amyeittasote", "ဢမဵတ်ႉတသူၵ်ႉ"); // TODO
+    shan.put("Warameittugyi", "ဝၼ်းမူၺ်ႉလူင်");
+    shan.put("Warameittunge", "မူၺ်ႉဢႅၼ်");
+    shan.put("Thamaphyu", "သမားဖြူ");
+    shan.put("Thamanyo", "သမားညို");
+    shan.put("Yatpote", "ဝၼ်းၼဝ်ႈ");
+    shan.put("Yatyotema", "ဝၼ်းယုတ်ႈ");
+    shan.put("Mahayatkyan", "ဝၼ်းၵျၢမ်းလူင်");
+    shan.put("Nagapor", "ၼၵႃးပေႃႇ");
+    shan.put("Shanyat", "ရှမ်းရက်");
+    shan.put(",", "၊");
+    shan.put(".", "။");
+    shan.put("Mon National Day", "ဝၼ်းၶိူဝ်းမွၼ်း");
+    shan.put("G. Aung San BD", "ဝၼ်းၵိူတ်ႇဢွင်ႇသၢၼ်း");
+    shan.put("Valentines Day", "ဝၼ်းၵေႃႉႁၵ်ႉ");
+    shan.put("Earth Day", "ဝၼ်းလုမ်ႈၾႃႉ");
+    shan.put("April Fools Day", "ဝၼ်းဢေပရေႇၵူၼ်းယွင်ႇ");
+    shan.put("Red Cross Day", "ကြက်ခြေနီနေ့");
+    shan.put("United Nations Day", "ဝၼ်းၵုလသမၵ");
+    shan.put("Halloween", "ဝၼ်းၽီၽဵတ်ႇ");
+    shan.put("Shan New Year Day", "ဝၼ်းပီႊမႂ်ႇတႆး");
+    shan.put("Mothers Day", "ဝၼ်းမႄႈ");
+    shan.put("Fathers Day", "ဝၼ်းပေႃႈ");
+    shan.put("Sasana Year", "ပီႊသႃႇသၼႃႇ");
+    shan.put("Eid", "ဢိတ်ႉ");
+    shan.put("Diwali", "ၻီဝႃႇꩮီႇ");
+    shan.put("Mahathamaya Day", "ဝၼ်းမႁႃႇၻမယ");
+    shan.put("Garudhamma Day", "ဝၼ်းၷရုထမ်ႇမ");
+    shan.put("Metta Day", "ဝၼ်းမဵတ်ႉတႃႇ");
+    shan.put("Taungpyone Pwe", "ပွၺ်းတွင်ႇပျူင်း");
+    shan.put("Yadanagu Pwe", "ပွၺ်းထမ်ႈရတၼႃႉ");
+    shan.put("Authors Day", "ဝၼ်းၽူႈတႅမ်ႈလိၵ်ႈ");
+    shan.put("World Teachers Day", "ဝၼ်းမေႃသွၼ်");
+    shan.put("Holiday", "ဝၼ်းပိၵ်ႉလုမ်း");
+    shan.put("Chinese New Year", "ပီႊမႂ်ႇၶေႇ");
+    shan.put("Easter", "ဝၼ်းဢိတ်ႇသတႃႇ");
+    shan.put("Good Friday", "ဝၼ်းလီဝၼ်းၽတ်း");
+
+    shan.put("West", "ၽၢႆႇဝၼ်းတူၵ်း");
+    shan.put("North", "ၽၢႆႇႁွင်ႇ");
+    shan.put("East", "ၽၢႆႇဝၼ်းဢွၵ်ႇ");
+    shan.put("South", "ၽၢႆႇၸၢၼ်း");
+    shan.put("Binga", "ပိင်ႇၵ");
+    shan.put("Atun", "ဢထုၼ်း");
+    shan.put("Yaza", "ရႃႇသ");
+    shan.put("Adipati", "ဢထိပတိ");
+    shan.put("Marana", "မရꧣ");
+    shan.put("Thike", "တႆႉ");
+    shan.put("Puti", "ပုတိ");
+    shan.put("Orc", "ၽီလူး");
+    shan.put("Elf", "ၽီလီ");
+    shan.put("Human", "ၵူၼ်း");
+}
+
+public static String format(MyanmarDate myanmarDate) {
+    String title;
+    if (myanmarDate.getMoonPhaseValue() == 0 || myanmarDate.getMoonPhaseValue() == 2) {
+        title = String.format(Locale.ENGLISH,
+                "ပီႊၵေႃးၸႃႇ %s ၶု၊ %s%s %s %s",
+                myanmarDate.getYear(),
+                new ShanDate(myanmarDate).getShanMonthString(),
+                myanmarDate.getMoonPhase(),
+                myanmarDate.getFortnightDay(),
+                myanmarDate.getMoonPhaseValue() == 0 ? "ဝၼ်း" : "ၶမ်ႈ");
+    } else {
+        title = String.format(Locale.ENGLISH,
+                "ပီႊၵေႃးၸႃႇ %s ၶု၊ %s%s",
+                myanmarDate.getYear(),
+                new ShanDate(myanmarDate).getShanMonthString(),
+                myanmarDate.getMoonPhase());
     }
-
-    public int getShanMonth() {
-
-        int shanMonth = myanmarDate.getMonth() + 4;
-        if (shanMonth > 12) shanMonth = shanMonth - 12;
-        return shanMonth;
-    }
-
-    public String getShanMonthString() {
-        return shanMonths.get(getShanMonth());
-    }
-
-    public static int getShanMonth(MyanmarDate md) {
-        int shanMonth = md.getMonth() + 4;
-        if (shanMonth > 12) shanMonth = shanMonth - 12;
-        return shanMonth;
-    }
-
-    public static int getMyanmarMonth(int shanMonth) {
-        int myanmarMonth = shanMonth - 4;
-        if (myanmarMonth < 1) myanmarMonth = 12 + myanmarMonth;
-        return myanmarMonth;
-    }
-
-    public static final Map<Integer, String> shanMonths;
-
-    static {
-        shanMonths = new HashMap<>();
-        shanMonths.put(1, "လိူၼ်ၸဵင်");
-        shanMonths.put(2, "လိူၼ်ၵမ်");
-        shanMonths.put(3, "လိူၼ်သၢမ်");
-        shanMonths.put(4, "လိူၼ်သီႇ");
-        shanMonths.put(5, "လိူၼ်ႁႃႈ");
-        shanMonths.put(6, "လိူၼ်ႁူၵ်ႉ");
-        shanMonths.put(7, "လိူၼ်ၸဵတ်း");
-        shanMonths.put(8, "လိူၼ်ပႅတ်ႇ");
-        shanMonths.put(9, "လိူၼ်ၵဝ်ႈ");
-        shanMonths.put(10, "လိူၼ်သိပ်း");
-        shanMonths.put(11, "လိူၼ်သိပ်းဢဵတ်း");
-        shanMonths.put(12, "လိူၼ်သိပ်းသွင်");
-    }
-
-    public static String getShanMonthByKey(int key) {
-        return shanMonths.get(key);
-    }
-
-    public static List<String> shanSpecialDays(MyanmarDate md) {
-        List<String> shanSpecialDays = new ArrayList<>();
-        int shanMonth = getShanMonth(md);
-        if (shanMonth == 2 && md.getMoonPhaseValue() == 2 && md.getFortnightDayValue() == 14) {
-            shanSpecialDays.add("ဝၼ်းလူႇၾႆးသုမ်လူဝ်");
-        } else if (shanMonth == 3 && md.getMoonPhaseValue() == 1) {
-            shanSpecialDays.add("ပွၺ်းလိူၼ်သၢမ်မူၼ်း");
-        } else if (shanMonth == 3 && md.getMoonPhaseValue() == 2 && md.getFortnightDayValue() == 3) {
-            shanSpecialDays.add("ဝၼ်းဢူဝ်ႈပဵမ်ႇသၢမ်လေႃး");
-        } else if (shanMonth == 6 && md.getMoonPhaseValue() == 1) {
-            shanSpecialDays.add("ဝၼ်းပုတ်ႉထၸဝ်ႈ");
-        } else if (shanMonth == 11 && md.getMoonPhaseValue() == 2 && md.getFortnightDayValue() == 8) {
-            shanSpecialDays.add("ပွၺ်းသၢဝ်းသၢမ်");
-        } else if (shanMonth == 12 && md.getMoonPhaseValue() == 3) {
-            shanSpecialDays.add("ႁပ်ႉၸဵင်");
-        } else if (shanMonth == 1 && md.getDayOfMonth() == 1) {
-            shanSpecialDays.add("ဝၼ်းပီႊမႂ်ႇတႆး");
-        }
-        return shanSpecialDays;
-    }
-
-
-    public static String translate(String day) {
-        return shan.get(day);
-    }
-
-    private static final Map<String, String> shan;
-
-    static {
-        shan = new HashMap<>();
-        // shan
-        shan.put("0", "၀");
-        shan.put("1", "၁");
-        shan.put("2", "၂");
-        shan.put("3", "၃");
-        shan.put("4", "၄");
-        shan.put("5", "၅");
-        shan.put("6", "၆");
-        shan.put("7", "၇");
-        shan.put("8", "၈");
-        shan.put("9", "၉");
-        shan.put("January", "ၸၼ်ႇၼိဝ်ႇရီႇ");
-        shan.put("February", "ၽဵတ်ႇၽေႃႇရီႇ");
-        shan.put("March", "မႃႉ");
-        shan.put("April", "ဢေႇပရႄႇ");
-        shan.put("May", "မေႇ");
-        shan.put("June", "ၸုၼ်");
-        shan.put("July", "ၸူႇလႅင်ႇ");
-        shan.put("August", "ဢေႃးၵတ်ႉ");
-        shan.put("September", "သပ်ႇတိၼ်ႇပိူဝ်ႇ");
-        shan.put("October", "ဢွၵ်ႇတူဝ်ႇပိူဝ်ႇ");
-        shan.put("November", "ၼူဝ်ႇဝိၼ်ႇပိူဝ်ႇ");
-        shan.put("December", "တီႇသိၼ်ႇပိူဝ်ႇ");
-        shan.put("First Waso", "လိူၼ်ပႅတ်ႇ");
-        shan.put("Second Waso", "လိူၼ်ပႅတ်ႇသွၼ်ႉ");
-        shan.put("Tagu", "လိူၼ်ႁႃႈ");
-        shan.put("Late Tagu", "လိူၼ်ႁႃႈတၢမ်းႁၢင်");
-        shan.put("Kason", "လိူၼ်ႁူၵ်း");
-        shan.put("Late Kason", "လိူၼ်ႁူၵ်းတၢမ်းႁၢင်");
-        shan.put("Nayon", "လိူၼ်ၸဵတ်း");
-        shan.put("Waso", "လိူၼ်ပႅတ်ႇ");
-        shan.put("Wagaung", "လိူၼ်ၵဝ်ႈ");
-        shan.put("Tawthalin", "လိူၼ်သိပ်း");
-        shan.put("Thadingyut", "လိူၼ်သိပ်းဢဵတ်း");
-        shan.put("Tazaungmon", "လိူၼ်သိပ်းသွင်");
-        shan.put("Nadaw", "လိူၼ်ၸဵင်");
-        shan.put("Pyatho", "လိူၼ်ၵမ်");
-        shan.put("Tabodwe", "လိူၼ်သၢမ်");
-        shan.put("Tabaung", "လိူၼ်သီႇ");
-        shan.put("waxing", "မႂ်ႇ");
-        shan.put("waning", "လွင်ႊ");
-        shan.put("full moon", "မူၼ်း");
-        shan.put("new moon", "လပ်း");
-        shan.put("shan Year", "ပီႊတႆး");
-        shan.put("Ku", "ၼီႈ");
-        shan.put("Late", "ဝၢႆး");
-        shan.put("Second", "တု");
-        shan.put("Sunday", "ဢႃးတိတ်ႉ");
-        shan.put("Monday", "ၸၼ်");
-        shan.put("Tuesday", "ဢင်းၵၢၼ်း");
-        shan.put("Wednesday", "ပုတ်ႉ");
-        shan.put("Thursday", "ၽတ်း");
-        shan.put("Friday", "သုၵ်း");
-        shan.put("Saturday", "သဝ်");
-        shan.put("Nay", "ဝၼ်း");
-        shan.put("Yat", "ဝၼ်း");
-        shan.put("Yat2", "ၶမ်ႈ");
-        shan.put("Sabbath Eve", "ဝၼ်းၽိတ်ႈ");
-        shan.put("Sabbath", "ဝၼ်းသိၼ်");
-        shan.put("Yatyaza", "ဝၼ်းထုၼ်း");
-        shan.put("Afternoon Pyathada", "မွန်းလွဲပြဿဒါး");
-        shan.put("Pyathada", "ဝၼ်းပျၢတ်ႈ");
-        shan.put("New Year Day", "ပီႊမႂ်ႇလုမ်ႈၾႃႉ");
-        shan.put("Myanmar Year", "ပီႊၵေႃးၸႃႇ");
-        shan.put("English Year", "ပီႊၶရိတ်ႉ");
-        shan.put("Independence Day", "ဝၼ်းၵွၼ်းၶေႃ");
-        shan.put("Union Day", "ဝၼ်းမိူင်းႁူမ်ႈတုမ်ႊ");
-        shan.put("Peasants Day", "ဝၼ်းၵူၼ်းႁႆႊၵူၼ်းၼႃး");
-        shan.put("Resistance Day", "ဝၼ်းတပ်ႉမတေႃႇ");
-        shan.put("Labour Day", "ဝၼ်းၵူၼ်းၵၢၼ်");
-        shan.put("Martyrs Day", "ဝၼ်းၵူၼ်းငၢၼ်");
-        shan.put("Christmas Day", "ၶရိတ်ႉၸမၢတ်ႉ");
-        shan.put("Buddha Day", "ပွၺ်းႁူတ်ႉၼမ်ႉငဝ်ႈႁႆး");
-        shan.put("Start of Buddhist Lent", "ဝၼ်းထမ်ႇမၸၵ်ႉၵ(ၶဝ်ႈဝႃႇ)");
-        shan.put("End of Buddhist Lent", "ဝၼ်းဢၽိထမ်ႇမႃႇ(ဢွၵ်ႇဝႃႇ)");
-        shan.put("Tazaungdaing", "ပွၺ်းတႆႈတဵၼ်းႁဵင်");
-        shan.put("National Day", "ဝၼ်းၶိူဝ်းမိူင်း");
-        shan.put("Shan National Day", "ဝၼ်းၶိူဝ်းတႆး");
-        shan.put("Karen New Year Day", "ဝၼ်းပီႊမႂ်ႇယၢင်း");
-        shan.put("Tabaung Pwe", "ပွၺ်းလိူၼ်သီႇမူၼ်း");
-        shan.put("Thingyan Akyo", "ပၢင်းၽြႃးၶဝ်ႈၵူင်းသွၼ်း");
-        shan.put("Thingyan Akya", "သၢင်းၵျၢၼ်ႇတူၵ်း");
-        shan.put("Thingyan Akyat", "ဝၼ်းၼဝ်ႈ");
-        shan.put("Thingyan Atat", "သၢင်းၵျၢၼ်ႇၶိုၼ်ႈ");
-        shan.put("Myanmar New Year Day", "ပီႊမႂ်ႇသၢင်းၵျၢၼ်ႇ");
-        shan.put("Amyeittasote", "ဢမဵတ်ႉတသူၵ်ႉ"); // TODO
-        shan.put("Warameittugyi", "ဝၼ်းမူၺ်ႉလူင်");
-        shan.put("Warameittunge", "မူၺ်ႉဢႅၼ်");
-        shan.put("Thamaphyu", "သမားဖြူ");
-        shan.put("Thamanyo", "သမားညို");
-        shan.put("Yatpote", "ဝၼ်းၼဝ်ႈ");
-        shan.put("Yatyotema", "ဝၼ်းယုတ်ႈ");
-        shan.put("Mahayatkyan", "ဝၼ်းၵျၢမ်းလူင်");
-        shan.put("Nagapor", "ၼၵႃးပေႃႇ");
-        shan.put("Shanyat", "ရှမ်းရက်");
-        shan.put(",", "၊");
-        shan.put(".", "။");
-        shan.put("Mon National Day", "ဝၼ်းၶိူဝ်းမွၼ်း");
-        shan.put("G. Aung San BD", "ဝၼ်းၵိူတ်ႇဢွင်ႇသၢၼ်း");
-        shan.put("Valentines Day", "ဝၼ်းၵေႃႉႁၵ်ႉ");
-        shan.put("Earth Day", "ဝၼ်းလုမ်ႈၾႃႉ");
-        shan.put("April Fools Day", "ဝၼ်းဢေပရေႇၵူၼ်းယွင်ႇ");
-        shan.put("Red Cross Day", "ကြက်ခြေနီနေ့");
-        shan.put("United Nations Day", "ဝၼ်းၵုလသမၵ");
-        shan.put("Halloween", "ဝၼ်းၽီၽဵတ်ႇ");
-        shan.put("Shan New Year Day", "ဝၼ်းပီႊမႂ်ႇတႆး");
-        shan.put("Mothers Day", "ဝၼ်းမႄႈ");
-        shan.put("Fathers Day", "ဝၼ်းပေႃႈ");
-        shan.put("Sasana Year", "ပီႊသႃႇသၼႃႇ");
-        shan.put("Eid", "ဢိတ်ႉ");
-        shan.put("Diwali", "ၻီဝႃႇꩮီႇ");
-        shan.put("Mahathamaya Day", "ဝၼ်းမႁႃႇၻမယ");
-        shan.put("Garudhamma Day", "ဝၼ်းၷရုထမ်ႇမ");
-        shan.put("Metta Day", "ဝၼ်းမဵတ်ႉတႃႇ");
-        shan.put("Taungpyone Pwe", "ပွၺ်းတွင်ႇပျူင်း");
-        shan.put("Yadanagu Pwe", "ပွၺ်းထမ်ႈရတၼႃႉ");
-        shan.put("Authors Day", "ဝၼ်းၽူႈတႅမ်ႈလိၵ်ႈ");
-        shan.put("World Teachers Day", "ဝၼ်းမေႃသွၼ်");
-        shan.put("Holiday", "ဝၼ်းပိၵ်ႉလုမ်း");
-        shan.put("Chinese New Year", "ပီႊမႂ်ႇၶေႇ");
-        shan.put("Easter", "ဝၼ်းဢိတ်ႇသတႃႇ");
-        shan.put("Good Friday", "ဝၼ်းလီဝၼ်းၽတ်း");
-
-        shan.put("West", "ၽၢႆႇဝၼ်းတူၵ်း");
-        shan.put("North", "ၽၢႆႇႁွင်ႇ");
-        shan.put("East", "ၽၢႆႇဝၼ်းဢွၵ်ႇ");
-        shan.put("South", "ၽၢႆႇၸၢၼ်း");
-        shan.put("Binga", "ပိင်ႇၵ");
-        shan.put("Atun", "ဢထုၼ်း");
-        shan.put("Yaza", "ရႃႇသ");
-        shan.put("Adipati", "ဢထိပတိ");
-        shan.put("Marana", "မရꧣ");
-        shan.put("Thike", "တႆႉ");
-        shan.put("Puti", "ပုတိ");
-        shan.put("Orc", "ၽီလူး");
-        shan.put("Elf", "ၽီလီ");
-        shan.put("Human", "ၵူၼ်း");
-    }
-
-    public static String format(MyanmarDate myanmarDate) {
-        String title;
-        if (myanmarDate.getMoonPhaseValue() == 0 || myanmarDate.getMoonPhaseValue() == 2) {
-            title = String.format(Locale.ENGLISH,
-                    "ပီႊၵေႃးၸႃႇ %s ၶု၊ %s%s %s %s",
-                    myanmarDate.getYear(),
-                    new ShanDate(myanmarDate).getShanMonthString(),
-                    myanmarDate.getMoonPhase(),
-                    myanmarDate.getFortnightDay(),
-                    myanmarDate.getMoonPhaseValue() == 0 ? "ဝၼ်း" : "ၶမ်ႈ");
-        } else {
-            title = String.format(Locale.ENGLISH,
-                    "ပီႊၵေႃးၸႃႇ %s ၶု၊ %s%s",
-                    myanmarDate.getYear(),
-                    new ShanDate(myanmarDate).getShanMonthString(),
-                    myanmarDate.getMoonPhase());
-        }
-        return title;
-    }
+    return title;
+}
 
 
 }

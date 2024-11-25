@@ -197,7 +197,7 @@ public class CalendarFragment extends Fragment implements SwipeGestureListener.O
             onDateClicked(layout);
         }
 
-        if (date.getDayOfWeek() == DayOfWeek.SATURDAY || date.getDayOfWeek() == DayOfWeek.SUNDAY || HolidayCalculator.isHoliday(myDate)) {
+        if (date.getDayOfWeek() == DayOfWeek.SATURDAY || date.getDayOfWeek() == DayOfWeek.SUNDAY || ShanDate.isHoliday(myDate)) {
             enText.setTextColor(getResources().getColor(R.color.md_theme_error));
         } else {
             enText.setTextColor(getResources().getColor(R.color.md_theme_onBackground));
@@ -280,8 +280,8 @@ public class CalendarFragment extends Fragment implements SwipeGestureListener.O
             binding.tvDate.setText(notes.get(0).getTitle());
             binding.tvDate.setTextColor(getResources().getColor(R.color.md_theme_error));
 
-        } else if (HolidayCalculator.isHoliday(myanmarDate)) {
-            binding.tvDate.setText(ShanDate.translate(HolidayCalculator.getHoliday(myanmarDate).get(0)));
+        } else if (ShanDate.isHoliday(myanmarDate)) {
+            binding.tvDate.setText(ShanDate.getHoliday(myanmarDate));
             binding.tvDate.setTextColor(getResources().getColor(R.color.md_theme_error));
         } else {
             binding.tvDate.setText("ဝၼ်း" + myanmarDate.getWeekDay());

@@ -194,8 +194,8 @@ public class NoteActivity extends AppCompatActivity {
         shanDate = new ShanDate(myanmarDate);
         binding.pMurng.setText(ShanDate.getPeeMurng(shanDate.getShanYearValue()));
         binding.pHtam.setText(ShanDate.getPeeHtam(currentDate.getYear()));
-        binding.pSasana.setText(myanmarDate.getBuddhistEra());
-        binding.pKawza.setText(myanmarDate.getYear());
+        binding.pSasana.setText(myanmarDate.getBuddhistEra() + " ဝႃႇ");
+        binding.pKawza.setText(myanmarDate.getYear() + " ၶု");
         binding.tvEngDay.setText(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG).format(currentDate));
         setNoteDescription();
 

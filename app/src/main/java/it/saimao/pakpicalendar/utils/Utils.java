@@ -33,7 +33,12 @@ public class Utils {
         StringBuilder sb = new StringBuilder();
 
 
-        sb.append(ShanDate.translate("Sasana Year")).append(" ").append(selectedMyanmarDate.getBuddhistEra()).append(" ဝႃႇ၊ ").append(ShanDate.translate("Myanmar Year")).append(" ").append(selectedMyanmarDate.getYear()).append(" ၶု၊ ").append("ပီႊတႆး ").append(shanDate.getShanYear()).append(" ၼီႈ၊ ");
+        sb.append(ShanDate.translate("Sasana Year"))
+                .append(" ").append(selectedMyanmarDate.getBuddhistEra())
+                .append(" ဝႃႇ၊ ").append(ShanDate.translate("Myanmar Year"))
+                .append(" ").append(selectedMyanmarDate.getYear())
+                .append(" ၶု၊ ").append("ပီႊတႆး ")
+                .append(shanDate.getShanYear()).append(" ၼီႈ၊ ");
 
         sb.append(ShanDate.translate(selectedMyanmarDate.getMonthName(Language.ENGLISH))).append(" ");
         if (selectedMyanmarDate.getMoonPhaseValue() == 1 || selectedMyanmarDate.getMoonPhaseValue() == 3) {
@@ -43,6 +48,16 @@ public class Utils {
             sb.append(selectedMyanmarDate.getFortnightDay()).append(" ");
             sb.append(selectedMyanmarDate.getMoonPhaseValue() == 0 ? " ဝၼ်း" : "").append(selectedMyanmarDate.getMoonPhaseValue() == 2 ? " ၶမ်ႈ။" : "။");
         }
+        sb.append(" ")
+                .append(ShanDate.getWannTai60(date.toEpochDay())).append("၊ ");
+        if (ShanDate.isWannNao(selectedMyanmarDate))
+            sb.append(ShanDate.getWannNao(selectedMyanmarDate)).append("၊ ");
+        if (ShanDate.isWannTun(selectedMyanmarDate))
+            sb.append(ShanDate.getWannTun(selectedMyanmarDate)).append("၊ ");
+        if (ShanDate.isWannPyaat(selectedMyanmarDate))
+            sb.append(ShanDate.getWannPyaat(selectedMyanmarDate)).append("၊ ");
+
+        sb.append("ႁူဝ်ၼၵႃး ").append(ShanDate.getHoNagaa(selectedMyanmarDate)).append("။");
 
         return sb.toString();
     }
