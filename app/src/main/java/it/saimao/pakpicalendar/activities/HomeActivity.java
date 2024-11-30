@@ -156,9 +156,9 @@ public class HomeActivity extends AppCompatActivity {
             else if (item.getItemId() == R.id.nav_facebook) {
                 Intent intent;
                 try {
-                    intent = new Intent(Intent.ACTION_VIEW, Uri.parse("fb://page/100377671433172"));
+                    intent = new Intent(Intent.ACTION_VIEW, Uri.parse("fb://page/529740996878692"));
                 } catch (Exception e) {
-                    intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/100377671433172"));
+                    intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/529740996878692"));
                 }
                 startActivity(intent);
                 binding.getRoot().closeDrawer(GravityCompat.START);
