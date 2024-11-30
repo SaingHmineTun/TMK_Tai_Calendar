@@ -1,14 +1,16 @@
 package it.saimao.pakpicalendar.activities;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.app.ComponentCaller;
 import android.app.DatePickerDialog;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -26,10 +28,11 @@ import androidx.fragment.app.FragmentTransaction;
 import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 import it.saimao.pakpicalendar.R;
+import it.saimao.pakpicalendar.database.AppDatabase;
 import it.saimao.pakpicalendar.database.Note;
+import it.saimao.pakpicalendar.database.ScopedStorageBackup;
 import it.saimao.pakpicalendar.databinding.ActivityHomeBinding;
 import it.saimao.pakpicalendar.databinding.DialogSearchByWanTaiBinding;
 import it.saimao.pakpicalendar.fragments.CalendarFragment;
@@ -46,6 +49,7 @@ import it.saimao.pakpicalendar.utils.ShanDate;
 public class HomeActivity extends AppCompatActivity {
 
 
+    private static final int REQUEST_CODE_PICK_FILE = 5555;
     private ActivityHomeBinding binding;
     private CalendarFragment calendarFragment;
     private HolidaysFragment holidaysFragment;
@@ -185,7 +189,18 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=it.saimao.pakpicalendar")));
                 binding.getRoot().closeDrawer(GravityCompat.START);
             }
-
+            // Backup data
+            else if (item.getItemId() == R.id.nav_backup) {
+                boolean success = ScopedStorageBackup.backupDatabase(this, AppDatabase.DB_NAME);
+                Toast.makeText(this, success ? "Backup success in /Document/Paikpi Calendar" : "Backup failed!", Toast.LENGTH_SHORT).show();
+            }
+            // Restore data
+            else if (item.getItemId() == R.id.nav_restore) {
+                Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                intent.setType("*/*");
+                intent.putExtra(Intent.EXTRA_TITLE, "Select a database file to restore");
+                startActivityForResult(intent, REQUEST_CODE_PICK_FILE);
+            }
 
             return true;
         });
@@ -378,6 +393,63 @@ public class HomeActivity extends AppCompatActivity {
         } else if (activeFragment == noteListFragment) {
             binding.appTitle.setText(R.string.notes);
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_PICK_FILE && resultCode == RESULT_OK) {
+            if (data != null) {
+                Uri selectedFileUri = data.getData();
+                // Check for permission to read the file
+                if (selectedFileUri != null) {
+                    try {
+                        // Get the file path from URI
+                        String selectedFilePath = getPathFromUri(selectedFileUri);
+
+                        // Open the backup database
+                        SQLiteDatabase backupDb = SQLiteDatabase.openDatabase(selectedFilePath, null, SQLiteDatabase.OPEN_READWRITE);
+
+                        // Restore data from the backup database
+                        restoreDataFromBackup(backupDb);
+                        
+                        backupDb.close();
+
+                        Toast.makeText(this, "Database restored successfully!", Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        Toast.makeText(this, "Error restoring data!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        }
+    }
+
+    private void restoreDataFromBackup(SQLiteDatabase backupDb) {
+        Cursor cursor = backupDb.rawQuery("SELECT * FROM note;", null);
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+
+                @SuppressLint("Range") String title = cursor.getString(cursor.getColumnIndex("title"));
+                @SuppressLint("Range") String desc = cursor.getString(cursor.getColumnIndex("description"));
+                @SuppressLint("Range") boolean everyYear = cursor.getInt(cursor.getColumnIndex("everyYear")) == 1;
+                @SuppressLint("Range") LocalDate created = LocalDate.ofEpochDay(cursor.getLong(cursor.getColumnIndex("created")));
+                // Fetch data from backup database
+                AppDatabase.getAppDatabase(this).noteDao().addNote(new Note(title, desc, everyYear, created));
+            } while (cursor.moveToNext());
+
+            cursor.close();
+        }
+    }
+
+    private String getPathFromUri(Uri uri) {
+        String[] projection = {MediaStore.Images.Media.DATA};
+        Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+            int columIndex = cursor.getColumnIndex(projection[0]);
+            return cursor.getString(columIndex);
+        }
+        return uri.getPath();
     }
 
     public void goNoteDetail(LocalDate date) {

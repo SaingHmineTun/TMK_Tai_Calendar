@@ -11,13 +11,15 @@ import androidx.room.TypeConverters;
 @TypeConverters({DateConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
 
+    public static String DB_NAME = "tmk_calendar";
+
     public abstract NoteDao noteDao();
 
     private static AppDatabase appDatabase;
 
     public static synchronized AppDatabase getAppDatabase(Context context) {
         if (appDatabase == null) {
-            appDatabase = Room.databaseBuilder(context, AppDatabase.class, "tmk_calendar").allowMainThreadQueries().build();
+            appDatabase = Room.databaseBuilder(context, AppDatabase.class, DB_NAME).setJournalMode(JournalMode.TRUNCATE).allowMainThreadQueries().build();
         }
         return appDatabase;
     }

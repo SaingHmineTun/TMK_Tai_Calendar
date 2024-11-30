@@ -37,6 +37,22 @@
         </item>
 
         <item
+            android:id="@+id/data"
+            android:title="ၶေႃႈမုၼ်းသုၼ်ႇတူဝ်">
+            <menu>
+                <item
+                    android:id="@+id/nav_backup"
+                    android:icon="@drawable/nav_backup"
+                    android:title="ႁူပ်ႈသိမ်းၶေႃႈမုၼ်း" />
+                <item
+                    android:id="@+id/nav_restore"
+                    android:icon="@drawable/nav_restore"
+                    android:title="ဢဝ်ၶိုၼ်းၶေႃႈမုၼ်း" />
+
+            </menu>
+        </item>
+
+        <item
             android:id="@+id/contactUs"
             android:title="တီးၵပ်းသိုပ်ႇ">
             <menu>
