@@ -503,9 +503,8 @@ public class HomeActivity extends AppCompatActivity {
         Executors.newSingleThreadExecutor().execute(() -> {
             roomDb.noteDao().addAll(notes);
             runOnUiThread(() -> {
-                Toast.makeText(this, "Restoring success!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Restoring success! Please re-launch the app!", Toast.LENGTH_SHORT).show();
                 finish();
-
             });
         });
 
