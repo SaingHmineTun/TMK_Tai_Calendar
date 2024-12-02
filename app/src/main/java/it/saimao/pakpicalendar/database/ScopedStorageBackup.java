@@ -53,7 +53,7 @@ public class ScopedStorageBackup {
 
 
     private static String getCurrentDataTime() {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy-HHmmss", Locale.ENGLISH);
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
         Date date = new Date();
         return formatter.format(date);
     }

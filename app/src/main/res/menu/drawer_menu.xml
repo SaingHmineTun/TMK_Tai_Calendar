@@ -43,11 +43,11 @@
                 <item
                     android:id="@+id/nav_backup"
                     android:icon="@drawable/nav_backup"
-                    android:title="ႁူပ်ႈသိမ်းၶေႃႈမုၼ်း" />
+                    android:title="ႁူပ်ႈသိမ်း (Backup)" />
                 <item
                     android:id="@+id/nav_restore"
                     android:icon="@drawable/nav_restore"
-                    android:title="ဢဝ်ၶိုၼ်းၶေႃႈမုၼ်း" />
+                    android:title="ဢဝ်ၶိုၼ်း (Restore)" />
 
             </menu>
         </item>

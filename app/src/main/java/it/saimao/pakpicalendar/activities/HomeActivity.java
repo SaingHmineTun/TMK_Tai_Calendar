@@ -11,6 +11,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -27,7 +28,14 @@ import androidx.fragment.app.FragmentTransaction;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.Executors;
 
 import it.saimao.pakpicalendar.R;
 import it.saimao.pakpicalendar.database.AppDatabase;
@@ -191,13 +199,13 @@ public class HomeActivity extends AppCompatActivity {
             }
             // Backup data
             else if (item.getItemId() == R.id.nav_backup) {
-                boolean success = ScopedStorageBackup.backupDatabase(this, AppDatabase.DB_NAME);
-                Toast.makeText(this, success ? "Backup success in /Document/Paikpi Calendar" : "Backup failed!", Toast.LENGTH_SHORT).show();
+                showConfirmBackupDialog();
             }
             // Restore data
             else if (item.getItemId() == R.id.nav_restore) {
                 Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-                intent.setType("*/*");
+                intent.setType("application/octet-stream"); // SQLite files are binary files
+                intent.addCategory(Intent.CATEGORY_OPENABLE);
                 intent.putExtra(Intent.EXTRA_TITLE, "Select a database file to restore");
                 startActivityForResult(intent, REQUEST_CODE_PICK_FILE);
             }
@@ -216,6 +224,29 @@ public class HomeActivity extends AppCompatActivity {
             replaceFragment(pakpiFragment);
         }
 
+    }
+
+    private AlertDialog confirmBackupDialog;
+
+    private void showConfirmBackupDialog() {
+
+        if (confirmBackupDialog == null) {
+
+            confirmBackupDialog = new AlertDialog.Builder(this)
+                    .setTitle("ႁူပ်ႈသိမ်းၶေႃႈမုၼ်း")
+                    .setMessage("သင်ၵၢၼ်မၼ်းယဝ်ႉ တေၵႂႃႇသိမ်းပဵၼ်ဝႆႉၾၢႆႇ db သေ တေမီးဝႆႉၼႂ်း /Documents/Pakpi Calendar ယဝ်ႉ။ သင်တေဢဝ်ၶိုၼ်းၼႆ ၶိုၼ်းလိူၵ်ႈပၼ် ၾၢႆႇၼႆႉၶိုၼ်းၼႆၵေႃႈ ၶေႃႈမုၼ်းဢၼ်လႆႈသိမ်းဝႆႉၼႂ်းၼၼ်ႉ ၶိုၼ်းတေၽႅဝ်မႃးၼႂ်း ဢႅပ်ႈႁဝ်းၶိုၼ်းယဝ်ႉ။")
+                    .setNegativeButton("ဢမ်ႇႁဵတ်ႉ", (a, b) -> {
+                        a.cancel();
+                    })
+                    .setPositiveButton("ႁဵတ်ႉၵၢၼ်", (a, b) -> {
+
+                        boolean success = ScopedStorageBackup.backupDatabase(this, AppDatabase.DB_NAME);
+                        Toast.makeText(this, success ? "Backup success in /Document/Paikpi Calendar" : "Backup failed!", Toast.LENGTH_SHORT).show();
+                        a.cancel();
+                    })
+                    .create();
+        }
+        confirmBackupDialog.show();
     }
 
 
@@ -401,24 +432,50 @@ public class HomeActivity extends AppCompatActivity {
         if (requestCode == REQUEST_CODE_PICK_FILE && resultCode == RESULT_OK) {
             if (data != null) {
                 Uri selectedFileUri = data.getData();
-                // Check for permission to read the file
                 if (selectedFileUri != null) {
-                    try {
-                        // Get the file path from URI
-                        String selectedFilePath = getPathFromUri(selectedFileUri);
+                    restoreDataIntoApp(selectedFileUri);
+                }
+            }
+        }
+    }
 
-                        // Open the backup database
-                        SQLiteDatabase backupDb = SQLiteDatabase.openDatabase(selectedFilePath, null, SQLiteDatabase.OPEN_READWRITE);
 
-                        // Restore data from the backup database
-                        restoreDataFromBackup(backupDb);
-                        
-                        backupDb.close();
+    private void restoreDataIntoApp(Uri uri) {
+        File tempFile = null;
+        // Open the file from the Uri
+        try (InputStream is = getContentResolver().openInputStream(uri)) {
+            if (is != null) {
+                // Create a temporary file to store database content
+                tempFile = new File(getCacheDir(), "temp_database.db");
 
-                        Toast.makeText(this, "Database restored successfully!", Toast.LENGTH_SHORT).show();
-                    } catch (Exception e) {
-                        Toast.makeText(this, "Error restoring data!", Toast.LENGTH_SHORT).show();
+                // Write the input stream data to the tempory file
+                try (OutputStream os = new FileOutputStream(tempFile)) {
+                    byte[] buffer = new byte[1024];
+                    int bytesRead;
+                    while ((bytesRead = is.read(buffer)) != -1) {
+                        os.write(buffer, 0, bytesRead);
                     }
+                }
+
+
+                // Now open the SQLite database from the temp file
+                SQLiteDatabase db = SQLiteDatabase.openDatabase(tempFile.getAbsolutePath(), null, SQLiteDatabase.OPEN_READONLY);
+
+                restoreDataFromBackup(db);
+
+                db.close();
+
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (tempFile != null && tempFile.exists()) {
+                if (tempFile.delete()) {
+                    Log.d("Kham", "Temp file deleted");
+                } else {
+                    Log.d("Kham", "Failed to delete temp file");
                 }
             }
         }
@@ -426,30 +483,32 @@ public class HomeActivity extends AppCompatActivity {
 
     private void restoreDataFromBackup(SQLiteDatabase backupDb) {
         Cursor cursor = backupDb.rawQuery("SELECT * FROM note;", null);
-        if (cursor != null && cursor.moveToFirst()) {
-            do {
 
-                @SuppressLint("Range") String title = cursor.getString(cursor.getColumnIndex("title"));
-                @SuppressLint("Range") String desc = cursor.getString(cursor.getColumnIndex("description"));
-                @SuppressLint("Range") boolean everyYear = cursor.getInt(cursor.getColumnIndex("everyYear")) == 1;
-                @SuppressLint("Range") LocalDate created = LocalDate.ofEpochDay(cursor.getLong(cursor.getColumnIndex("created")));
-                // Fetch data from backup database
-                AppDatabase.getAppDatabase(this).noteDao().addNote(new Note(title, desc, everyYear, created));
-            } while (cursor.moveToNext());
+        AppDatabase roomDb = AppDatabase.getAppDatabase(this);
+        List<Note> notes = new ArrayList<>();
 
-            cursor.close();
+        while (cursor.moveToNext()) {
+
+            @SuppressLint("Range") String title = cursor.getString(cursor.getColumnIndex("title"));
+            @SuppressLint("Range") String desc = cursor.getString(cursor.getColumnIndex("description"));
+            @SuppressLint("Range") boolean everyYear = cursor.getInt(cursor.getColumnIndex("everyYear")) == 1;
+            @SuppressLint("Range") LocalDate created = LocalDate.ofEpochDay(cursor.getLong(cursor.getColumnIndex("created")));
+            // Fetch data from backup database
+            notes.add(new Note(title, desc, everyYear, created));
         }
-    }
 
-    private String getPathFromUri(Uri uri) {
-        String[] projection = {MediaStore.Images.Media.DATA};
-        Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
-        if (cursor != null) {
-            cursor.moveToFirst();
-            int columIndex = cursor.getColumnIndex(projection[0]);
-            return cursor.getString(columIndex);
-        }
-        return uri.getPath();
+        cursor.close();
+
+        // Insert all data into Room
+        Executors.newSingleThreadExecutor().execute(() -> {
+            roomDb.noteDao().addAll(notes);
+            runOnUiThread(() -> {
+                Toast.makeText(this, "Restoring success!", Toast.LENGTH_SHORT).show();
+                finish();
+
+            });
+        });
+
     }
 
     public void goNoteDetail(LocalDate date) {

@@ -25,4 +25,6 @@ public interface NoteDao {
     List<Note> getAllNotes();
 
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void addAll(List<Note> notes);
 }

@@ -868,6 +868,10 @@ public static String getShanMonthByKey(int key) {
 
 public static List<String> shanSpecialDays(MyanmarDate md) {
     List<String> shanSpecialDays = new ArrayList<>();
+    LocalDate localDate = md.toMyanmarLocalDate();
+    if (localDate.getMonthValue() == 2 && localDate.getDayOfMonth() == 7) {
+        shanSpecialDays.add("ဝၼ်းၸိူဝ်ႉၸၢတ်ႈၸိုင်ႈတႆး");
+    }
     int shanMonth = getShanMonth(md);
     if (shanMonth == 2 && md.getMoonPhaseValue() == 2 && md.getFortnightDayValue() == 14) {
         shanSpecialDays.add("ဝၼ်းလူႇၾႆးသုမ်လူဝ်");
@@ -965,7 +969,7 @@ static {
     shan.put("Union Day", "ဝၼ်းမိူင်းႁူမ်ႈတုမ်ႊ");
     shan.put("Peasants Day", "ဝၼ်းၵူၼ်းႁႆႊၵူၼ်းၼႃး");
     shan.put("Resistance Day", "ဝၼ်းတပ်ႉမတေႃႇ");
-    shan.put("Labour Day", "ဝၼ်းၵူၼ်းၵၢၼ်");
+    shan.put("Labour Day", "ဝၼ်းၵူၼ်းႁဵတ်ႉၵၢၼ်");
     shan.put("Martyrs Day", "ဝၼ်းၵူၼ်းငၢၼ်");
     shan.put("Christmas Day", "ၶရိတ်ႉၸမၢတ်ႉ");
     shan.put("Buddha Day", "ပွၺ်းႁူတ်ႉၼမ်ႉငဝ်ႈႁႆး");
