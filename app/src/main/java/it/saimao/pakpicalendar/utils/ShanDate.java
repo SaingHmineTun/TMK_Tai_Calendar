@@ -853,7 +853,7 @@ static {
     shanMonths.put(3, "လိူၼ်သၢမ်");
     shanMonths.put(4, "လိူၼ်သီႇ");
     shanMonths.put(5, "လိူၼ်ႁႃႈ");
-    shanMonths.put(6, "လိူၼ်ႁူၵ်ႉ");
+    shanMonths.put(6, "လိူၼ်ႁူၵ်း");
     shanMonths.put(7, "လိူၼ်ၸဵတ်း");
     shanMonths.put(8, "လိူၼ်ပႅတ်ႇ");
     shanMonths.put(9, "လိူၼ်ၵဝ်ႈ");

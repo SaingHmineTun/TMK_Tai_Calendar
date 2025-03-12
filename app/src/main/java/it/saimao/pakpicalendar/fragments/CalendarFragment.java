@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,9 +24,11 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.format.TextStyle;
 import java.time.temporal.TemporalAdjusters;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 import it.saimao.pakpicalendar.R;
 import it.saimao.pakpicalendar.activities.HomeActivity;
@@ -205,9 +208,10 @@ public class CalendarFragment extends Fragment implements SwipeGestureListener.O
 
         if (myDate.getMoonPhaseValue() == 1) {
             iv.setImageResource(R.drawable.full_moon);
-            mPhase.setText(myDate.getMoonPhase());
+            mPhase.setText(myDate.getMonthName() + myDate.getMoonPhase());
         } else if (myDate.getMoonPhaseValue() == 3) {
-            mPhase.setText(myDate.getMoonPhase());
+            mPhase.setText(myDate.getMonthName() + myDate.getMoonPhase());
+
             iv.setImageResource(R.drawable.new_moon);
         } else {
             mPhase.setText("");
@@ -224,10 +228,10 @@ public class CalendarFragment extends Fragment implements SwipeGestureListener.O
 
                 var params = new RelativeLayout.LayoutParams(Utils.dpToPx(8), Utils.dpToPx(8));
 
-                params.addRule(RelativeLayout.ALIGN_PARENT_END, RelativeLayout.TRUE);
+                params.addRule(RelativeLayout.ALIGN_PARENT_START, RelativeLayout.TRUE);
                 params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
 
-                params.setMargins(0, 0, Utils.dpToPx(4), Utils.dpToPx(4));
+                params.setMargins(Utils.dpToPx(4), 0, 0, Utils.dpToPx(8));
 
                 layout.addView(view, params);
             }
@@ -257,6 +261,7 @@ public class CalendarFragment extends Fragment implements SwipeGestureListener.O
 
 
     public void onDateClicked(View view) {
+        showToastForInstruction();
         currentDate = (LocalDate) view.getTag();
         MyanmarDate myanmarDate = MyanmarDate.of(currentDate);
 
@@ -274,6 +279,7 @@ public class CalendarFragment extends Fragment implements SwipeGestureListener.O
         prevSelectedDate = view;
         binding.tvDay.setText(String.format(Locale.getDefault(), "%02d", currentDate.getDayOfMonth()));
         binding.tvFullDate.setText(String.format(Locale.ENGLISH, "%02d/%02d/%04d", currentDate.getDayOfMonth(), currentDate.getMonthValue(), currentDate.getYear()));
+        binding.enMonth.setText(currentDate.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH));
 
         List<Note> notes = Utils.getTodayEvents(noteDao, currentDate);
         if (!notes.isEmpty()) {
@@ -291,6 +297,12 @@ public class CalendarFragment extends Fragment implements SwipeGestureListener.O
         binding.tvDetail.setText(description(currentDate));
     }
 
+    private void showToastForInstruction() {
+        if (((HomeActivity) requireActivity()).isShowLongPressToastUsage()) {
+            Toast.makeText(getContext(), "ၼဵၵ်ႉပၼ်ဝၼ်းႁိုင်ႁိုင် တႃႇတေတႅမ်ႈ တီႈမၢႆတွင်းလႄႈ", Toast.LENGTH_LONG).show();
+            ((HomeActivity) requireActivity()).setShowLongPressToastUsage(false);
+        }
+    }
 
 
     public void onDateChanged(LocalDate currentDate) {

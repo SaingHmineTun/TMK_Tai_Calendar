@@ -10,7 +10,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -67,6 +66,16 @@ public class HomeActivity extends AppCompatActivity {
 
     private DatePickerDialog datePickerDialog;
 
+    private boolean showLongPressToastUsage;
+
+    public boolean isShowLongPressToastUsage() {
+        return showLongPressToastUsage;
+    }
+
+    public void setShowLongPressToastUsage(boolean showLongPressToastUsage) {
+        this.showLongPressToastUsage = showLongPressToastUsage;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,6 +84,7 @@ public class HomeActivity extends AppCompatActivity {
         initNavigationDrawer();
         initListener();
     }
+
 
     @Override
     protected void onPause() {
@@ -111,7 +121,6 @@ public class HomeActivity extends AppCompatActivity {
         binding.ibDrawer.setOnClickListener(v -> {
             binding.getRoot().openDrawer(GravityCompat.START);
         });
-
 
         // Handle navigation item clicks
         binding.navView.setNavigationItemSelectedListener(item -> {
@@ -219,9 +228,11 @@ public class HomeActivity extends AppCompatActivity {
         if (PrefManager.getCalendarType(this) == CalendarType.NORMAL) {
             calendarFragment = new CalendarFragment();
             replaceFragment(calendarFragment);
+            binding.navView.setCheckedItem(R.id.nav_home);
         } else if (PrefManager.getCalendarType(this) == CalendarType.PAKPI) {
             pakpiFragment = new PakpiFragment();
             replaceFragment(pakpiFragment);
+            binding.navView.setCheckedItem(R.id.nav_pakpi);
         }
 
     }

@@ -31,7 +31,7 @@
             android:layout_marginHorizontal="8dp"
             android:layout_weight="1"
             android:background="@drawable/bg_weekdays"
-            android:fontFamily="@font/aj_kunheing_etm08"
+            android:fontFamily="@font/aj_kunheing_11"
             android:gravity="center"
             android:text="2024"
             android:textColor="?colorOnPrimary"

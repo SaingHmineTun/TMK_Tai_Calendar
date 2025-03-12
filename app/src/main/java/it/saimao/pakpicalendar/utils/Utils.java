@@ -40,7 +40,7 @@ public class Utils {
                 .append(" ၶု၊ ").append("ပီႊတႆး ")
                 .append(shanDate.getShanYear()).append(" ၼီႈ၊ ");
 
-        sb.append(ShanDate.translate(selectedMyanmarDate.getMonthName(Language.ENGLISH))).append(" ");
+        sb.append(ShanDate.translate(selectedMyanmarDate.getMonthName(Language.ENGLISH)));
         if (selectedMyanmarDate.getMoonPhaseValue() == 1 || selectedMyanmarDate.getMoonPhaseValue() == 3) {
             sb.append(selectedMyanmarDate.getMoonPhase()).append("။");
         } else {

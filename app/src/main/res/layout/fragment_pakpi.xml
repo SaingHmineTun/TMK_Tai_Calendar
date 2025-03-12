@@ -12,25 +12,25 @@
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingHorizontal="16dp"
+        android:paddingHorizontal="8dp"
         tools:context=".activities.MainActivity">
 
         <com.google.android.material.card.MaterialCardView
-            app:strokeWidth="0dp"
             android:id="@+id/cv_full_date"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:layout_marginStart="8dp"
-            app:layout_constraintStart_toEndOf="@id/cv_date"
+            android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintStart_toEndOf="@id/cv_date"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeWidth="0dp">
 
             <TextView
                 android:id="@+id/tv_full_date"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:fontFamily="@font/aj_kunheing_etm08"
+                android:fontFamily="@font/aj_kunheing_11"
                 android:gravity="center"
                 android:maxLines="1"
                 android:padding="8dp"
@@ -40,21 +40,21 @@
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
-            app:strokeWidth="0dp"
             android:id="@+id/cv_date"
-
             android:layout_width="0dp"
+
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/cv_full_date"
-            app:layout_constraintTop_toTopOf="@id/cv_full_date">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/cv_full_date"
+            app:strokeWidth="0dp">
 
             <TextView
                 android:id="@+id/tv_month"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:ellipsize="marquee"
-                android:fontFamily="@font/aj_kunheing_etm08"
+                android:fontFamily="@font/aj_kunheing_11"
                 android:gravity="center"
                 android:marqueeRepeatLimit="marquee_forever"
                 android:padding="8dp"
@@ -69,9 +69,10 @@
         <TextView
             android:id="@+id/tv_detail"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
             android:layout_marginTop="16dp"
             android:background="@drawable/bg_item"
+            android:gravity="center_vertical"
 
             android:clickable="true"
             android:foreground="?android:selectableItemBackgroundBorderless"
