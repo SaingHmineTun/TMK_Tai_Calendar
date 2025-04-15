@@ -67,6 +67,7 @@
                 android:id="@+id/tv_full_date"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:drawableEnd="@drawable/ic_search_day"
                 android:fontFamily="@font/aj_kunheing_11"
                 android:gravity="center"
                 android:padding="4dp"
@@ -91,8 +92,8 @@
                 android:id="@+id/tv_date"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:drawableEnd="@drawable/ic_today"
                 android:ellipsize="marquee"
-
                 android:fontFamily="@font/aj_kunheing_11"
                 android:gravity="center"
                 android:marqueeRepeatLimit="marquee_forever"
@@ -106,15 +107,14 @@
         <TextView
             android:id="@+id/tv_detail"
             android:layout_width="match_parent"
-
             android:layout_height="100dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/bg_item"
             android:clickable="true"
+            android:drawableEnd="@drawable/ic_add_note"
             android:foreground="?android:selectableItemBackgroundBorderless"
             android:gravity="center_vertical"
             android:padding="8dp"
-            android:text="သာသနာနှစ် ၂၅၆၈ ခု၊ မြန်မာနှစ် ၁၃၈၆ ခု၊ ဝါဆို လဆုတ် ၈ ရ်၊ တနင်္ဂနွေနေ့"
             android:textSize="14sp"
             app:layout_constraintTop_toBottomOf="@id/ll_day" />
 
